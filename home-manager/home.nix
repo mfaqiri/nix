@@ -37,6 +37,7 @@
     osu-lazer
     revolt-desktop
     thunderbird
+    r2modman
     freerdp
     htop
     krita
