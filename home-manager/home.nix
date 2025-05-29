@@ -28,6 +28,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    nautilus
     lutris
     openvpn
     docker-compose
