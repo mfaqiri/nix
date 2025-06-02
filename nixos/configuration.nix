@@ -79,6 +79,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    virtiofsd
     usbutils
     cmake-language-server
     alsa-utils
