@@ -22,6 +22,15 @@
   #boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_6_12;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+    boot.kernelModules = ["kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
+
+ boot.kernelParams = [
+        "iommu=1"
+        "iommu=pt"
+    ];
+
+    boot.extraModprobeConfig = "options vfio-pci ids=1002:164e";
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -64,7 +73,7 @@
     users = {
       mfaqiri = {
         isNormalUser = true;
-        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker"]; # Enable ‘sudo’ for the user.
+        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" ]; # Enable ‘sudo’ for the user.
       };
     };
   };
@@ -79,6 +88,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    brave
+    looking-glass-client
     virtiofsd
     usbutils
     cmake-language-server
@@ -130,16 +141,11 @@
     };
 
     dbus.enable = true;
-    xserver = {
       displayManager = {
-        lightdm.enable = false;
-
         gdm.enable = true;
       };
-      enable = true;
 
       desktopManager.gnome.enable = true;
-    };
 
     openssh.enable = true;
 

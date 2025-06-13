@@ -28,6 +28,8 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    python3
+    parsec-bin
     prusa-slicer
     nautilus
     lutris

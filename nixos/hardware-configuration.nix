@@ -44,6 +44,7 @@
 
   hardware.graphics = {
     enable = true;
+    extraPackages = with pkgs; [ rocmPackages.clr.icd ];
 };
   services.udev.extraRules = ''
 	DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"
