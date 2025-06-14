@@ -54,7 +54,7 @@
 
     nix.enable = true;
 
-            #php.enable = true;
+    php.enable = true;
 
     python.enable = true;
 
