@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
 
   programs.nvf.settings.vim = {
         lsp.enable = true;
@@ -37,6 +37,7 @@
     csharp.enable = true;
 
     css.enable = true;
+    css.format.package = pkgs.nodePackages.prettier;
 
     go.enable = true;
 
@@ -65,6 +66,7 @@
     tailwind.enable = true;
 
     ts.enable = true;
+    ts.format.package = pkgs.nodePackages.prettier;
 };
     };
 }

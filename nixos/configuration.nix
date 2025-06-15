@@ -105,7 +105,7 @@
   ];
 
   services = {
-    displayManager = {
+    xserver.displayManager = {
       sessionPackages = [
         (
           (
@@ -141,11 +141,11 @@
     };
 
     dbus.enable = true;
-      displayManager = {
+      xserver.displayManager = {
         gdm.enable = true;
       };
 
-      desktopManager.gnome.enable = true;
+      xserver.desktopManager.gnome.enable = true;
 
     openssh.enable = true;
 
