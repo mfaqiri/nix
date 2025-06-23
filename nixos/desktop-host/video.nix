@@ -16,4 +16,8 @@
 		];
 	})
     ];
+    
+    environment.sessionVariables = rec {
+    DESKTOP = ":0.2";
+    };
 }

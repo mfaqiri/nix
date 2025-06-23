@@ -28,6 +28,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    vmware-horizon-client
     python3
     parsec-bin
     prusa-slicer

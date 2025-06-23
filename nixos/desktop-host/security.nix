@@ -7,7 +7,18 @@
       tctiEnvironment.enable = true;
     };
     rtkit.enable = true;
-    pam.loginLimits = [{
+    pam = {
+    yubico = {
+                enable = true;
+                debug = true;
+                mode = "challenge-response";
+                id = [ "27564256" ];
+            };
+    services = {
+                login.u2fAuth = true;
+                sudo.u2fAuth = true;
+            };
+    loginLimits = [{
       domain = "@audio";
       type = "-";
       item = "rtprio";
@@ -19,5 +30,6 @@
       item = "memlock";
       value = "infinity";
     }];
+    };
     };
 }
