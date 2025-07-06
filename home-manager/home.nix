@@ -7,6 +7,7 @@
     inputs.nvf.homeManagerModules.default
     ./nvim/nvim.nix
     ./sway.nix
+    ./hyprland.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -28,7 +29,6 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    vmware-horizon-client
     python3
     parsec-bin
     prusa-slicer

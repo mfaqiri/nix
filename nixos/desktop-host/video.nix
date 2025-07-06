@@ -17,7 +17,7 @@
 	})
     ];
     
-    environment.sessionVariables = rec {
-    DESKTOP = ":0.2";
+    environment.sessionVariables = {
+        WAYLAND-DISPLAY = "wayland-1";
     };
 }

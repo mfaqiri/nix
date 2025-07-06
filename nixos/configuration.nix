@@ -22,14 +22,14 @@
   #boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_6_12;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    boot.kernelModules = ["kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
+  boot.kernelModules = ["kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
 
- boot.kernelParams = [
-        "iommu=1"
-        "iommu=pt"
-    ];
+  boot.kernelParams = [
+    "iommu=1"
+    "iommu=pt"
+  ];
 
-    boot.extraModprobeConfig = "options vfio-pci ids=1002:164e";
+  boot.extraModprobeConfig = "options vfio-pci ids=1002:164e";
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -73,7 +73,7 @@
     users = {
       mfaqiri = {
         isNormalUser = true;
-        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" ]; # Enable ‘sudo’ for the user.
+        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout"]; # Enable ‘sudo’ for the user.
       };
     };
   };
@@ -106,7 +106,7 @@
 
   services = {
     pcscd.enable = true;
-    udev.packages = [ pkgs.yubikey-personalization ];
+    udev.packages = [pkgs.yubikey-personalization];
     xserver.displayManager = {
       sessionPackages = [
         (
@@ -119,7 +119,21 @@
           )
           .overrideAttrs (oldAttrs: {
             passthru = {
-              providedSessions = ["sway"];
+              providedSessions = ["Sway"];
+            };
+          })
+        )
+        (
+          (
+            pkgs.writeTextDir "share/wayland-sessions/hyprland.desktop" ''              [Desktop Entry]
+                                  Name=hyprland
+                                  Comment=Hyprland run from a login shell
+                                  Exec=${pkgs.dbus}/bin/dbus-run-session -- bash -l -c hyprland
+                                  Type=Application''
+          )
+          .overrideAttrs (oldAttrs: {
+            passthru = {
+              providedSessions = ["Hyprland"];
             };
           })
         )
@@ -143,11 +157,11 @@
     };
 
     dbus.enable = true;
-      xserver.displayManager = {
-        gdm.enable = true;
-      };
+    xserver.displayManager = {
+      gdm.enable = true;
+    };
 
-      xserver.desktopManager.gnome.enable = true;
+    xserver.desktopManager.gnome.enable = true;
 
     openssh.enable = true;
 
@@ -174,7 +188,7 @@
   xdg.portal = {
     enable = true;
 
-    extraPortals = with pkgs; [xdg-desktop-portal-wlr];
+    extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-gtk];
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
