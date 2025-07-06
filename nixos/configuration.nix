@@ -119,7 +119,7 @@
           )
           .overrideAttrs (oldAttrs: {
             passthru = {
-              providedSessions = ["Sway"];
+              providedSessions = ["sway"];
             };
           })
         )
@@ -133,7 +133,7 @@
           )
           .overrideAttrs (oldAttrs: {
             passthru = {
-              providedSessions = ["Hyprland"];
+              providedSessions = ["hyprland"];
             };
           })
         )
