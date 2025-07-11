@@ -14,10 +14,6 @@
                 mode = "challenge-response";
                 id = [ "27564256" ];
             };
-    services = {
-                login.u2fAuth = true;
-                sudo.u2fAuth = true;
-            };
     loginLimits = [{
       domain = "@audio";
       type = "-";

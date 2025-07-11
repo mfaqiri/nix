@@ -59,12 +59,12 @@
   };
 
   hardware = {
-    opengl.extraPackages = with pkgs; [
-      mesa.opencl
-    ];
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [rocmPackages.clr.icd];
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd
+        mesa.opencl
+      ];
     };
   };
   services.udev.extraRules = ''
