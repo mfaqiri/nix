@@ -9,9 +9,10 @@
   networking.firewall.enable = true;
 
   networking.extraHosts = ''
-  192.168.1.185	mzfaqiri.server
-  192.168.1.185	gitlab.mzfaqiri.com
-  192.168.1.185	mzfaqiri.tld
-  192.168.1.185	pi.hole
+  192.168.1.254	mzfaqiri.server
+  192.168.1.254	gitlab.mzfaqiri.com
+  192.168.1.254	mzfaqiri.tld
+  192.168.1.254	pi.hole
+  192.168.1.254	nagios
   '';
 }

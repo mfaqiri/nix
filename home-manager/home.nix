@@ -57,6 +57,7 @@
     (pass-wayland.withExtensions
       (exts: [exts.pass-otp]))
     vlc
+    vscodium
     godot_4
     gdtoolkit_4
     grim

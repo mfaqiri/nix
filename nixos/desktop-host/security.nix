@@ -11,8 +11,8 @@
     yubico = {
                 enable = true;
                 debug = true;
-                mode = "challenge-response";
-                id = [ "27564256" ];
+                mode = "client";
+                id = "27564256";
             };
     loginLimits = [{
       domain = "@audio";
