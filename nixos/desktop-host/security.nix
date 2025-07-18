@@ -9,8 +9,8 @@
     rtkit.enable = true;
     pam = {
     yubico = {
-                enable = true;
-                debug = true;
+                enable = false;
+                debug = false;
                 mode = "client";
                 id = "27564256";
             };
