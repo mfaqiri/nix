@@ -118,7 +118,10 @@
 
       shellAliases = {
         ll = "ls -l";
-        update = "sudo nixos-rebuild switch --flake /home/mfaqiri/.config/nix#myNixos";
+        update = "pushd /home/mfaqiri/.config/nix \
+                    && sudo nix flake update \
+                    && sudo nixos-rebuild switch --flake ./nix#myNixos \
+                    && popd";
       };
 
       zplug = {
