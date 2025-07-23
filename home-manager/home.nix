@@ -64,7 +64,6 @@
     slurp
     dolphin-emu
     (librewolf.override {nativeMessagingHosts = [passff-host];})
-    blender-hip
     makemkv
     fira-code
     fira-code-symbols
