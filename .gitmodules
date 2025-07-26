@@ -1,3 +1,9 @@
 [submodule "home-manager/nix-nvim"]
 	path = home-manager/nix-nvim
 	url = git@github.com:mfaqiri/nix-nvim.git
+[submodule "modules/common/nix-nvim"]
+	path = modules/common/nix-nvim
+	url = git@github.com:mfaqiri/nix-nvim.git
+[submodule "home-manager/--force"]
+	path = home-manager/--force
+	url = git@github.com:mfaqiri/nix-nvim.git

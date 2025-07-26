@@ -13,25 +13,31 @@
   outputs = {
     self,
     nixpkgs,
+    nvf,
     home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    nix-nvim = import ./modules/common/nix-nvim/nvim.nix;
   in {
     nixosConfigurations = {
       myNixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit system;
           inherit inputs;
-          specialArgs = {
-            inherit nix-nvim;
-          };
         };
 
         modules = [
           ./nixos/configuration.nix
-          home-manager.nixosModules.default
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              extraSpecialArgs = {inherit inputs;};
+              users = {
+                mfaqiri = import ./home-manager/home.nix;
+              };
+            };
+          }
         ];
       };
     };

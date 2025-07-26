@@ -1,15 +1,13 @@
 {
-  inputs,
+inputs,
   pkgs,
-  nix-nvim,
   ...
 }: {
   imports = [
-    inputs.nvf.homeManagerModules.default
-    nix-nvim
     ./sway.nix
     ./hyprland.nix
     ./theme.nix
+    ./nix-nvim/nvim.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
