@@ -1,0 +1,3 @@
+[submodule "home-manager/nix-nvim"]
+	path = home-manager/nix-nvim
+	url = git@github.com:mfaqiri/nix-nvim.git

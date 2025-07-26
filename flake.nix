@@ -13,6 +13,7 @@
   outputs = {
     self,
     nixpkgs,
+    home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -26,7 +27,7 @@
 
         modules = [
           ./nixos/configuration.nix
-          inputs.home-manager.nixosModules.default
+          home-manager.nixosModules.default
         ];
       };
     };
