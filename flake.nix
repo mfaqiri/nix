@@ -8,11 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf.url = "github:notashelf/nvf";
-    nix-nvim = {
-      url = "file:.?submodules=1";
-      type = "git";
-      flake = false; # not including this results in inifite recursion
-    };
   };
 
   outputs = {
@@ -39,7 +34,6 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              extraSpecialArgs = {inherit inputs;};
               users = {
                 mfaqiri = import ./home-manager/home.nix;
               };
