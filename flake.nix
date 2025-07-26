@@ -17,12 +17,16 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    nix-nvim = import ./modules/common/nix-nvim/nvim.nix;
   in {
     nixosConfigurations = {
       myNixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit system;
           inherit inputs;
+          specialArgs = {
+            inherit nix-nvim;
+          };
         };
 
         modules = [

@@ -1,11 +1,12 @@
 {
   inputs,
   pkgs,
+  nix-nvim,
   ...
 }: {
   imports = [
     inputs.nvf.homeManagerModules.default
-    ./nix-nvim/nvim.nix
+    nix-nvim
     ./sway.nix
     ./hyprland.nix
     ./theme.nix
