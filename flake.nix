@@ -8,6 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf.url = "github:notashelf/nvf";
+    nix-nvim = {
+      url = "file:.?submodules=1";
+      type = "git";
+      flake = false; # not including this results in inifite recursion
+    };
   };
 
   outputs = {
@@ -19,6 +24,8 @@
   } @ inputs: let
     system = "x86_64-linux";
   in {
+    self.submodules = true;
+
     nixosConfigurations = {
       myNixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
