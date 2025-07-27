@@ -8,6 +8,7 @@
     ./nvim/nvim.nix
     ./sway.nix
     ./hyprland.nix
+    ./theme.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -117,10 +118,7 @@
 
       shellAliases = {
         ll = "ls -l";
-        update = "pushd /home/mfaqiri/.config/nix \
-                    && sudo nix flake update \
-                    && sudo nixos-rebuild switch --flake ./nix#myNixos \
-                    && popd";
+        update = "sudo nixos-rebuild switch --flake /home/mfaqiri/.config/nix#myNixos";
       };
 
       zplug = {
@@ -157,19 +155,6 @@
     };
   };
 
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "adwaita";
-    style.name = "adwaita-dark";
-  };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

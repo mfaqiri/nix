@@ -33,7 +33,14 @@
         viAlias = false;
         vimAlias = true;
 
-        autocomplete.nvim-cmp.enable = true;
+        autocomplete.nvim-cmp = {
+          enable = true;
+          mappings = {
+            confirm = "<C-y>";
+            next = "<C-j>";
+            previous = "<C-k>";
+          };
+        };
 
         comments.comment-nvim.enable = true;
 
@@ -43,19 +50,13 @@
 
         telescope.enable = true;
         navigation = {
-            harpoon.enable = true;
-                };
+          harpoon.enable = true;
+        };
 
         extraPlugins = with pkgs.vimPlugins; {
           aerial = {
             package = aerial-nvim;
             setup = "require('aerial').setup {}";
-          };
-
-          harpoon = {
-            package = harpoon;
-            setup = "require('harpoon').setup {}";
-            after = ["aerial"]; # place harpoon configuration after aerial
           };
 
           vim-godot = {

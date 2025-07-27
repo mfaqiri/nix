@@ -1,72 +1,69 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   programs.nvf.settings.vim = {
-        lsp.enable = true;
+    lsp.enable = true;
 
-        luaConfigRC.myconfig = /*lua*/''
+    luaConfigRC.myconfig =
+      /*
+      lua
+      */
+      ''
 
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-            lspconfig = require('lspconfig')
+        lspconfig = require('lspconfig')
 
-            lspconfig.gdscript.setup(capabilities)
+        lspconfig.gdscript.setup(capabilities)
 
-            lspconfig.cmake.setup(capabilities)
+        lspconfig.cmake.setup(capabilities)
 
 
-            require('nvim-treesitter').setup {
 
-                auto_install = true,
-                highlight = { enable = true },
-                indent = { enable = false },
-            }
+      '';
 
-                '';
+    languages = {
+      enableFormat = true;
+      enableTreesitter = true;
+      enableDAP = true;
 
-        languages = {
+      assembly.enable = true;
 
-    enableFormat = true;
-    enableTreesitter = true;
+      bash.enable = true;
 
-    assembly.enable = true;
+      clang.enable = true;
 
-    bash.enable = true;
+      csharp.enable = true;
 
-    clang.enable = true;
+      css.enable = true;
+      css.format.package = pkgs.nodePackages.prettier;
 
-    csharp.enable = true;
+      go.enable = true;
 
-    css.enable = true;
-    css.format.package = pkgs.nodePackages.prettier;
+      html.enable = true;
 
-    go.enable = true;
+      java.enable = true;
 
-    html.enable = true;
+      lua.enable = true;
 
-    java.enable = true;
+      markdown = {
+        enable = true;
 
-    lua.enable = true;
+        extensions.render-markdown-nvim.enable = true;
+      };
 
-    markdown = {
-      enable = true;
+      nix.enable = true;
 
-      extensions.render-markdown-nvim.enable = true;
+      php.enable = true;
+
+      python.enable = true;
+
+      rust.enable = true;
+
+      sql.enable = true;
+
+      tailwind.enable = true;
+
+      ts.enable = true;
+      ts.format.package = pkgs.nodePackages.prettier;
     };
-
-    nix.enable = true;
-
-    php.enable = true;
-
-    python.enable = true;
-
-    rust.enable = true;
-
-    sql.enable = true;
-
-    tailwind.enable = true;
-
-    ts.enable = true;
-    ts.format.package = pkgs.nodePackages.prettier;
-};
-    };
+  };
 }
