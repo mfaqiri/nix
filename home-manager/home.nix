@@ -1,13 +1,13 @@
 {
-inputs,
+  inputs,
   pkgs,
   ...
 }: {
   imports = [
+    inputs.nvf.homeManagerModules.default
+    ./nvim/nvim.nix
     ./sway.nix
     ./hyprland.nix
-    ./theme.nix
-    ./nix-nvim/nvim.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -117,7 +117,10 @@ inputs,
 
       shellAliases = {
         ll = "ls -l";
-        update = "pushd /home/mfaqiri/.config/nix && sudo nix flake update && sudo nixos-rebuild switch --flake .#myNixos && popd";
+        update = "pushd /home/mfaqiri/.config/nix \
+                    && sudo nix flake update \
+                    && sudo nixos-rebuild switch --flake ./nix#myNixos \
+                    && popd";
       };
 
       zplug = {
@@ -152,6 +155,20 @@ inputs,
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "adwaita";
+    style.name = "adwaita-dark";
   };
 
   # Home Manager can also manage your environment variables through

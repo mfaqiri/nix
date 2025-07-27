@@ -78,6 +78,13 @@
     };
   };
 
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "mfaqiri" = import ../home-manager/home.nix;
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [

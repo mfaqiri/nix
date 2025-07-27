@@ -13,8 +13,6 @@
   outputs = {
     self,
     nixpkgs,
-    nvf,
-    home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -28,16 +26,7 @@
 
         modules = [
           ./nixos/configuration.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs = {inherit inputs;};
-              users = {
-                mfaqiri = import ./home-manager/home.nix;
-              };
-            };
-          }
+          inputs.home-manager.nixosModules.default
         ];
       };
     };
