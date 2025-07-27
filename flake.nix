@@ -19,8 +19,6 @@
   } @ inputs: let
     system = "x86_64-linux";
   in {
-    self.submodules = true;
-
     nixosConfigurations = {
       myNixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -34,6 +32,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
+              extraSpecialArgs = {inherit inputs;};
               users = {
                 mfaqiri = import ./home-manager/home.nix;
               };
