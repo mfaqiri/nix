@@ -100,8 +100,8 @@
   services = {
     pcscd.enable = true;
     udev.packages = [pkgs.yubikey-personalization];
+    xserver.displayManager.gdm.enable = true;
     displayManager = {
-      gdm.enable = true;
       sessionPackages = [
         (
           (
