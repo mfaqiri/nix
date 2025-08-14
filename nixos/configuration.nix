@@ -22,14 +22,7 @@
   #boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_6_12;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.kernelModules = ["kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
-
-  boot.kernelParams = [
-    "iommu=1"
-    "iommu=pt"
-  ];
-
-  boot.extraModprobeConfig = "options vfio-pci ids=1002:164e";
+  boot.kernelModules = ["kvm-amd"];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -108,6 +101,7 @@
     pcscd.enable = true;
     udev.packages = [pkgs.yubikey-personalization];
     displayManager = {
+      gdm.enable = true;
       sessionPackages = [
         (
           (
@@ -140,6 +134,8 @@
       ];
     };
 
+    desktopManager.plasma6.enable = true;
+
     tor = {
       settings = {
         UseBridges = true;
@@ -149,19 +145,8 @@
     };
 
     flatpak.enable = true;
-    gnome = {
-      gnome-keyring.enable = true;
-      core-apps.enable = false;
-      localsearch.enable = false;
-      tinysparql.enable = false;
-    };
 
     dbus.enable = true;
-    xserver.displayManager = {
-      gdm.enable = true;
-    };
-
-    xserver.desktopManager.gnome.enable = true;
 
     openssh.enable = true;
 

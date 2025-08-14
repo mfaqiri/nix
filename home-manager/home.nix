@@ -47,7 +47,7 @@
     freerdp
     htop
     krita
-    ryujinx
+    ryubing
     networkmanager-openvpn
     slack
     pureref

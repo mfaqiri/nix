@@ -1,9 +1,8 @@
 {pkgs, ...}: {
   programs.eww = {
-        enable = true;
-        enableZshIntegration = true;
-
-    };
+    enable = true;
+    enableZshIntegration = true;
+  };
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.variables = ["--all"];
@@ -17,197 +16,197 @@
       hyprlang
       */
       ''
-        exec-once = eww
+         exec-once = waybar
 
-       plugin:dynamic-cursors {
+        plugin:dynamic-cursors {
 
-            # enables the plugin
-            enabled = true
+             # enables the plugin
+             enabled = true
 
-            # sets the cursor behaviour, supports these values:
-            # tilt    - tilt the cursor based on x-velocity
-            # rotate  - rotate the cursor based on movement direction
-            # stretch - stretch the cursor shape based on direction and velocity
-            # none    - do not change the cursors behaviour
-            mode = tilt
+             # sets the cursor behaviour, supports these values:
+             # tilt    - tilt the cursor based on x-velocity
+             # rotate  - rotate the cursor based on movement direction
+             # stretch - stretch the cursor shape based on direction and velocity
+             # none    - do not change the cursors behaviour
+             mode = tilt
 
-            # minimum angle difference in degrees after which the shape is changed
-            # smaller values are smoother, but more expensive for hw cursors
-            threshold = 2
+             # minimum angle difference in degrees after which the shape is changed
+             # smaller values are smoother, but more expensive for hw cursors
+             threshold = 2
 
-            # override the mode behaviour per shape
-            # this is a keyword and can be repeated many times
-            # by default, there are no rules added
-            # see the dedicated `shape rules` section below!
+             # override the mode behaviour per shape
+             # this is a keyword and can be repeated many times
+             # by default, there are no rules added
+             # see the dedicated `shape rules` section below!
 
-            # for mode = rotate
-            rotate {
+             # for mode = rotate
+             rotate {
 
-                # length in px of the simulated stick used to rotate the cursor
-                # most realistic if this is your actual cursor size
-                length = 20
+                 # length in px of the simulated stick used to rotate the cursor
+                 # most realistic if this is your actual cursor size
+                 length = 20
 
-                # clockwise offset applied to the angle in degrees
-                # this will apply to ALL shapes
-                offset = 0.0
-            }
+                 # clockwise offset applied to the angle in degrees
+                 # this will apply to ALL shapes
+                 offset = 0.0
+             }
 
-            # for mode = tilt
-            tilt {
+             # for mode = tilt
+             tilt {
 
-                # controls how powerful the tilt is, the lower, the more power
-                # this value controls at which speed (px/s) the full tilt is reached
-                # the full tilt being 60° in both directions
-                limit = 5000
+                 # controls how powerful the tilt is, the lower, the more power
+                 # this value controls at which speed (px/s) the full tilt is reached
+                 # the full tilt being 60° in both directions
+                 limit = 5000
 
-                # relationship between speed and tilt, supports these values:
-                # linear             - a linear function is used
-                # quadratic          - a quadratic function is used (most realistic to actual air drag)
-                # negative_quadratic - negative version of the quadratic one, feels more aggressive
-                # see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
-                function = negative_quadratic
+                 # relationship between speed and tilt, supports these values:
+                 # linear             - a linear function is used
+                 # quadratic          - a quadratic function is used (most realistic to actual air drag)
+                 # negative_quadratic - negative version of the quadratic one, feels more aggressive
+                 # see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
+                 function = negative_quadratic
 
-                # time window (ms) over which the speed is calculated
-                # higher values will make slow motions smoother but more delayed
-                window = 100
-            }
+                 # time window (ms) over which the speed is calculated
+                 # higher values will make slow motions smoother but more delayed
+                 window = 100
+             }
 
-            # for mode = stretch
-            stretch {
+             # for mode = stretch
+             stretch {
 
-                # controls how much the cursor is stretched
-                # this value controls at which speed (px/s) the full stretch is reached
-                # the full stretch being twice the original length
-                limit = 3000
+                 # controls how much the cursor is stretched
+                 # this value controls at which speed (px/s) the full stretch is reached
+                 # the full stretch being twice the original length
+                 limit = 3000
 
-                # relationship between speed and stretch amount, supports these values:
-                # linear             - a linear function is used
-                # quadratic          - a quadratic function is used
-                # negative_quadratic - negative version of the quadratic one, feels more aggressive
-                # see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
-                function = quadratic
+                 # relationship between speed and stretch amount, supports these values:
+                 # linear             - a linear function is used
+                 # quadratic          - a quadratic function is used
+                 # negative_quadratic - negative version of the quadratic one, feels more aggressive
+                 # see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
+                 function = quadratic
 
-                # time window (ms) over which the speed is calculated
-                # higher values will make slow motions smoother but more delayed
-                window = 100
-            }
+                 # time window (ms) over which the speed is calculated
+                 # higher values will make slow motions smoother but more delayed
+                 window = 100
+             }
 
-            # configure shake to find
-            # magnifies the cursor if its is being shaken
-            shake {
+             # configure shake to find
+             # magnifies the cursor if its is being shaken
+             shake {
 
-                # enables shake to find
-                enabled = true
+                 # enables shake to find
+                 enabled = true
 
-                # use nearest-neighbour (pixelated) scaling when shaking
-                # may look weird when effects are enabled
-                nearest = true
+                 # use nearest-neighbour (pixelated) scaling when shaking
+                 # may look weird when effects are enabled
+                 nearest = true
 
-                # controls how soon a shake is detected
-                # lower values mean sooner
-                threshold = 6.0
+                 # controls how soon a shake is detected
+                 # lower values mean sooner
+                 threshold = 6.0
 
-                # magnification level immediately after shake start
-                base = 4.0
-                # magnification increase per second when continuing to shake
-                speed = 4.0
-                # how much the speed is influenced by the current shake intensitiy
-                influence = 0.0
+                 # magnification level immediately after shake start
+                 base = 4.0
+                 # magnification increase per second when continuing to shake
+                 speed = 4.0
+                 # how much the speed is influenced by the current shake intensitiy
+                 influence = 0.0
 
-                # maximal magnification the cursor can reach
-                # values below 1 disable the limit (e.g. 0)
-                limit = 0.0
+                 # maximal magnification the cursor can reach
+                 # values below 1 disable the limit (e.g. 0)
+                 limit = 0.0
 
-                # time in millseconds the cursor will stay magnified after a shake has ended
-                timeout = 2000
+                 # time in millseconds the cursor will stay magnified after a shake has ended
+                 timeout = 2000
 
-                # show cursor behaviour `tilt`, `rotate`, etc. while shaking
-                effects = false
+                 # show cursor behaviour `tilt`, `rotate`, etc. while shaking
+                 effects = false
 
-                # enable ipc events for shake
-                # see the `ipc` section below
-                ipc = false
-            }
+                 # enable ipc events for shake
+                 # see the `ipc` section below
+                 ipc = false
+             }
 
-            # use hyprcursor to get a higher resolution texture when the cursor is magnified
-            # see the `hyprcursor` section below
-            hyprcursor {
+             # use hyprcursor to get a higher resolution texture when the cursor is magnified
+             # see the `hyprcursor` section below
+             hyprcursor {
 
-                # use nearest-neighbour (pixelated) scaling when magnifing beyond texture size
-                # this will also have effect without hyprcursor support being enabled
-                # 0 / false - never use pixelated scaling
-                # 1 / true  - use pixelated when no highres image
-                # 2         - always use pixleated scaling
-                nearest = true
+                 # use nearest-neighbour (pixelated) scaling when magnifing beyond texture size
+                 # this will also have effect without hyprcursor support being enabled
+                 # 0 / false - never use pixelated scaling
+                 # 1 / true  - use pixelated when no highres image
+                 # 2         - always use pixleated scaling
+                 nearest = true
 
-                # enable dedicated hyprcursor support
-                enabled = true
+                 # enable dedicated hyprcursor support
+                 enabled = true
 
-                # resolution in pixels to load the magnified shapes at
-                # be warned that loading a very high-resolution image will take a long time and might impact memory consumption
-                # -1 means we use [normal cursor size] * [shake:base option]
-                resolution = -1
+                 # resolution in pixels to load the magnified shapes at
+                 # be warned that loading a very high-resolution image will take a long time and might impact memory consumption
+                 # -1 means we use [normal cursor size] * [shake:base option]
+                 resolution = -1
 
-                # shape to use when clientside cursors are being magnified
-                # see the shape-name property of shape rules for possible names
-                # specifying clientside will use the actual shape, but will be pixelated
-                fallback = clientside
-            }
-        }
+                 # shape to use when clientside cursors are being magnified
+                 # see the shape-name property of shape rules for possible names
+                 # specifying clientside will use the actual shape, but will be pixelated
+                 fallback = clientside
+             }
+         }
 
-               animations {
-                          enabled = yes, please :)
+                animations {
+                           enabled = yes, please :)
 
-                          # Default animations, see https://wiki.hypr.land/Configuring/Animations/ for more
+                           # Default animations, see https://wiki.hypr.land/Configuring/Animations/ for more
 
-                          bezier = easeOutQuint,0.23,1,0.32,1
-                          bezier = easeInOutCubic,0.65,0.05,0.36,1
-                          bezier = linear,0,0,1,1
-                          bezier = almostLinear,0.5,0.5,0.75,1.0
-                          bezier = quick,0.15,0,0.1,1
+                           bezier = easeOutQuint,0.23,1,0.32,1
+                           bezier = easeInOutCubic,0.65,0.05,0.36,1
+                           bezier = linear,0,0,1,1
+                           bezier = almostLinear,0.5,0.5,0.75,1.0
+                           bezier = quick,0.15,0,0.1,1
 
-                          animation = global, 1, 10, default
-                          animation = border, 1, 5.39, easeOutQuint
-                          animation = windows, 1, 4.79, easeOutQuint
-                          animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
-                          animation = windowsOut, 1, 1.49, linear, popin 87%
-                          animation = fadeIn, 1, 1.73, almostLinear
-                          animation = fadeOut, 1, 1.46, almostLinear
-                          animation = fade, 1, 3.03, quick
-                          animation = layers, 1, 3.81, easeOutQuint
-                          animation = layersIn, 1, 4, easeOutQuint, fade
-                          animation = layersOut, 1, 1.5, linear, fade
-                          animation = fadeLayersIn, 1, 1.79, almostLinear
-                          animation = fadeLayersOut, 1, 1.39, almostLinear
-                          animation = workspaces, 1, 1.94, almostLinear, fade
-                          animation = workspacesIn, 1, 1.21, almostLinear, fade
-                          animation = workspacesOut, 1, 1.94, almostLinear, fade
-                      }
+                           animation = global, 1, 10, default
+                           animation = border, 1, 5.39, easeOutQuint
+                           animation = windows, 1, 4.79, easeOutQuint
+                           animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
+                           animation = windowsOut, 1, 1.49, linear, popin 87%
+                           animation = fadeIn, 1, 1.73, almostLinear
+                           animation = fadeOut, 1, 1.46, almostLinear
+                           animation = fade, 1, 3.03, quick
+                           animation = layers, 1, 3.81, easeOutQuint
+                           animation = layersIn, 1, 4, easeOutQuint, fade
+                           animation = layersOut, 1, 1.5, linear, fade
+                           animation = fadeLayersIn, 1, 1.79, almostLinear
+                           animation = fadeLayersOut, 1, 1.39, almostLinear
+                           animation = workspaces, 1, 1.94, almostLinear, fade
+                           animation = workspacesIn, 1, 1.21, almostLinear, fade
+                           animation = workspacesOut, 1, 1.94, almostLinear, fade
+                       }
 
-                      decoration {
-                    rounding = 10
-                    rounding_power = 2
+                       decoration {
+                     rounding = 10
+                     rounding_power = 2
 
-                    # Change transparency of focused and unfocused windows
-                    active_opacity = 1.0
-                    inactive_opacity = 1.0
+                     # Change transparency of focused and unfocused windows
+                     active_opacity = 1.0
+                     inactive_opacity = 1.0
 
-                    shadow {
-                        enabled = true
-                        range = 4
-                        render_power = 3
-                        color = rgba(1a1a1aee)
-                    }
+                     shadow {
+                         enabled = true
+                         range = 4
+                         render_power = 3
+                         color = rgba(1a1a1aee)
+                     }
 
-                    # https://wiki.hypr.land/Configuring/Variables/#blur
-                    blur {
-                        enabled = true
-                        size = 3
-                        passes = 1
+                     # https://wiki.hypr.land/Configuring/Variables/#blur
+                     blur {
+                         enabled = true
+                         size = 3
+                         passes = 1
 
-                        vibrancy = 0.1696
-                    }
-                }
+                         vibrancy = 0.1696
+                     }
+                 }
       '';
     settings = {
       "$mod" = "SUPER";
