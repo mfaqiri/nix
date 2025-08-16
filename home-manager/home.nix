@@ -27,10 +27,15 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  fonts.fontconfig.enable = true;
 
+  fonts.fontconfig = {
+    enable = true;
+  };
   home.packages = with pkgs; [
+    networkmanagerapplet
+    hyprshot
     python3
+    pamixer
     parsec-bin
     prusa-slicer
     nautilus
@@ -68,12 +73,7 @@
     makemkv
     fira-code
     fira-code-symbols
-    font-awesome
     liberation_ttf
-    mplus-outline-fonts.githubRelease
-    noto-fonts
-    noto-fonts-emoji
-    proggyfonts
     parsec-bin
     transmission_4-gtk
     discord
@@ -154,7 +154,6 @@
       color-scheme = "prefer-dark";
     };
   };
-
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

@@ -16,8 +16,4 @@
 		];
 	})
     ];
-    
-    environment.sessionVariables = {
-        WAYLAND-DISPLAY = "wayland-1";
-    };
 }

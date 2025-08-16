@@ -1,4 +1,23 @@
 {pkgs, ...}: {
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      ipc = "on";
+      splash = false;
+
+      preload = [
+        "/home/mfaqiri/Pictures/Wallpapers/japanese_house_1440x2560.png"
+        "/home/mfaqiri/Pictures/Wallpapers/small_neighborhood_3840x2160.png"
+        "/home/mfaqiri/Pictures/Wallpapers/woods_mountain.png"
+      ];
+
+      wallpaper = [
+        "DP-2,/home/mfaqiri/Pictures/Wallpapers/japanese_house_1440x2560.png"
+        "DP-1,/home/mfaqiri/Pictures/Wallpapers/small_neighborhood_3840x2160.png"
+        "DP-3,/home/mfaqiri/Pictures/Wallpapers/woods_mountain.png"
+      ];
+    };
+  };
   programs.eww = {
     enable = true;
     enableZshIntegration = true;
@@ -17,6 +36,11 @@
       */
       ''
          exec-once = waybar
+        
+        workspace = 3, monitor:DP-2
+        workspace = 2, monitor:DP-1
+        workspace = 1, monitor:DP-3
+
 
         plugin:dynamic-cursors {
 
@@ -214,10 +238,11 @@
       "$fileManager" = "nautilus";
       "$menu" = "fuzzel";
 
+
       monitor = [
-        "DP-1, 2560x1440@144, 3840x0, 1"
+        "DP-3, 2560x1440@144, 0x0, 1"
         "DP-2, 2560x1440@60, 6400x0, 1, transform, 1"
-        "DP-3, 3840x2160, 0x0, 1"
+        "DP-1, 3840x2160, 2560x0, 1"
       ];
       bind =
         [

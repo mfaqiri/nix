@@ -27,6 +27,21 @@
   # Set your time zone.
   time.timeZone = "America/New_York";
 
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    font-awesome
+    powerline-fonts
+    powerline-symbols
+  ];
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -66,7 +81,7 @@
     users = {
       mfaqiri = {
         isNormalUser = true;
-        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout"]; # Enable ‘sudo’ for the user.
+        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" "input"]; # Enable ‘sudo’ for the user.
       };
     };
   };
@@ -173,7 +188,7 @@
   xdg.portal = {
     enable = true;
 
-    extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-gtk];
+    extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
