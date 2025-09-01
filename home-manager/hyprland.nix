@@ -18,9 +18,28 @@
       ];
     };
   };
-  programs.eww = {
+  programs.fuzzel = {
     enable = true;
-    enableZshIntegration = true;
+    settings = {
+      main = {
+        terminal = "kitty";
+        font = "JetBrains Mono:size=12";
+        show-actions = "yes";
+        lines = 15;
+        width = 50;
+      };
+      colors = {
+        background = "#181825ff";
+        text = "#5050f9ff";
+        selection = "#af5f0bff";
+        selection-text = "'#cdd6f4ff";
+        border = "#252d21ff";
+      };
+      border = {
+        width = 2;
+        radius = 8;
+      };
+    };
   };
   wayland.windowManager.hyprland = {
     enable = true;
@@ -36,7 +55,7 @@
       */
       ''
          exec-once = waybar
-        
+
         workspace = 3, monitor:DP-2
         workspace = 2, monitor:DP-1
         workspace = 1, monitor:DP-3
@@ -237,7 +256,6 @@
       "$terminal" = "kitty";
       "$fileManager" = "nautilus";
       "$menu" = "fuzzel";
-
 
       monitor = [
         "DP-3, 2560x1440@144, 0x0, 1"

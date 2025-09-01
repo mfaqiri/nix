@@ -224,28 +224,5 @@
       };
     };
 
-    fuzzel = {
-      enable = true;
-      settings = {
-        main = {
-          terminal = "kitty";
-          font = "JetBrains Mono:size=12";
-          show-actions = "yes";
-          lines = 15;
-          width = 50;
-        };
-        colors = {
-          background = "181825ff";
-          text = "5050f9ff";
-          selection = "af5f0bff";
-          selection-text = "cdd6f4ff";
-          border = "252d21ff";
-        };
-        border = {
-          width = 2;
-          radius = 8;
-        };
-      };
-    };
   };
 }
