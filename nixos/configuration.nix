@@ -55,6 +55,8 @@
     liberation_ttf
   ];
 
+  environment.variables.EDITOR = "nvim";
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

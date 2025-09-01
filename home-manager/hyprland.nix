@@ -54,7 +54,7 @@
       hyprlang
       */
       ''
-         exec-once = waybar
+        exec-once = waybar
 
         workspace = 3, monitor:DP-2
         workspace = 2, monitor:DP-1

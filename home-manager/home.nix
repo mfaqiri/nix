@@ -8,6 +8,8 @@
     ./nvim/nvim.nix
     ./hyprland.nix
     ./theme.nix
+    ./waybar.nix
+    ./kitty.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -31,7 +33,10 @@
     enable = true;
   };
   home.packages = with pkgs; [
-    ueberzug
+    p7zip
+    fd
+    ueberzugpp
+    wl-clipboard
     networkmanagerapplet
     hyprshot
     pamixer
@@ -58,11 +63,9 @@
     inkscape
     gimp
     ardour
-    kitty
     (pass-wayland.withExtensions
       (exts: [exts.pass-otp]))
     vlc
-    vscodium
     godot_4
     gdtoolkit_4
     grim
@@ -134,7 +137,10 @@
       history.ignoreAllDups = true;
       history.path = "$HOME/.zsh_history";
     };
-    yazi.enable = true;
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
+    };
 
     zoxide = {
       enable = true;
