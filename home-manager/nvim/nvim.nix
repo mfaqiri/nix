@@ -54,11 +54,6 @@
         };
 
         extraPlugins = with pkgs.vimPlugins; {
-          aerial = {
-            package = aerial-nvim;
-            setup = "require('aerial').setup {}";
-          };
-
           vim-godot = {
             package = vim-godot;
             setup = "event = 'VimEnter'";

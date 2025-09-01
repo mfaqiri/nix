@@ -3,7 +3,6 @@
 
   environment.systemPackages = with pkgs; [
 	v4l-utils
-	libsForQt5.kdenlive
 	(pkgs.wrapOBS {
 		plugins = with pkgs.obs-studio-plugins; [
 			wlrobs

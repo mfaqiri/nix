@@ -3,6 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   inputs,
+  lib,
   pkgs,
   ...
 }: {
@@ -17,12 +18,21 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  #boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_6_12;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    loader = {
+      systemd-boot.enable = lib.mkForce false;
+      efi.canTouchEfiVariables = true;
+    };
 
-  boot.kernelModules = ["kvm-amd"];
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+    };
+
+    kernelPackages = pkgs.linuxPackages_latest;
+
+    kernelModules = ["kvm-amd"];
+  };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -40,6 +50,9 @@
     font-awesome
     powerline-fonts
     powerline-symbols
+    fira-code
+    fira-code-symbols
+    liberation_ttf
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -74,14 +87,12 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
-  security.polkit.enable = true;
-
   users = {
     defaultUserShell = pkgs.zsh;
     users = {
       mfaqiri = {
         isNormalUser = true;
-        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" "input"]; # Enable ‘sudo’ for the user.
+        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" "input" "tss"]; # Enable ‘sudo’ for the user.
       };
     };
   };
@@ -96,8 +107,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    brave
-    looking-glass-client
+    sbctl
     virtiofsd
     usbutils
     cmake-language-server
@@ -115,23 +125,9 @@
   services = {
     pcscd.enable = true;
     udev.packages = [pkgs.yubikey-personalization];
-    xserver.displayManager.gdm.enable = true;
     displayManager = {
+      ly.enable = true;
       sessionPackages = [
-        (
-          (
-            pkgs.writeTextDir "share/wayland-sessions/sway.desktop" ''              [Desktop Entry]
-                                  Name=sway
-                                  Comment=Sway run from a login shell
-                                  Exec=${pkgs.dbus}/bin/dbus-run-session -- bash -l -c sway
-                                  Type=Application''
-          )
-          .overrideAttrs (oldAttrs: {
-            passthru = {
-              providedSessions = ["sway"];
-            };
-          })
-        )
         (
           (
             pkgs.writeTextDir "share/wayland-sessions/hyprland.desktop" ''              [Desktop Entry]
@@ -147,6 +143,8 @@
           })
         )
       ];
+
+      defaultSession = "hyprland";
     };
 
     desktopManager.plasma6.enable = true;
@@ -188,7 +186,7 @@
   xdg.portal = {
     enable = true;
 
-    extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
+    extraPortals = with pkgs; [xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
   };
 
   # Copy the NixOS configuration file and link it from the resulting system

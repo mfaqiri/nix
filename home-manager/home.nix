@@ -6,7 +6,6 @@
   imports = [
     inputs.nvf.homeManagerModules.default
     ./nvim/nvim.nix
-    ./sway.nix
     ./hyprland.nix
     ./theme.nix
   ];
@@ -32,9 +31,9 @@
     enable = true;
   };
   home.packages = with pkgs; [
+    ueberzug
     networkmanagerapplet
     hyprshot
-    python3
     pamixer
     parsec-bin
     prusa-slicer
@@ -71,9 +70,6 @@
     dolphin-emu
     (librewolf.override {nativeMessagingHosts = [passff-host];})
     makemkv
-    fira-code
-    fira-code-symbols
-    liberation_ttf
     parsec-bin
     transmission_4-gtk
     discord
@@ -111,6 +107,7 @@
   };
 
   programs = {
+    home-manager.enable = true;
     zsh = {
       enable = true;
       enableCompletion = true;
@@ -173,5 +170,4 @@
   #
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

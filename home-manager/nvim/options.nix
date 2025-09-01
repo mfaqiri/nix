@@ -1,46 +1,83 @@
-{ config, ... }: {
-  programs.nvf.settings.vim = 
-    {
-
+{...}: {
+  programs.nvf.settings.vim = {
     tabline.nvimBufferline.setupOpts.options = {
-                tab_size = 2;
+      tab_size = 2;
+    };
+    utility = {
+      yazi-nvim.enable = true;
 
-            };
+      outline = {
+        aerial-nvim.enable = true;
+      };
+
+      ccc.enable = true;
+
+      diffview-nvim.enable = true;
+
+      icon-picker.enable = true;
+
+      images = {
+        image-nvim.enable = true;
+      };
+
+      motion = {
+        flash-nvim.enable = true;
+      };
+
+      multicursors.enable = true;
+
+      new-file-template.enable = true;
+
+      nvim-biscuits.enable = true;
+
+      preview = {
+        glow.enable = true;
+      };
+
+      sleuth.enable = true;
+
+      smart-splits.enable = true;
+
+      surround.enable = true;
+
+      yanky-nvim = {
+        enable = true;
+        setupOpts.ring.storage = "sqlite";
+      };
+    };
 
     options = {
+      guicursor = "";
 
-        guicursor = "";
+      nu = true;
+      relativenumber = true;
 
-        nu = true;
-        relativenumber = true;
+      tabstop = 4;
+      softtabstop = 4;
+      shiftwidth = 4;
+      expandtab = true;
 
-        tabstop = 4;
-        softtabstop = 4;
-        shiftwidth = 4;
-        expandtab = true;
+      smartindent = true;
 
-        smartindent = true;
+      wrap = false;
 
-        wrap = false;
+      swapfile = false;
+      backup = false;
 
-        swapfile = false;
-        backup = false;
+      #    undodir = "${config.users.users.mfaqiri.home}/.vim/undodir";
+      #undofile = true;
 
-            #    undodir = "${config.users.users.mfaqiri.home}/.vim/undodir";
-            #undofile = true;
+      hlsearch = false;
+      incsearch = true;
 
-        hlsearch = false;
-        incsearch = true;
+      termguicolors = true;
 
-        termguicolors = true;
+      scrolloff = 8;
+      signcolumn = "yes";
 
-        scrolloff = 8;
-        signcolumn = "yes";
+      updatetime = 50;
 
-        updatetime = 50;
-
-        colorcolumn = "80";
-
+      colorcolumn = "80";
+    };
   };
- };
 }

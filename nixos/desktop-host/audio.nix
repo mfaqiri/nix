@@ -4,7 +4,6 @@
     spotify
     ffmpeg
     qjackctl
-    carla
     lsp-plugins
   ];
 

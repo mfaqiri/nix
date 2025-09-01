@@ -9,7 +9,6 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [1337];
     };
 
     extraHosts = ''
