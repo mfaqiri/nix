@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: 
+let
+  isNixos = pkgs.stdenv.isLinux;
+in
+{
   programs.nvf.settings.vim = {
     lsp = {
       enable = true;
@@ -11,7 +15,7 @@
         };
     };
 
-    luaConfigPost = "${builtins.readFile ./after/gdscript.lua}";
+    luaConfigPost = lib.mkIf isNixos "${builtins.readFile ./after/gdscript.lua}";
 
     languages = {
       enableFormat = true;

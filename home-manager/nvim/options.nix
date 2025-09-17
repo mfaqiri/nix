@@ -17,7 +17,13 @@
       icon-picker.enable = true;
 
       images = {
-        image-nvim.enable = true;
+        image-nvim = {
+          enable = true;
+
+          setupOpts = {
+            backend = "kitty";
+          };
+        };
       };
 
       motion = {

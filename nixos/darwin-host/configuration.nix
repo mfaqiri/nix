@@ -22,7 +22,6 @@ in {
     docker
     awscli2
     curl
-    ueberzug
     yazi
   ];
 
