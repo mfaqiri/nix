@@ -5,8 +5,9 @@
 }: {
   imports = [
     inputs.nvf.homeManagerModules.default
+    inputs.hyprland.homeManagerModules.default
     ./nvim/nvim.nix
-    ./hyprland.nix
+    (import ./hyprland.nix { inherit inputs pkgs ;})
     ./theme.nix
     ./waybar.nix
     ./kitty.nix
@@ -33,6 +34,10 @@
     enable = true;
   };
   home.packages = with pkgs; [
+    clang-tools
+    arduino
+    arduino-language-server
+    arduino-cli
     p7zip
     fd
     ueberzugpp
@@ -118,7 +123,7 @@
 
       shellAliases = {
         ll = "ls -l";
-        update = "sudo nixos-rebuild switch --flake /home/mfaqiri/.config/nix#myNixos";
+        update = "sudo nixos-rebuild switch --flake /home/mfaqiri/.config/nix#desktop";
       };
 
       zplug = {

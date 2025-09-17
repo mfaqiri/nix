@@ -8,6 +8,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
 
@@ -15,17 +21,50 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf.url = "github:notashelf/nvf";
+
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
+    homebrew-mssql = {
+      url = "github:Microsoft/homebrew-mssql-release";
+      flake = false;
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
+    nix-darwin,
     ...
   } @ inputs: let
     system = "x86_64-linux";
   in {
     nixosConfigurations = {
-      myNixos = nixpkgs.lib.nixosSystem {
+      desktop = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+        };
+
+        modules = [
+          ./nixos/desktop-host/configuration.nix
+          inputs.lanzaboote.nixosModules.lanzaboote
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+
+      laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit system;
           inherit inputs;
@@ -33,8 +72,53 @@
 
         modules = [
           ./nixos/configuration.nix
-          inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.yourusername = import ./users/yourusername.nix;
+
+            # Pass inputs to Home Manager
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+          }
+        ];
+      };
+    };
+
+    darwinConfigurations = {
+      work-mac = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./configuration.nix
+          inputs.nvf.nixosModules.default
+          inputs.nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              # Install Homebrew under the default prefix
+              enable = true;
+
+              # User owning the Homebrew prefix
+              user = "mfaqiri";
+
+              autoMigrate = true;
+
+              # Optional: Declarative tap management
+              taps = {
+                "homebrew/homebrew-core" = inputs.homebrew-core;
+                "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                "Microsoft/homebrew-mssql-release" = inputs.homebrew-mssql;
+              };
+
+              # Optional: Enable fully-declarative tap management
+              #
+              # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
+              mutableTaps = true;
+            };
+          }
         ];
       };
     };

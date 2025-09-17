@@ -10,8 +10,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./desktop-host/desktopbundle.nix
-    ./nixosModules/modulebundle.nix
+    ./desktopbundle.nix
+    ../nixosModules/modulebundle.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -102,7 +102,7 @@
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
-      "mfaqiri" = import ../home-manager/home.nix;
+      "mfaqiri" = import ../../home-manager/home.nix;
     };
   };
 
