@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-25.05";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +24,7 @@
     nvf.url = "github:notashelf/nvf";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     homebrew-core = {
@@ -45,6 +46,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
     nix-darwin,
     ...
   } @ inputs: let
@@ -71,7 +73,7 @@
         };
 
         modules = [
-          ./nixos/configuration.nix
+          ./nixos/laptop-host/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -93,7 +95,7 @@
           inherit inputs;
         };
         modules = [
-          ./configuration.nix
+          ./nixos/darwin-host/configuration.nix
           inputs.nvf.nixosModules.default
           inputs.nix-homebrew.darwinModules.nix-homebrew
           {

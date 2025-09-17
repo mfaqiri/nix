@@ -13,6 +13,7 @@ in {
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     kitty
+    browserpass
     kubectl
     kind
     minikube
@@ -21,6 +22,8 @@ in {
     docker
     awscli2
     curl
+    ueberzug
+    yazi
   ];
 
   homebrew = {
@@ -30,12 +33,12 @@ in {
       "sqlcmd"
       "qemu"
       "k9s"
+      "jq"
       "python@3.12"
       "pinentry-mac"
       "spotify_player"
       "gnu-sed"
       "pass"
-      "colima"
       "helm"
       "pipx"
       "postgresql"
@@ -43,12 +46,17 @@ in {
       "zoxide"
       "msodbcsql18"
       "mssql-tools"
+      {
+        name = "hashicorp/tap/terraform";
+      }
+      {
+        name = "colima";
+        start_service = true;
+      }
     ];
 
     casks = [
-      "chromium"
       "librewolf"
-      "virtualbox"
     ];
   };
 
