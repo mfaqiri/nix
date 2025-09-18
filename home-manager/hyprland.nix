@@ -53,7 +53,6 @@
     enable = true;
     systemd.variables = ["--all"];
     plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
     ];
 
@@ -127,12 +126,6 @@
       "$terminal" = "kitty";
       "$fileManager" = "nautilus";
       "$menu" = "fuzzel";
-
-      plugin = {
-        hyprtrails = {
-          color = "rgba(ffaa00ff)";
-        };
-      };
 
       monitor = [
         "DP-3, 2560x1440@144, 0x0, 1"
