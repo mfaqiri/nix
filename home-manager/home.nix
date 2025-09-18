@@ -40,7 +40,6 @@
     arduino-cli
     p7zip
     fd
-    ueberzugpp
     wl-clipboard
     networkmanagerapplet
     hyprshot
