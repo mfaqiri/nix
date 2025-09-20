@@ -5,7 +5,6 @@
 }: {
   services.hyprpaper = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     settings = {
       ipc = "on";
@@ -51,9 +50,10 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd.variables = ["--all"];
     plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+      #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
     ];
 
     extraConfig =

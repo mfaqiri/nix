@@ -5,9 +5,8 @@
 }: {
   imports = [
     inputs.nvf.homeManagerModules.default
-    inputs.hyprland.homeManagerModules.default
     ./nvim/nvim.nix
-    (import ./hyprland.nix { inherit inputs pkgs ;})
+    ./hyprland.nix
     ./theme.nix
     ./waybar.nix
     ./kitty.nix
