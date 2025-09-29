@@ -177,6 +177,12 @@
   # Enable the OpenSSH daemon.
 
   programs = {
+    
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
+
     zsh.enable = true;
 
     gnupg.agent = {
