@@ -15,7 +15,7 @@ in
         };
     };
 
-    luaConfigPost = lib.mkIf isNixos "${builtins.readFile ./after/gdscript.lua}";
+    luaConfigPost = "${builtins.readFile ./after/setup.lua}";
 
     languages = {
       enableFormat = true;
