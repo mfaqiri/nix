@@ -21,22 +21,37 @@ end
 -- Add Python configuration for poetry run pytest
 local dap = require('dap')
 
-dap.configurations.python = {
-  {
-    type = 'python',
+-- Check if poetry exists before adding configurations
+
+if vim.fn.executable('poetry') == 1 then
+  table.insert(dap.configurations.python, {
+    type = 'debugpy',
     request = 'launch',
     name = "Debug pytest (current file)",
-    program = 'poetry',
-    args = { 'run', 'pytest', '${file}', '-v' },
+    module = 'pytest',
+    args = { '${file}', '-v' },
     console = 'integratedTerminal',
-  },
-  {
-    type = 'python',
+    pythonPath = function()
+      -- Get the python path from poetry environment
+      local handle = io.popen('poetry env info --path')
+      local poetry_path = handle:read('*l')
+      handle:close()
+      return poetry_path .. '/bin/python'
+    end,
+  })
+
+  table.insert(dap.configurations.python, {
+    type = 'debugpy',
     request = 'launch',
     name = "Debug pytest (all tests)",
-    program = 'poetry',
-    args = { 'run', 'pytest', '-v' },
+    module = 'pytest',
+    args = { '-v' },
     console = 'integratedTerminal',
-  },
-}
-
+    pythonPath = function()
+      local handle = io.popen('poetry env info --path')
+      local poetry_path = handle:read('*l')
+      handle:close()
+      return poetry_path .. '/bin/python'
+    end,
+  })
+end
