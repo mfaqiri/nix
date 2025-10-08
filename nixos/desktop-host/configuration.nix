@@ -112,9 +112,8 @@
     sbctl
     virtiofsd
     usbutils
-    cmake-language-server
+    neocmakelsp
     alsa-utils
-    libreoffice
     hunspell
     wget
     clinfo

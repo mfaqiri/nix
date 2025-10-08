@@ -17,7 +17,6 @@
   boot.kernelModules = ["kvm-amd" "v4l2loopback" "sg" "threadirqs"];
   boot.extraModulePackages = with pkgs; [
     vaapiVdpau
-    libvdpau-va-gl
   ];
 
   environment.systemPackages = with pkgs; [lact];
@@ -41,18 +40,6 @@
     ];
   };
 
-  systemd.tmpfiles.rules = let
-    rocmEnv = pkgs.symlinkJoin {
-      name = "rocm-combined";
-      paths = with pkgs.rocmPackages; [
-        rocblas
-        hipblas
-        clr
-      ];
-    };
-  in [
-    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-  ];
 
   hardware.bluetooth = {
     enable = true;

@@ -42,11 +42,9 @@
     wl-clipboard
     networkmanagerapplet
     hyprshot
-    pamixer
     parsec-bin
     prusa-slicer
     nautilus
-    lutris
     openvpn
     docker-compose
     postman
@@ -73,7 +71,6 @@
     gdtoolkit_4
     grim
     slurp
-    dolphin-emu
     (librewolf.override {nativeMessagingHosts = [passff-host];})
     makemkv
     parsec-bin

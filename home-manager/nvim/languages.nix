@@ -1,18 +1,31 @@
-{pkgs, lib, ...}: 
-let
-  isNixos = pkgs.stdenv.isLinux;
-in
 {
+  pkgs,
+  ...
+}: let
+  isNixos = pkgs.stdenv.isLinux;
+in {
   programs.nvf.settings.vim = {
     lsp = {
       enable = true;
 
       servers = {
-        gdscript = {};
-        cmake = {};
-        arduino_language_server = {};
-        bashls = {};
+        gdscript = {
+          # Use Godot as the language server
+          cmd = ["godot" "--headless" "--lsp-port" "6005"];
+          filetypes = ["gdscript"];
+          rootDir = ''require('lspconfig').util.root_pattern("project.godot", ".git")'';
+          settings = {
+            # Godot-specific settings
+          };
         };
+        neocmake = {};
+        arduino_language_server = {
+          cmd = ["arduino-language-server"];
+          filetypes = ["arduino"];
+          rootDir = ''require('lspconfig').util.root_pattern("*.ino", ".git")'';
+        };
+        bashls = {};
+      };
     };
 
     luaConfigPost = "${builtins.readFile ./after/setup.lua}";

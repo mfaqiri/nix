@@ -1,23 +1,3 @@
-require('lspconfig').bashls.setup({
-  filetypes = { "sh", "bash", "hyprlang" },
-})
-
-
-local port = os.getenv('GDScript_Port') or 6005
-local cmd = vim.lsp.rpc.connect('127.0.0.1', port)
-local pipe = '/tmp/godot.pipe'         -- I use /tmp/godot.pipe
-
-if vim.loop.fs_stat(pipe) then
-  vim.lsp.start({
-    name = 'Godot',
-    cmd = cmd,
-    root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot', '.git' }, { upward = true })[1]),
-    on_attach = function(client, bufnr)
-      vim.api.nvim_command('echo serverstart("' .. pipe .. '")')
-    end
-  })
-end
-
 -- Add Python configuration for poetry run pytest
 local dap = require('dap')
 
@@ -55,3 +35,21 @@ if vim.fn.executable('poetry') == 1 then
     end,
   })
 end
+
+
+-- Arduino filetype detection
+vim.filetype.add({
+  extension = {
+    ino = "arduino",
+  },
+})
+
+-- Arduino-specific keymaps
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "arduino",
+  callback = function()
+    local opts = { buffer = 0 }
+    vim.keymap.set('n', '<leader>ac', ':!arduino-cli compile -b arduino:avr:uno %<CR>', opts)
+    vim.keymap.set('n', '<leader>au', ':!arduino-cli upload -b arduino:avr:uno -p /dev/ttyACM0 %<CR>', opts)
+  end,
+})
