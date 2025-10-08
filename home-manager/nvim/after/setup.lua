@@ -21,9 +21,21 @@ end
 -- Add Python configuration for poetry run pytest
 local dap = require('dap')
 
--- Check if poetry exists before adding configurations
-
 if vim.fn.executable('poetry') == 1 then
+  local function get_python_path()
+    -- Get the actual python executable path from poetry
+    local handle = io.popen('poetry run which python 2>/dev/null')
+    if handle then
+      local python_path = handle:read('*l')
+      handle:close()
+      if python_path and python_path ~= '' and vim.fn.executable(python_path) == 1 then
+        return python_path
+      end
+    end
+    -- Fallback to system python
+    return vim.fn.exepath('python3') or vim.fn.exepath('python') or 'python'
+  end
+
   table.insert(dap.configurations.python, {
     type = 'debugpy',
     request = 'launch',
@@ -31,13 +43,8 @@ if vim.fn.executable('poetry') == 1 then
     module = 'pytest',
     args = { '${file}', '-v' },
     console = 'integratedTerminal',
-    pythonPath = function()
-      -- Get the python path from poetry environment
-      local handle = io.popen('poetry env info --path')
-      local poetry_path = handle:read('*l')
-      handle:close()
-      return poetry_path .. '/bin/python'
-    end,
+    pythonPath = get_python_path(),  -- Note: calling the function here, not passing the function
+    cwd = '${workspaceFolder}',
   })
 
   table.insert(dap.configurations.python, {
@@ -47,11 +54,7 @@ if vim.fn.executable('poetry') == 1 then
     module = 'pytest',
     args = { '-v' },
     console = 'integratedTerminal',
-    pythonPath = function()
-      local handle = io.popen('poetry env info --path')
-      local poetry_path = handle:read('*l')
-      handle:close()
-      return poetry_path .. '/bin/python'
-    end,
+    pythonPath = get_python_path(),  -- Note: calling the function here, not passing the function
+    cwd = '${workspaceFolder}',
   })
 end
