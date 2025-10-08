@@ -7,12 +7,51 @@
     shellIntegration.enableZshIntegration = true;
 
     keybindings = {
-      "ctrl+space" = "kitty_mod";
+      "ctrl+shift" = "kitty_mod";
 
       "kitty_mod+h" = "move_window left";
       "kitty_mod+j" = "move_window bottom";
       "kitty_mod+k" = "move_window top";
       "kitty_mod+l" = "move_window right";
+      "kitty_mod+t" = "new_tab";
+      "kitty_mod+w" = "close_tab";
+      "ctrl+tab" = "next_tab";
+      "kitty_mod+tab" = "previous_tab";
+
+
+      # === WINDOW NAVIGATION ===
+      # Directional movement
+      "kitty_mod+x" = "close_window";
+      "ctrl+h" = "neighboring_window left";
+      "ctrl+j" = "neighboring_window down";
+      "ctrl+k" = "neighboring_window up";
+      "ctrl+l" = "neighboring_window right";
+
+
+      "kitty_mod+enter" = "new_window";
+      "kitty_mod+b" = "launch --location=vsplit";
+      "kitty_mod+s" = "launch --location=hsplit";
+
+            # Tab navigation by number
+      "kitty_mod+1" = "goto_tab 1";
+      "kitty_mod+2" = "goto_tab 2";
+      "kitty_mod+3" = "goto_tab 3";
+      "kitty_mod+4" = "goto_tab 4";
+      "kitty_mod+5" = "goto_tab 5";
+      "kitty_mod+6" = "goto_tab 6";
+      "kitty_mod+7" = "goto_tab 7";
+      "kitty_mod+8" = "goto_tab 8";
+      "kitty_mod+9" = "goto_tab 9";
+
+            # Window Resizing
+      "ctrl+shift+alt+h" = "resize_window narrower";
+      "ctrl+shift+alt+l" = "resize_window wider";
+      "ctrl+shift+alt+k" = "resize_window taller";
+      "ctrl+shift+alt+j" = "resize_window shorter";
+      
+      # Layout Management
+      "ctrl+shift+z" = "toggle_layout stack";
+      "ctrl+shift+space" = "next_layout";
     };
 
     settings = {

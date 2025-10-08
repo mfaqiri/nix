@@ -5,7 +5,6 @@
     heroic
     winetricks
     wineWowPackages.staging
-    shadps4
     mangohud
   ];
 

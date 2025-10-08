@@ -42,11 +42,9 @@
     wl-clipboard
     networkmanagerapplet
     hyprshot
-    pamixer
     parsec-bin
     prusa-slicer
     nautilus
-    lutris
     openvpn
     docker-compose
     postman
@@ -73,12 +71,12 @@
     gdtoolkit_4
     grim
     slurp
-    dolphin-emu
     (librewolf.override {nativeMessagingHosts = [passff-host];})
     makemkv
     parsec-bin
     transmission_4-gtk
     discord
+    rpcs3
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
