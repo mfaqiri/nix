@@ -21,6 +21,7 @@
 
       # === WINDOW NAVIGATION ===
       # Directional movement
+      "kitty_mod+x" = "close_window";
       "ctrl+h" = "neighboring_window left";
       "ctrl+j" = "neighboring_window down";
       "ctrl+k" = "neighboring_window up";
