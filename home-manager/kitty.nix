@@ -15,12 +15,20 @@
       "kitty_mod+l" = "move_window right";
       "kitty_mod+t" = "new_tab";
       "kitty_mod+w" = "close_tab";
-      "ctrl+l" = "next_tab";
-      "ctrl+h" = "previous_tab";
+      "ctrl+tab" = "next_tab";
+      "kitty_mod+tab" = "previous_tab";
+
+
+      # === WINDOW NAVIGATION ===
+      # Directional movement
+      "ctrl+h" = "neighboring_window left";
+      "ctrl+j" = "neighboring_window down";
+      "ctrl+k" = "neighboring_window up";
+      "ctrl+l" = "neighboring_window right";
 
 
       "kitty_mod+enter" = "new_window";
-      "kitty_mod+v" = "launch --location=vsplit";
+      "kitty_mod+b" = "launch --location=vsplit";
       "kitty_mod+s" = "launch --location=hsplit";
 
             # Tab navigation by number
