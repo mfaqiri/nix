@@ -6,8 +6,13 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-25.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager-stable = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
@@ -120,6 +125,75 @@
               #
               # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
               mutableTaps = true;
+            };
+          }
+          inputs.home-manager-stable.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.mfaqiri = {
+              config,
+              pkgs,
+              lib,
+              ...
+            }: {
+              imports = [./home-manager/kitty.nix];
+              home.stateVersion = "25.05";
+              home.username = "mfaqiri";
+              home.homeDirectory = lib.mkForce "/Users/mfaqiri";
+
+              programs = {
+                home-manager.enable = true;
+                zsh = {
+                  enable = true;
+                  enableCompletion = true;
+                  syntaxHighlighting.enable = true;
+
+                  shellAliases = {
+                    ll = "ls -l";
+                    sed = "gsed";
+                    update = "sudo HOMEBREW_ACCEPT_EULA=YES nixos-rebuild switch --flake /home/mfaqiri/.config/nix#work-mac";
+                  };
+
+                  initContent =
+                    /*
+                    bash
+                    */
+                    ''
+                      # Source any other private zsh config
+                      if [[ -f ~/.zshrc.private ]]; then
+                        source ~/.zshrc.private
+                      fi
+                    '';
+
+                  zplug = {
+                    enable = true;
+                    plugins = [
+                      {name = "zsh-users/zsh-autosuggestions";}
+                      {
+                        name = "ergenekonyigit/lambda-gitster";
+                        tags = ["as:theme"];
+                      }
+                      {name = "chisui/zsh-nix-shell";}
+                    ];
+                  };
+
+                  history.size = 10000;
+                  history.ignoreAllDups = true;
+                  history.path = "$HOME/.zsh_history";
+                };
+                yazi = {
+                  enable = true;
+                  enableZshIntegration = true;
+                };
+
+                zoxide = {
+                  enable = true;
+                  enableZshIntegration = true;
+                  options = ["--cmd cd"];
+                };
+              };
             };
           }
         ];

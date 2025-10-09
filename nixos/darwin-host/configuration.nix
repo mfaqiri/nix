@@ -6,23 +6,19 @@
   self = inputs.self;
 in {
   imports = [
-    ./tmux.nix
     ../../home-manager/nvim/nvim.nix
   ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    kitty
     browserpass
     kubectl
     kind
     minikube
     newman
-    zoxide
     docker
     awscli2
     curl
-    yazi
   ];
 
   homebrew = {

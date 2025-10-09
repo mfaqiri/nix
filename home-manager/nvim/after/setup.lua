@@ -1,4 +1,5 @@
 -- Add Python configuration for poetry run pytest
+vim.g.deprecation_warnings = false
 local dap = require('dap')
 
 if vim.fn.executable('poetry') == 1 then
