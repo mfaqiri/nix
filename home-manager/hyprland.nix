@@ -3,24 +3,42 @@
   inputs,
   ...
 }: {
-  services.hyprpaper = {
-    enable = true;
+  home.packages = with pkgs; [
+    mako
+    libnotify
+  ];
+  services = {
+    mako = {
+      enable = true;
+      # Optional: basic configuration
+      settings = {
+        backgroundColor = "#2e3440";
+        textColor = "#eceff4";
+        borderColor = "#88c0d0";
+        progressColor = "over #5e81ac";
+        defaultTimeout = 5000;
+        ignoreTimeout = false;
+      };
+    };
+    hyprpaper = {
+      enable = true;
 
-    settings = {
-      ipc = "on";
-      splash = false;
+      settings = {
+        ipc = "on";
+        splash = false;
 
-      preload = [
-        "/home/mfaqiri/Pictures/Wallpapers/japanese_house_1440x2560.png"
-        "/home/mfaqiri/Pictures/Wallpapers/small_neighborhood_3840x2160.png"
-        "/home/mfaqiri/Pictures/Wallpapers/woods_mountain.png"
-      ];
+        preload = [
+          "/home/mfaqiri/Pictures/Wallpapers/japanese_house_1440x2560.png"
+          "/home/mfaqiri/Pictures/Wallpapers/small_neighborhood_3840x2160.png"
+          "/home/mfaqiri/Pictures/Wallpapers/woods_mountain.png"
+        ];
 
-      wallpaper = [
-        "DP-2,/home/mfaqiri/Pictures/Wallpapers/japanese_house_1440x2560.png"
-        "DP-1,/home/mfaqiri/Pictures/Wallpapers/small_neighborhood_3840x2160.png"
-        "DP-3,/home/mfaqiri/Pictures/Wallpapers/woods_mountain.png"
-      ];
+        wallpaper = [
+          "DP-2,/home/mfaqiri/Pictures/Wallpapers/japanese_house_1440x2560.png"
+          "DP-1,/home/mfaqiri/Pictures/Wallpapers/small_neighborhood_3840x2160.png"
+          "DP-3,/home/mfaqiri/Pictures/Wallpapers/woods_mountain.png"
+        ];
+      };
     };
   };
 
@@ -61,65 +79,114 @@
       hyprlang
       */
       ''
-        exec-once = waybar
+          exec-once = waybar
 
-        workspace = 3, monitor:DP-2
-        workspace = 2, monitor:DP-1
-        workspace = 1, monitor:DP-3
+          workspace = 3, monitor:DP-2
+          workspace = 2, monitor:DP-1
+          workspace = 1, monitor:DP-3
 
-                animations {
-                           enabled = yes, please :)
+          animations {
+                     enabled = yes, please :)
 
-                           # Default animations, see https://wiki.hypr.land/Configuring/Animations/ for more
+                     # Default animations, see https://wiki.hypr.land/Configuring/Animations/ for more
 
-                           bezier = easeOutQuint,0.23,1,0.32,1
-                           bezier = easeInOutCubic,0.65,0.05,0.36,1
-                           bezier = linear,0,0,1,1
-                           bezier = almostLinear,0.5,0.5,0.75,1.0
-                           bezier = quick,0.15,0,0.1,1
+                     bezier = easeOutQuint,0.23,1,0.32,1
+                     bezier = easeInOutCubic,0.65,0.05,0.36,1
+                     bezier = linear,0,0,1,1
+                     bezier = almostLinear,0.5,0.5,0.75,1.0
+                     bezier = quick,0.15,0,0.1,1
 
-                           animation = global, 1, 10, default
-                           animation = border, 1, 5.39, easeOutQuint
-                           animation = windows, 1, 4.79, easeOutQuint
-                           animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
-                           animation = windowsOut, 1, 1.49, linear, popin 87%
-                           animation = fadeIn, 1, 1.73, almostLinear
-                           animation = fadeOut, 1, 1.46, almostLinear
-                           animation = fade, 1, 3.03, quick
-                           animation = layers, 1, 3.81, easeOutQuint
-                           animation = layersIn, 1, 4, easeOutQuint, fade
-                           animation = layersOut, 1, 1.5, linear, fade
-                           animation = fadeLayersIn, 1, 1.79, almostLinear
-                           animation = fadeLayersOut, 1, 1.39, almostLinear
-                           animation = workspaces, 1, 1.94, almostLinear, fade
-                           animation = workspacesIn, 1, 1.21, almostLinear, fade
-                           animation = workspacesOut, 1, 1.94, almostLinear, fade
-                       }
-
-                       decoration {
-                     rounding = 10
-                     rounding_power = 2
-
-                     # Change transparency of focused and unfocused windows
-                     active_opacity = 1.0
-                     inactive_opacity = 1.0
-
-                     shadow {
-                         enabled = true
-                         range = 4
-                         render_power = 3
-                         color = rgba(1a1a1aee)
-                     }
-
-                     # https://wiki.hypr.land/Configuring/Variables/#blur
-                     blur {
-                         enabled = true
-                         size = 3
-                         passes = 1
-
-                         vibrancy = 0.1696
-                     }
+                     animation = global, 1, 10, default
+                     animation = border, 1, 5.39, easeOutQuint
+                     animation = windows, 1, 4.79, easeOutQuint
+                     animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
+                     animation = windowsOut, 1, 1.49, linear, popin 87%
+                     animation = fadeIn, 1, 1.73, almostLinear
+                     animation = fadeOut, 1, 1.46, almostLinear
+                     animation = fade, 1, 3.03, quick
+                     animation = layers, 1, 3.81, easeOutQuint
+                     animation = layersIn, 1, 4, easeOutQuint, fade
+                     animation = layersOut, 1, 1.5, linear, fade
+                     animation = fadeLayersIn, 1, 1.79, almostLinear
+                     animation = fadeLayersOut, 1, 1.39, almostLinear
+                     animation = workspaces, 1, 1.94, almostLinear, fade
+                     animation = workspacesIn, 1, 1.21, almostLinear, fade
+                     animation = workspacesOut, 1, 1.94, almostLinear, fade
                  }
+
+                 decoration {
+               rounding = 10
+               rounding_power = 2
+
+               # Change transparency of focused and unfocused windows
+               active_opacity = 1.0
+               inactive_opacity = 1.0
+
+               shadow {
+                   enabled = true
+                   range = 4
+                   render_power = 3
+                   color = rgba(1a1a1aee)
+               }
+
+               # https://wiki.hypr.land/Configuring/Variables/#blur
+               blur {
+                   enabled = true
+                   size = 3
+                   passes = 1
+
+                   vibrancy = 0.1696
+               }
+           }
+
+
+          # Steam overlay window rules
+          windowrulev2 = stayfocused, title:^()$,class:^(steam)$
+          windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
+          windowrulev2 = noinitialfocus, class:^(steam)$, title:^(notificationtoasts.*)$
+
+          # Steam game window rules
+          windowrulev2 = immediate, class:^(steam_app_)(.*)$
+          windowrulev2 = immediate, class:^(steam_proton)$
+          windowrulev2 = fullscreen, class:^(steam_app_)(.*)$
+
+          # Fix Steam overlay layering
+          windowrulev2 = float, class:^(steam)$, title:^(Steam)$
+          windowrulev2 = workspace special, class:^(steam)$, title:^(Steam - News)$
+          # In hyprland.conf
+          layerrule = blur, steam
+          layerrule = ignorezero, steam
+          layerrule = noanim, steam
+
+          # Fix input capture for Steam overlay
+        input {
+            follow_mouse = 1
+            force_no_accel = true
+
+            # Important for Steam overlay
+            special_fallthrough = true
+        }
+
+        misc {
+            vfr = true                    # Variable refresh rate
+            vrr = 1                      # Variable refresh rate mode
+
+            # These help with Steam overlay
+            disable_hyprland_logo = true
+            disable_splash_rendering = true
+
+            # Focus behavior that helps overlays
+            always_follow_on_dnd = true
+            layers_hog_keyboard_focus = true
+
+            # Animation performance
+            animate_manual_resizes = false
+            animate_mouse_windowdragging = false
+
+            # Window behavior
+            enable_swallow = true
+            swallow_regex = ^(kitty|alacritty|foot)$
+        }
       '';
     settings = {
       "$mod" = "SUPER";

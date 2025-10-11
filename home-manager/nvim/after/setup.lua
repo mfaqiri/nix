@@ -24,7 +24,7 @@ if vim.fn.executable('poetry') == 1 then
     module = 'pytest',
     args = { '${file}', '-v' },
     console = 'integratedTerminal',
-    pythonPath = get_python_path(),  -- Note: calling the function here, not passing the function
+    pythonPath = get_python_path(), -- Note: calling the function here, not passing the function
     cwd = '${workspaceFolder}',
   })
 
@@ -35,7 +35,7 @@ if vim.fn.executable('poetry') == 1 then
     module = 'pytest',
     args = { '-v' },
     console = 'integratedTerminal',
-    pythonPath = get_python_path(),  -- Note: calling the function here, not passing the function
+    pythonPath = get_python_path(), -- Note: calling the function here, not passing the function
     cwd = '${workspaceFolder}',
   })
 end
@@ -59,33 +59,34 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
-  -- Define exactly which file extensions should get word processor mode
-  local word_processor_files = {
-    "*.txt",
-    "*.text",
-    "*.doc",
-    "*.rtf",
-    -- Add any other extensions you want
-  }
+-- Define exactly which file extensions should get word processor mode
+local word_processor_files = {
+  "*.txt",
+  "*.text",
+  "*.doc",
+  "*.rtf",
+  -- Add any other extensions you want
+}
 
-  -- Function to enable word processor mode
-  local function setup_word_processor()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-    vim.opt_local.spell = true
-    vim.opt_local.spelllang = "en_us"
-    vim.opt_local.textwidth = 80
-    vim.opt_local.colorcolumn = "80"
+-- Function to enable word processor mode
+local function setup_word_processor()
+  vim.opt_local.wrap = true
+  vim.opt_local.linebreak = true
+  vim.opt_local.spell = true
+  vim.opt_local.spelllang = "en_us"
+  vim.opt_local.textwidth = 80
+  vim.opt_local.colorcolumn = "80"
 
-    -- Movement keybindings for this buffer only
-    local opts = { buffer = true, silent = true }
-    vim.keymap.set({'n', 'v'}, 'j', 'gj', opts)
-    vim.keymap.set({'n', 'v'}, 'k', 'gk', opts)
-    vim.keymap.set('n', '<leader>fp', 'gwap', opts)
-  end
+  -- Movement keybindings for this buffer only
+  local opts = { buffer = true, silent = true }
+  vim.keymap.set({ 'n', 'v' }, 'j', 'gj', opts)
+  vim.keymap.set({ 'n', 'v' }, 'k', 'gk', opts)
+  vim.keymap.set('n', '<leader>fp', 'gwap', opts)
+end
 
-  -- Apply to specific file patterns
-  vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = word_processor_files,
-    callback = setup_word_processor
-  })
+-- Apply to specific file patterns
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = word_processor_files,
+  callback = setup_word_processor
+})
+
