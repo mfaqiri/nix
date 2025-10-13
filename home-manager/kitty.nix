@@ -22,10 +22,10 @@
       # === WINDOW NAVIGATION ===
       # Directional movement
       "kitty_mod+x" = "close_window";
-      "ctrl+h" = "neighboring_window left";
-      "ctrl+j" = "neighboring_window down";
-      "ctrl+k" = "neighboring_window up";
-      "ctrl+l" = "neighboring_window right";
+      "alt+h" = "neighboring_window left";
+      "alt+j" = "neighboring_window down";
+      "alt+k" = "neighboring_window up";
+      "alt+l" = "neighboring_window right";
 
 
       "kitty_mod+enter" = "new_window";

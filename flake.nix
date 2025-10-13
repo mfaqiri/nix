@@ -153,7 +153,7 @@
                   shellAliases = {
                     ll = "ls -l";
                     sed = "gsed";
-                    update = "sudo HOMEBREW_ACCEPT_EULA=YES nixos-rebuild switch --flake /home/mfaqiri/.config/nix#work-mac";
+                    update = "sudo HOMEBREW_ACCEPT_EULA=YES darwin-rebuild switch --flake /Users/mfaqiri/.config/nix#work-mac";
                   };
 
                   initContent =
@@ -183,6 +183,7 @@
                   history.ignoreAllDups = true;
                   history.path = "$HOME/.zsh_history";
                 };
+
                 yazi = {
                   enable = true;
                   enableZshIntegration = true;
