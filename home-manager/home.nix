@@ -33,6 +33,7 @@
     enable = true;
   };
   home.packages = with pkgs; [
+    parsec-bin
     clang-tools
     arduino
     arduino-language-server
@@ -77,6 +78,7 @@
     transmission_4-gtk
     discord
     rpcs3
+    ludusavi
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -177,4 +179,15 @@
   #
 
   # Let Home Manager install and manage itself.
+  # home.nix
+xdg.mimeApps = {
+  enable = true;
+  associations.added = {
+    "x-scheme-handler/parsec" = "parsecd.desktop";
+  };
+  defaultApplications = {
+    "x-scheme-handler/parsec" = "parsecd.desktop";
+  };
+};
+
 }
