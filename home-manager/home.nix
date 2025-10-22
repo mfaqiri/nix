@@ -29,10 +29,13 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
 
-  fonts.fontconfig = {
-    enable = true;
+  fonts = {
+    fontconfig = {
+      enable = true;
+    };
   };
   home.packages = with pkgs; [
+    bash-language-server
     parsec-bin
     clang-tools
     arduino
@@ -87,7 +90,6 @@
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -139,10 +141,85 @@
       history.size = 10000;
       history.ignoreAllDups = true;
       history.path = "$HOME/.zsh_history";
+
+      initExtra =
+        /*
+        bash
+        */
+        ''
+          # Fix delete key
+          bindkey "^[[3~" delete-char
+        '';
     };
     yazi = {
       enable = true;
       enableZshIntegration = true;
+
+      settings = {
+        opener = {
+          video = [
+            {
+              run = ''vlc "$@"'';
+              desc = "VLC Media Player";
+              for = "unix";
+            }
+            {
+              run = ''vlc "$@" &'';
+              desc = "VLC (background)";
+              for = "unix";
+            }
+          ];
+        };
+
+        open = {
+          rules = [
+            {
+              name = "*/";
+              use = ["edit" "open" "reveal"];
+            }
+            {
+              mime = "video/*";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/mp4";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/mpeg";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/x-msvideo";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/quicktime";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/x-matroska";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/webm";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/x-flv";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/3gpp";
+              use = ["video" "reveal"];
+            }
+            {
+              mime = "video/x-ms-wmv";
+              use = ["video" "reveal"];
+            }
+          ];
+        };
+      };
     };
 
     zoxide = {
@@ -180,14 +257,32 @@
 
   # Let Home Manager install and manage itself.
   # home.nix
-xdg.mimeApps = {
-  enable = true;
-  associations.added = {
-    "x-scheme-handler/parsec" = "parsecd.desktop";
-  };
-  defaultApplications = {
-    "x-scheme-handler/parsec" = "parsecd.desktop";
-  };
-};
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "x-scheme-handler/parsec" = "parsecd.desktop";
+    };
+    defaultApplications = {
+      "x-scheme-handler/parsec" = "parsecd.desktop";
 
+      # Video formats
+      "video/mp4" = "vlc.desktop";
+      "video/mpeg" = "vlc.desktop";
+      "video/x-msvideo" = "vlc.desktop";
+      "video/quicktime" = "vlc.desktop";
+      "video/x-matroska" = "vlc.desktop";
+      "video/webm" = "vlc.desktop";
+      "video/x-flv" = "vlc.desktop";
+      "video/3gpp" = "vlc.desktop";
+      "video/x-ms-wmv" = "vlc.desktop";
+      "video/ogg" = "vlc.desktop";
+
+      # Audio formats (optional)
+      "audio/mpeg" = "vlc.desktop";
+      "audio/mp4" = "vlc.desktop";
+      "audio/x-wav" = "vlc.desktop";
+      "audio/ogg" = "vlc.desktop";
+      "audio/x-flac" = "vlc.desktop";
+    };
+  };
 }

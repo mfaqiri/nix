@@ -27,6 +27,9 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix.url = "github:Mic92/sops-nix";
+
     nvf.url = "github:notashelf/nvf";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
@@ -63,13 +66,17 @@
         specialArgs = {
           inherit system;
           inherit inputs;
+          secretsPath = ./secrets;
         };
 
         modules = [
           ./nixos/desktop-host/configuration.nix
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.home-manager.nixosModules.default
+          inputs.sops-nix.nixosModules.sops
         ];
+
+
       };
 
       laptop = nixpkgs.lib.nixosSystem {

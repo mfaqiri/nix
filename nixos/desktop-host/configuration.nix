@@ -5,6 +5,7 @@
   inputs,
   lib,
   pkgs,
+  secretsPath,
   ...
 }: {
   imports = [
@@ -38,6 +39,8 @@
   time.timeZone = "America/New_York";
 
   fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
@@ -100,6 +103,7 @@
   };
 
   home-manager = {
+    backupFileExtension = "bak";
     extraSpecialArgs = {inherit inputs;};
     users = {
       "mfaqiri" = import ../../home-manager/home.nix;
@@ -109,6 +113,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    libwacom
+    libinput
     sbctl
     virtiofsd
     usbutils
@@ -125,7 +131,13 @@
 
   services = {
     pcscd.enable = true;
-    udev.packages = [pkgs.yubikey-personalization];
+    udev = {
+      packages = with pkgs; [yubikey-personalization libwacom];
+      extraRules = ''
+        SUBSYSTEM=="input", ATTRS{idVendor}=="056a", MODE="0664", GROUP="input", TAG+="uaccess"
+      '';
+    };
+
     displayManager = {
       ly.enable = true;
       sessionPackages = [
@@ -176,7 +188,6 @@
   # Enable the OpenSSH daemon.
 
   programs = {
-    
     appimage = {
       enable = true;
       binfmt = true;
@@ -218,5 +229,12 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+
+  sops = {
+    defaultSopsFile = "${secretsPath}/secrets.yaml";
+    secrets = {
+    };
+  };
+
   system.stateVersion = "24.05"; # Did you read the comment?
 }

@@ -68,6 +68,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd.variables = ["--all"];
     plugins = [
@@ -165,6 +166,12 @@
 
             # Important for Steam overlay
             special_fallthrough = true
+            
+            tablet {
+              transform = 0
+              output = DP-3
+              relative_input = false
+            }
         }
 
         misc {

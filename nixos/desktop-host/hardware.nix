@@ -1,7 +1,5 @@
 { pkgs, ... }: {
 
-    hardware.opentabletdriver.enable = true;
-
   systemd.services."config-mglru" = {
     enable = true;
     after = ["basic.target"];

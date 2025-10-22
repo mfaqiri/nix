@@ -13,11 +13,12 @@
         servers = {
           gdscript = {
             # Use Godot as the language server
-            cmd = ["godot" "--headless" "--lsp-port" "6005"];
-            filetypes = ["gdscript"];
+            cmd = ["nc" "localhost" "6005"];
+            filetypes = ["gdscript" "gdscript3"];
             rootDir = ''vim.lsp.config.util.root_pattern("project.godot", ".git")'';
             settings = {
               # Godot-specific settings
+              enable = true;
             };
           };
           neocmake = {};

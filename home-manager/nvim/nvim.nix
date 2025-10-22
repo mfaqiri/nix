@@ -9,6 +9,11 @@
 
     settings = {
       vim = {
+        assistant.avante-nvim = {
+          enable = true;
+
+
+        };
         binds = {
           cheatsheet.enable = true;
           whichKey.enable = true;
