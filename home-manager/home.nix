@@ -80,7 +80,7 @@
     parsec-bin
     transmission_4-gtk
     discord
-    rpcs3
+    #rpcs3
     ludusavi
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.

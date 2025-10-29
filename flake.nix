@@ -72,7 +72,12 @@
         modules = [
           ./nixos/desktop-host/configuration.nix
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager{
+
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "bak";
+            }
           inputs.sops-nix.nixosModules.sops
         ];
 
