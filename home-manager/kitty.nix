@@ -1,6 +1,10 @@
 {...}: {
   programs.kitty = {
     enable = true;
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 14;
+    };
 
     enableGitIntegration = true;
 
@@ -84,7 +88,7 @@
           "U+E5FA-U+E62B"
         ];
       in
-        (builtins.concatStringsSep "," mappings) + " Symbols Nerd Font";
+        (builtins.concatStringsSep "," mappings) + " PowerlineSymbols";
     };
   };
 }

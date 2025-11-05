@@ -44,8 +44,6 @@
 
         clang.enable = true;
 
-        csharp.enable = true;
-
         css.enable = true;
         css.format.package = pkgs.nodePackages.prettier;
 

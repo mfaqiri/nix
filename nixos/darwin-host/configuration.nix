@@ -25,7 +25,6 @@ in {
     enable = true;
 
     brews = [
-      "sqlcmd"
       "qemu"
       "k9s"
       "jq"
@@ -42,9 +41,6 @@ in {
       "msodbcsql18"
       "mssql-tools"
       {
-        name = "hashicorp/tap/terraform";
-      }
-      {
         name = "colima";
         start_service = true;
       }
@@ -54,6 +50,25 @@ in {
       "librewolf"
     ];
   };
+  fonts.packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+      mplus-outline-fonts.githubRelease
+      dina-font
+      proggyfonts
+      font-awesome
+      powerline-fonts
+      powerline-symbols
+      fira-code
+      fira-code-symbols
+      liberation_ttf
+    ];
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
@@ -68,8 +83,12 @@ in {
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
   system.primaryUser = "mfaqiri";
+  security.pam.services.sudo_local = {
+    enable = true;
+    touchIdAuth = true;
+  };
 
   # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "x86_64-darwin";
+  nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
 }
