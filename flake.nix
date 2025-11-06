@@ -72,16 +72,14 @@
         modules = [
           ./nixos/desktop-host/configuration.nix
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.home-manager.nixosModules.home-manager{
-
+          inputs.home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
-            }
+          }
           inputs.sops-nix.nixosModules.sops
         ];
-
-
       };
 
       laptop = nixpkgs.lib.nixosSystem {
@@ -151,11 +149,79 @@
               ...
             }: {
               imports = [./home-manager/kitty.nix];
-              home.stateVersion = "25.05";
-              home.username = "mfaqiri";
-              home.homeDirectory = lib.mkForce "/Users/mfaqiri";
+              home = {
+                stateVersion = "25.05";
+                username = "mfaqiri";
+                homeDirectory = lib.mkForce "/Users/mfaqiri";
+                file.".gitconfig-godaddy".text = ''
+                  [user]
+                    name = Mansoor Faqiri
+                    email = mfaqiri@godaddy.com
+                '';
+              };
+              fonts.fontconfig.enable = true;
 
               programs = {
+                git = {
+                  enable = true;
+                  userName = "Mansoor Faqiri";
+                  userEmail = "mzfaqiri@gmail.com";
+
+                  extraConfig = {
+                    core = {
+                      editor = "nvim";
+                    };
+                    init = {
+                      defaultBranch = "main";
+                    };
+                    pull = {
+                      rebase = false;
+                    };
+                    # This ensures includeIf comes at the end
+                  };
+
+                  includes = [
+                    {
+                      condition = "gitdir:~/projects/GoDaddy/";
+                      path = "~/.gitconfig-godaddy";
+                    }
+                  ];
+                  # Git aliases (optional)
+                  aliases = {
+                    st = "status";
+                    co = "checkout";
+                    br = "branch";
+                    ci = "commit";
+                    unstage = "reset HEAD --";
+                  };
+                };
+                ssh = {
+                  enable = true;
+
+                  matchBlocks = {
+                    # Personal GitHub account
+                    "github.com" = {
+                      hostname = "github.com";
+                      user = "git";
+                      identityFile = "~/.ssh/id_ed25519_personal";
+                      extraOptions = {
+                        AddKeysToAgent = "yes";
+                        UseKeychain = "yes";
+                      };
+                    };
+
+                    # Work GitHub account
+                    "github.com-godaddy" = {
+                      hostname = "github.com";
+                      user = "git";
+                      identityFile = "~/.ssh/id_ed25519_godaddy";
+                      extraOptions = {
+                        AddKeysToAgent = "yes";
+                        UseKeychain = "yes";
+                      };
+                    };
+                  };
+                };
                 home-manager.enable = true;
                 zsh = {
                   enable = true;
@@ -173,6 +239,9 @@
                     bash
                     */
                     ''
+                      export DOCKER_HOST=unix:///Users/$USER/.colima/docker.sock
+                      export TERM=xterm-256color
+                      eval "$(direnv hook zsh)"
                       # Source any other private zsh config
                       if [[ -f ~/.zshrc.private ]]; then
                         source ~/.zshrc.private

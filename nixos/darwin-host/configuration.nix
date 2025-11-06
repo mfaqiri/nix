@@ -40,6 +40,7 @@ in {
       "zoxide"
       "msodbcsql18"
       "mssql-tools"
+      "direnv"
       {
         name = "colima";
         start_service = true;
