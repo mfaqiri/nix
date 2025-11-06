@@ -155,7 +155,6 @@
                 homeDirectory = lib.mkForce "/Users/mfaqiri";
                 file.".gitconfig-godaddy".text = ''
                   [user]
-                    name = Mansoor Faqiri
                     email = mfaqiri@godaddy.com
                 '';
               };
