@@ -4,8 +4,6 @@
     spice
     spice-gtk
     spice-protocol
-    win-virtio
-    win-spice
   ];
 
   programs.virt-manager.enable = true;

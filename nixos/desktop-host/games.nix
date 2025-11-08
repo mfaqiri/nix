@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     mono
-    protonup
+    protonup-ng
     heroic
     winetricks
     wineWowPackages.staging

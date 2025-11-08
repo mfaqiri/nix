@@ -16,7 +16,7 @@
   boot.initrd.kernelModules = ["amdgpu"];
   boot.kernelModules = ["kvm-amd" "v4l2loopback" "sg" "threadirqs"];
   boot.extraModulePackages = with pkgs; [
-    vaapiVdpau
+    libva-vdpau-driver
   ];
 
   environment.systemPackages = with pkgs; [lact];
