@@ -166,7 +166,7 @@
 
             # Important for Steam overlay
             special_fallthrough = true
-            
+
             tablet {
               transform = 0
               output = DP-3
@@ -233,30 +233,6 @@
           "$mod SHIFT, K, movewindow, u"
           "$mod SHIFT, J, movewindow, d"
 
-          # Switch workspaces with mod + [0-9]
-          "$mod, 1, workspace, 1"
-          "$mod, 2, workspace, 2"
-          "$mod, 3, workspace, 3"
-          "$mod, 4, workspace, 4"
-          "$mod, 5, workspace, 5"
-          "$mod, 6, workspace, 6"
-          "$mod, 7, workspace, 7"
-          "$mod, 8, workspace, 8"
-          "$mod, 9, workspace, 9"
-          "$mod, 0, workspace, 10"
-
-          # Move active window to a workspace with mod + SHIFT + [0-9]
-          "$mod SHIFT, 1, movetoworkspace, 1"
-          "$mod SHIFT, 2, movetoworkspace, 2"
-          "$mod SHIFT, 3, movetoworkspace, 3"
-          "$mod SHIFT, 4, movetoworkspace, 4"
-          "$mod SHIFT, 5, movetoworkspace, 5"
-          "$mod SHIFT, 6, movetoworkspace, 6"
-          "$mod SHIFT, 7, movetoworkspace, 7"
-          "$mod SHIFT, 8, movetoworkspace, 8"
-          "$mod SHIFT, 9, movetoworkspace, 9"
-          "$mod SHIFT, 0, movetoworkspace, 10"
-
           # Example special workspace (scratchpad)
           "$mod, S, togglespecialworkspace, magic"
           "$mod SHIFT, S, movetoworkspace, special:magic"
@@ -264,6 +240,23 @@
           # Scroll through existing workspaces with mod + scroll
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"
+          # Create a new group (tabbed container)
+          "$mod, G, togglegroup"
+
+          # Navigate between tabs in a group
+          "$mod, TAB, changegroupactive, f" # Next tab
+          "$mod SHIFT, TAB, changegroupactive, b" # Previous tab
+
+          # Move windows into/out of groups (directional)
+          "$mod SHIFT CONTROL, H, moveintogroup, l" # Move into group on left
+          "$mod SHIFT CONTROL, L, moveintogroup, r" # Move into group on right
+          "$mod SHIFT CONTROL, K, moveintogroup, u" # Move into group above
+          "$mod SHIFT CONTROL, J, moveintogroup, d" # Move into group below
+
+          "$mod ALT, G, moveoutofgroup" # Remove from group
+
+          # Lock/unlock group (prevent accidental changes)
+          "$mod CONTROL, L, lockgroups, toggle"
         ]
         ++ (
           # workspaces
@@ -278,6 +271,28 @@
             )
             9)
         );
+      group = {
+        # Tabbed layout styling
+        "col.border_active" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.border_inactive" = "rgba(595959aa)";
+
+        groupbar = {
+          # Tab bar appearance
+          enabled = true;
+          font_size = 10;
+          height = 14;
+
+          # Tab colors
+          "col.active" = "rgba(33ccffee)";
+          "col.inactive" = "rgba(595959aa)";
+
+          text_color = "rgba(ffffffff)";
+
+          # Render tabs as individual buttons
+          render_titles = true;
+          scrolling = true;
+        };
+      };
     };
   };
 }
