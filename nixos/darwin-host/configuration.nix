@@ -49,6 +49,7 @@ in {
 
     casks = [
       "librewolf"
+      "spotify"
     ];
   };
   fonts.packages = with pkgs; [
