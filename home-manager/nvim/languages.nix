@@ -37,6 +37,7 @@
         enableFormat = true;
         enableTreesitter = true;
         enableDAP = true;
+        
 
         assembly.enable = true;
 
@@ -75,6 +76,8 @@
 
         ts.enable = true;
         ts.format.package = pkgs.nodePackages.prettier;
+
+        yaml.enable = true;
       };
     };
   };
