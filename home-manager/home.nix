@@ -35,6 +35,7 @@
     };
   };
   home.packages = with pkgs; [
+    neovim-remote
     bash-language-server
     parsec-bin
     clang-tools
@@ -153,7 +154,8 @@
           if [[ -f ~/.zshrc.private ]]; then
              source ~/.zshrc.private
           fi
-        '';
+
+      '';
     };
     yazi = {
       enable = true;
@@ -288,5 +290,33 @@
       "audio/ogg" = "vlc.desktop";
       "audio/x-flac" = "vlc.desktop";
     };
+  };
+
+  home.file.".local/bin/godot-nvr.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      set -e
+
+      if ! command -v nvr &> /dev/null; then
+          notify-send "Error" "nvr not found"
+          exit 1
+      fi
+
+      file_info="$1"
+
+      if [[ "$file_info" =~ ^(.+):([0-9]+):([0-9]+)$ ]]; then
+          file="''${BASH_REMATCH[1]}"
+          line="''${BASH_REMATCH[2]}"
+          col="''${BASH_REMATCH[3]}"
+          nvr --remote "+call cursor($line,$col)" "$file"
+      elif [[ "$file_info" =~ ^(.+):([0-9]+)$ ]]; then
+          file="''${BASH_REMATCH[1]}"
+          line="''${BASH_REMATCH[2]}"
+          nvr --remote "+$line" "$file"
+      else
+          nvr --remote "$file_info"
+      fi
+    '';
   };
 }

@@ -7,6 +7,17 @@
         hunspellDicts.en_US
         pandoc # For document conversion if needed
       ];
+
+      # Add this section for treesitter
+      treesitter = {
+        enable = true;
+        grammars = [
+          pkgs.vimPlugins.nvim-treesitter.builtGrammars.gdscript
+          pkgs.vimPlugins.nvim-treesitter.builtGrammars.godot_resource
+          # Add any other grammars you need
+        ];
+      };
+
       lsp = {
         enable = true;
 
@@ -36,6 +47,23 @@
               vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
               vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
               vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+
+              -- Add to your luaConfigRC
+              local telescope = require('telescope.builtin')
+
+              -- Search for node definitions
+              vim.keymap.set('n', '<leader>gn', function()
+                telescope.grep_string({
+                  search = '@onready var',
+                })
+              end, { desc = 'Find @onready nodes' })
+
+              -- Add to luaConfigRC
+              vim.api.nvim_create_user_command('GodotNode', function(opts)
+                local node_name = opts.args
+                local line = '@onready var ' .. node_name:lower() .. ': Node = $' .. node_name
+                vim.api.nvim_put({line}, 'l', true, true)
+              end, { nargs = 1 })
             '';
           };
           neocmake = {};
@@ -54,7 +82,6 @@
         enableFormat = true;
         enableTreesitter = true;
         enableDAP = true;
-        
 
         assembly.enable = true;
 
