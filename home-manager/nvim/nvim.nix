@@ -3,6 +3,7 @@
     ./keymaps.nix
     ./options.nix
     ./languages.nix
+    ./godot.nix
   ];
   programs.nvf = {
     enable = true;
@@ -11,8 +12,6 @@
       vim = {
         assistant.avante-nvim = {
           enable = true;
-
-
         };
         binds = {
           cheatsheet.enable = true;
@@ -38,8 +37,20 @@
         viAlias = false;
         vimAlias = true;
 
+        
+        # IMPORTANT: Enable snippets
+        snippets.luasnip = {
+          enable = true;
+          # Ensure these are also set
+          setupOpts = {
+            enable_autosnippets = true;
+            store_selection_keys = "<Tab>";
+          };
+        };
+
         autocomplete.nvim-cmp = {
           enable = true;
+          # Enable LuaSnip source for cmp
           mappings = {
             confirm = "<C-y>";
             next = "<C-j>";
@@ -64,7 +75,13 @@
             package = vim-godot;
             setup = "event = 'VimEnter'";
           };
+          friendly-snippets = with pkgs.vimPlugins; {
+            package = friendly-snippets;
+            setup = "event = 'VimEnter'";
+          };
         };
+
+        # Add friendly-snippets for common snippets
 
         luaConfigPre =
           /*

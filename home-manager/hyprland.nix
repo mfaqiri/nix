@@ -194,6 +194,41 @@
             enable_swallow = true
             swallow_regex = ^(kitty|alacritty|foot)$
         }
+
+      # Switch to a submap called `resize`.
+      bind = ALT, R, submap, resize
+      # Resize submap
+      submap = resize
+      
+      # Arrow keys (10px steps, repeatable)
+      binde = , right, resizeactive, 10 0
+      binde = , left, resizeactive, -10 0
+      binde = , up, resizeactive, 0 -10
+      binde = , down, resizeactive, 0 10
+      
+      # Vim keys (10px steps, repeatable)
+      binde = , h, resizeactive, -10 0
+      binde = , l, resizeactive, 10 0
+      binde = , k, resizeactive, 0 -10
+      binde = , j, resizeactive, 0 10
+      
+      # Larger steps with SHIFT (50px, repeatable)
+      binde = SHIFT, right, resizeactive, 50 0
+      binde = SHIFT, left, resizeactive, -50 0
+      binde = SHIFT, up, resizeactive, 0 -50
+      binde = SHIFT, down, resizeactive, 0 50
+      
+      binde = SHIFT, h, resizeactive, -50 0
+      binde = SHIFT, l, resizeactive, 50 0
+      binde = SHIFT, k, resizeactive, 0 -50
+      binde = SHIFT, j, resizeactive, 0 50
+      
+      # Exit resize mode
+      bind = , escape, submap, reset
+      bind = , return, submap, reset
+      
+      # Return to global submap
+      submap = reset
       '';
     settings = {
       "$mod" = "SUPER";
@@ -271,6 +306,7 @@
             )
             9)
         );
+    
       group = {
         # Tabbed layout styling
         "col.border_active" = "rgba(33ccffee) rgba(00ff99ee) 45deg";

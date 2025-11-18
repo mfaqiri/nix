@@ -20,6 +20,23 @@
               # Godot-specific settings
               enable = true;
             };
+
+            # Add on_attach configuration for better integration
+            onAttach.function = ''
+              -- Godot-specific LSP settings
+              vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+              -- Buffer-local keymaps for LSP
+              local opts = { buffer = bufnr, silent = true }
+              vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+              vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+              vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+              vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+              vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, opts)
+              vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+              vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+              vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+            '';
           };
           neocmake = {};
           arduino_language_server = {

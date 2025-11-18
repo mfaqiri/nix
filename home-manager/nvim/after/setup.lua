@@ -90,3 +90,142 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   callback = setup_word_processor
 })
 
+-- ============================================================================
+-- MINIMAL GODOT SNIPPETS (No cmp reconfiguration)
+-- ============================================================================
+
+-- Only add snippets, don't reconfigure cmp
+local status_ok, luasnip = pcall(require, "luasnip")
+if not status_ok then
+  -- Silently fail if LuaSnip isn't available
+  return
+end
+
+local s = luasnip.snippet
+local t = luasnip.text_node
+local i = luasnip.insert_node
+local c = luasnip.choice_node
+
+-- Add GDScript snippets
+luasnip.add_snippets("gdscript", {
+  -- @onready with type annotation
+  s("onr", {
+    t("@onready var "),
+    i(1, "node_name"),
+    t(": "),
+    c(2, {
+      t("Node"),
+      t("Node2D"),
+      t("Node3D"),
+      t("Control"),
+      t("Button"),
+      t("Label"),
+      t("Sprite2D"),
+      t("CharacterBody2D"),
+      t("AnimationPlayer"),
+    }),
+    t(" = $"),
+    i(3, "NodePath"),
+    i(0),
+  }),
+  
+  -- @onready simple
+  s("on", {
+    t("@onready var "),
+    i(1, "node_name"),
+    t(" = $"),
+    i(2, "NodePath"),
+    i(0),
+  }),
+  
+  -- Function
+  s("func", {
+    t("func "),
+    i(1, "name"),
+    t("("),
+    i(2),
+    t("):"),
+    t({"", "\t"}),
+    i(0, "pass"),
+  }),
+  
+  -- _ready
+  s("ready", {
+    t({"func _ready():", "\t"}),
+    i(0, "pass"),
+  }),
+  
+  -- _process
+  s("proc", {
+    t({"func _process(delta: float):", "\t"}),
+    i(0, "pass"),
+  }),
+  
+  -- _physics_process
+  s("phys", {
+    t({"func _physics_process(delta: float):", "\t"}),
+    i(0, "pass"),
+  }),
+  
+  -- Signal
+  s("sig", {
+    t("signal "),
+    i(1, "signal_name"),
+    i(0),
+  }),
+  
+  -- Export
+  s("exp", {
+    t("@export var "),
+    i(1, "name"),
+    t(": "),
+    i(2, "int"),
+    t(" = "),
+    i(3, "0"),
+    i(0),
+  }),
+})
+
+-- ============================================================================
+-- GODOT FILE TYPE DETECTION
+-- ============================================================================
+
+vim.filetype.add({
+  extension = {
+    gd = "gdscript",
+    tscn = "godot_resource",
+    tres = "godot_resource",
+    godot = "gdscript",
+  },
+})
+
+-- GDScript settings
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gdscript",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = false
+    vim.opt_local.commentstring = "# %s"
+  end,
+})
+
+-- ============================================================================
+-- GODOT NODE HELPER COMMAND
+-- ============================================================================
+
+vim.api.nvim_create_user_command('GodotNode', function(opts)
+  local node_name = opts.args
+  if node_name == "" then
+    vim.notify("Usage: :GodotNode NodeName", vim.log.levels.ERROR)
+    return
+  end
+  
+  -- Convert to snake_case
+  local var_name = node_name:gsub("(%u)", function(c) 
+    return "_" .. c:lower() 
+  end):gsub("^_", "")
+  
+  local line = string.format('@onready var %s: Node = $%s', var_name, node_name)
+  vim.api.nvim_put({line}, 'l', true, true)
+end, { nargs = 1, desc = "Insert @onready node reference" })

@@ -149,6 +149,10 @@
         ''
           # Fix delete key
           bindkey "^[[3~" delete-char
+          # Source any other private zsh config
+          if [[ -f ~/.zshrc.private ]]; then
+             source ~/.zshrc.private
+          fi
         '';
     };
     yazi = {
