@@ -42,6 +42,8 @@
     arduino
     arduino-language-server
     arduino-cli
+
+    unzip
     p7zip
     fd
     wl-clipboard
@@ -81,7 +83,7 @@
     parsec-bin
     transmission_4-gtk
     discord
-    #rpcs3
+    rpcs3
     ludusavi
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.

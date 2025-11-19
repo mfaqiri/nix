@@ -137,6 +137,16 @@
 
             -- Also override vim.deprecate to suppress all deprecation warnings
             vim.deprecate = function() end
+
+                        -- Add gdformat to null-ls for LSP formatting support
+            local null_ls_ok, null_ls = pcall(require, "null-ls")
+            if null_ls_ok then
+              null_ls.setup({
+                sources = {
+                  null_ls.builtins.formatting.gdformat,
+                },
+              })
+            end
           '';
       };
     };

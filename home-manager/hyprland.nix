@@ -11,12 +11,14 @@
     mako = {
       enable = true;
       # Correct format for home-manager mako settings
-      backgroundColor = "#2e3440";
-      textColor = "#eceff4";
-      borderColor = "#88c0d0";
-      progressColor = "over #5e81ac";
-      defaultTimeout = 5000;
-      ignoreTimeout = false;
+      settings = {
+        background-color = "#2e3440";
+        text-color = "#eceff4";
+        border-color = "#88c0d0";
+        progress-color = "over #5e81ac";
+        default-timeout = 5000;
+        ignore-timeout = false;
+      };
     };
     
     hyprpaper = {
@@ -68,7 +70,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     systemd.variables = ["--all"];
     plugins = [
       #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
