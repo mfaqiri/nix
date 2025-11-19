@@ -55,14 +55,6 @@
     XCURSOR_THEME = "Bibata-Modern-Classic";
     XCURSOR_SIZE = "16";
   };
-  
-  # Ensure gsettings can find schemas
-  home.sessionPath = [
-    "$HOME/.nix-profile/bin"
-  ];
-  
-  # This is critical for gsettings schemas
-  xdg.dataFile."glib-2.0/schemas".source = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-*/glib-2.0/schemas";
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {

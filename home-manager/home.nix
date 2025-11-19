@@ -102,17 +102,82 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    home.file = {
+    # Godot external editor script
+    ".local/bin/godot-nvr.sh" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+        set -e
+        
+        file_info="$1"
+        
+        if ! command -v nvr &> /dev/null; then
+            echo "[$(date)] ERROR: nvr not found" >> /tmp/godot-nvr.log
+            exit 1
+        fi
+        
+        # Find the best nvim server to use
+        # Priority: 
+        # 1. Dedicated Godot server if it exists
+        # 2. Any visible kitty nvim instance
+        # 3. Create new kitty window with nvim
+        
+        SERVER=""
+        
+        # Check for dedicated Godot nvim server
+        if [ -S "/tmp/nvim-godot" ]; then
+            SERVER="/tmp/nvim-godot"
+        else
+            # Find any running nvim server that's NOT in current terminal
+            # (avoid the terminal running Godot)
+            SERVERS=$(nvr --serverlist 2>/dev/null || echo "")
+            
+            if [ -n "$SERVERS" ]; then
+                # Use first available server
+                SERVER=$(echo "$SERVERS" | head -1)
+            fi
+        fi
+        
+        # Parse file info
+        if [[ "$file_info" =~ ^(.+):([0-9]+):([0-9]+)$ ]]; then
+            file="''${BASH_REMATCH[1]}"
+            line="''${BASH_REMATCH[2]}"
+            col="''${BASH_REMATCH[3]}"
+            CURSOR_CMD="+call cursor($line,$col)"
+        elif [[ "$file_info" =~ ^(.+):([0-9]+)$ ]]; then
+            file="''${BASH_REMATCH[1]}"
+            line="''${BASH_REMATCH[2]}"
+            CURSOR_CMD="+$line"
+        else
+            file="$file_info"
+            CURSOR_CMD=""
+        fi
+        
+        # Open file
+        if [ -n "$SERVER" ]; then
+            # Use existing nvim instance
+            if [ -n "$CURSOR_CMD" ]; then
+                nvr --servername "$SERVER" --remote "$CURSOR_CMD" "$file"
+            else
+                nvr --servername "$SERVER" --remote "$file"
+            fi
+            
+            # Try to focus the window
+            sleep 0.1
+            hyprctl dispatch focuswindow "title:.*nvim.*" 2>/dev/null || \
+            hyprctl dispatch focuswindow "class:kitty" 2>/dev/null || true
+        else
+            # No nvim running, open in new kitty window
+            if [ -n "$CURSOR_CMD" ]; then
+                kitty --title "Godot Nvim" nvim --listen /tmp/nvim-godot "$CURSOR_CMD" "$file" &
+            else
+                kitty --title "Godot Nvim" nvim --listen /tmp/nvim-godot "$file" &
+            fi
+        fi
+      '';
+    };
   };
 
   programs = {
@@ -292,31 +357,4 @@
     };
   };
 
-  home.file.".local/bin/godot-nvr.sh" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-      set -e
-
-      if ! command -v nvr &> /dev/null; then
-          notify-send "Error" "nvr not found"
-          exit 1
-      fi
-
-      file_info="$1"
-
-      if [[ "$file_info" =~ ^(.+):([0-9]+):([0-9]+)$ ]]; then
-          file="''${BASH_REMATCH[1]}"
-          line="''${BASH_REMATCH[2]}"
-          col="''${BASH_REMATCH[3]}"
-          nvr --remote "+call cursor($line,$col)" "$file"
-      elif [[ "$file_info" =~ ^(.+):([0-9]+)$ ]]; then
-          file="''${BASH_REMATCH[1]}"
-          line="''${BASH_REMATCH[2]}"
-          nvr --remote "+$line" "$file"
-      else
-          nvr --remote "$file_info"
-      fi
-    '';
-  };
 }

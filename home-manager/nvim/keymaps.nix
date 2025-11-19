@@ -7,6 +7,34 @@
     };
 
     keymaps = [
+      # Surround with leader key instead
+      {
+        key = "<leader>sa";
+        mode = "n";
+        action = "<Plug>(nvim-surround-normal)";
+        desc = "Surround add";
+      }
+
+      {
+        key = "<leader>sd";
+        mode = "n";
+        action = "<Plug>(nvim-surround-delete)";
+        desc = "Surround delete";
+      }
+
+      {
+        key = "<leader>sc";
+        mode = "n";
+        action = "<Plug>(nvim-surround-change)";
+        desc = "Surround change";
+      }
+
+      {
+        key = "<leader>sa";
+        mode = "v";
+        action = "<Plug>(nvim-surround-visual)";
+        desc = "Surround selection";
+      }
       {
         key = "<leader>pv";
         mode = "n";
