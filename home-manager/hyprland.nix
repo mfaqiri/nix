@@ -133,33 +133,8 @@
                }
 
                # https://wiki.hypr.land/Configuring/Variables/#blur
-               blur {
-                   enabled = true
-                   size = 3
-                   passes = 1
-
-                   vibrancy = 0.1696
-               }
            }
 
-
-          # Steam overlay window rules
-          windowrulev2 = stayfocused, title:^()$,class:^(steam)$
-          windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
-          windowrulev2 = noinitialfocus, class:^(steam)$, title:^(notificationtoasts.*)$
-
-          # Steam game window rules
-          windowrulev2 = immediate, class:^(steam_app_)(.*)$
-          windowrulev2 = immediate, class:^(steam_proton)$
-          windowrulev2 = fullscreen, class:^(steam_app_)(.*)$
-
-          # Fix Steam overlay layering
-          windowrulev2 = float, class:^(steam)$, title:^(Steam)$
-          windowrulev2 = workspace special, class:^(steam)$, title:^(Steam - News)$
-          # In hyprland.conf
-          layerrule = blur, steam
-          layerrule = ignorezero, steam
-          layerrule = noanim, steam
 
           # Fix input capture for Steam overlay
         input {
