@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     libnotify
   ];
-  
+
   services = {
     mako = {
       enable = true;
@@ -20,13 +20,45 @@
         ignore-timeout = false;
       };
     };
-    
+
     hyprpaper = {
       enable = true;
 
       settings = {
         ipc = "on";
         splash = false;
+
+        windowrulev2 = [
+          # Steam fixes
+          "stayfocused, title:^()$,class:^(steam)$"
+          "minsize 1 1, title:^()$,class:^(steam)$"
+
+          # Steam overlay and popups
+          "float, class:^(steam)$,title:^(Friends List)$"
+          "float, class:^(steam)$,title:^(Steam Settings)$"
+          "float, class:^(steam)$,title:^(Steam - News)$"
+
+          # This is critical - fixes the vertical offset
+          "suppressevent fullscreen, class:^(Godot)$"
+          "suppressevent maximize, class:^(Godot)$"
+
+          # Prevent focus issues
+          "nofocus, class:^(Godot)$,title:^(popup)$"
+          "noinitialfocus, class:^(Godot)$,floating:1"
+          "stayfocused, class:^(Godot)$,title:^(Godot)$"
+
+          # Popup positioning
+          "float, class:^(Godot)$,title:^(popup)$"
+          "noborder, class:^(Godot)$,title:^(popup)$"
+          "noshadow, class:^(Godot)$,title:^(popup)$"
+          "noanim, class:^(Godot)$,title:^(popup)$"
+
+          # File dialogs
+          "float, class:^(Godot)$,title:^(Save).*$"
+          "float, class:^(Godot)$,title:^(Open).*$"
+          "float, class:^(Godot)$,title:^(Create).*$"
+          "float, class:^(Godot)$,title:^(Select).*$"
+        ];
 
         preload = [
           "/home/mfaqiri/Pictures/Wallpapers/japanese_house_1440x2560.png"
