@@ -58,7 +58,9 @@
     liberation_ttf
   ];
 
-  environment.variables.EDITOR = "nvim";
+  environment.variables = {
+    EDITOR = "nvim";
+  };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   # Configure network proxy if necessary
@@ -143,11 +145,13 @@
       sessionPackages = [
         (
           (
-            pkgs.writeTextDir "share/wayland-sessions/hyprland.desktop" ''              [Desktop Entry]
-                                  Name=hyprland
-                                  Comment=Hyprland run from a login shell
-                                  Exec=${pkgs.dbus}/bin/dbus-run-session -- bash -l -c hyprland
-                                  Type=Application''
+            pkgs.writeTextDir "share/wayland-sessions/hyprland.desktop" ''
+              [Desktop Entry]
+              Name=hyprland
+              Comment=Hyprland compositor with UWSM
+              Exec=hyprland
+              Type=Application
+            ''
           )
           .overrideAttrs (oldAttrs: {
             passthru = {
@@ -156,11 +160,8 @@
           })
         )
       ];
-
       defaultSession = "hyprland";
     };
-
-    desktopManager.plasma6.enable = true;
 
     tor = {
       settings = {
@@ -204,7 +205,26 @@
   xdg.portal = {
     enable = true;
 
-    extraPortals = with pkgs; [xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+
+    config = {
+      common = {
+        default = ["hyprland" "gtk"];
+        "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+      };
+
+      hyprland = {
+        default = ["hyprland" "gtk"];
+        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+        "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
+      };
+    };
+
+    xdgOpenUsePortal = true;
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
