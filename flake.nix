@@ -2,17 +2,11 @@
   description = "Mansoor Faqiri's NixOS flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager-stable = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
@@ -32,8 +26,8 @@
 
     nvf.url = "github:notashelf/nvf";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     homebrew-core = {
@@ -55,7 +49,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
     nix-darwin,
     ...
   } @ inputs: let
@@ -136,7 +129,7 @@
               mutableTaps = true;
             };
           }
-          inputs.home-manager-stable.darwinModules.home-manager
+          inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
