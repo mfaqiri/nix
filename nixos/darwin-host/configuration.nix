@@ -29,6 +29,7 @@ in {
       "k9s"
       "jq"
       "python@3.12"
+      "python@3.11"
       "pinentry-mac"
       "spotify_player"
       "gnu-sed"
@@ -41,6 +42,7 @@ in {
       "msodbcsql18"
       "mssql-tools"
       "direnv"
+      "actionlint"
       {
         name = "colima";
         start_service = true;
