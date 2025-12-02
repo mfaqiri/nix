@@ -35,6 +35,8 @@
     };
   };
   home.packages = with pkgs; [
+    sunshine
+    moonlight
     neovim-remote
     bash-language-server
     parsec-bin
