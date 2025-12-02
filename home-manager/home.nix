@@ -42,7 +42,7 @@
     arduino
     arduino-language-server
     arduino-cli
-
+    git-lfs
     unzip
     p7zip
     fd
