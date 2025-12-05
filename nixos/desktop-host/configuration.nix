@@ -2,6 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -99,7 +100,7 @@
     users = {
       mfaqiri = {
         isNormalUser = true;
-        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" "input" "tss"]; # Enable ‘sudo’ for the user.
+        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" "input" "tss" "render" "waydroid"]; # Enable ‘sudo’ for the user.
       };
     };
   };
@@ -171,6 +172,12 @@
       };
     };
 
+    sunshine = {
+      enable = true;
+      capSysAdmin = true;
+      openFirewall = true;
+    };
+
     flatpak.enable = true;
 
     dbus.enable = true;
@@ -208,6 +215,7 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
     ];
 
     config = {

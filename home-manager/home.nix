@@ -35,8 +35,8 @@
     };
   };
   home.packages = with pkgs; [
-    sunshine
-    moonlight
+    chromium
+    moonlight-qt
     neovim-remote
     bash-language-server
     parsec-bin
@@ -107,29 +107,56 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
 
-    home.file = {
+  home.file = {
+    ".config/sunshine/sunshine.conf".text = ''
+      # VAAPI encoding with correct device
+      encoder = vaapi
+      adapter_name = /dev/dri/renderD128
+
+      # Use h264 (you have it, more compatible)
+      hevc_mode = 0
+
+      # Video settings
+      fps = 60
+      bitrate = 20000
+
+      # Audio
+      audio_sink = auto
+
+      # Display selection
+      output_name = auto
+
+      # Disable tray
+      tray = false
+
+      # Logging
+      min_log_level = info
+
+      # Controller support
+      gamepad = enabled
+    '';
     # Godot external editor script
     ".local/bin/godot-nvr.sh" = {
       executable = true;
       text = ''
         #!/usr/bin/env bash
         set -e
-        
+
         file_info="$1"
-        
+
         if ! command -v nvr &> /dev/null; then
             echo "[$(date)] ERROR: nvr not found" >> /tmp/godot-nvr.log
             exit 1
         fi
-        
+
         # Find the best nvim server to use
-        # Priority: 
+        # Priority:
         # 1. Dedicated Godot server if it exists
         # 2. Any visible kitty nvim instance
         # 3. Create new kitty window with nvim
-        
+
         SERVER=""
-        
+
         # Check for dedicated Godot nvim server
         if [ -S "/tmp/nvim-godot" ]; then
             SERVER="/tmp/nvim-godot"
@@ -137,13 +164,13 @@
             # Find any running nvim server that's NOT in current terminal
             # (avoid the terminal running Godot)
             SERVERS=$(nvr --serverlist 2>/dev/null || echo "")
-            
+
             if [ -n "$SERVERS" ]; then
                 # Use first available server
                 SERVER=$(echo "$SERVERS" | head -1)
             fi
         fi
-        
+
         # Parse file info
         if [[ "$file_info" =~ ^(.+):([0-9]+):([0-9]+)$ ]]; then
             file="''${BASH_REMATCH[1]}"
@@ -158,7 +185,7 @@
             file="$file_info"
             CURSOR_CMD=""
         fi
-        
+
         # Open file
         if [ -n "$SERVER" ]; then
             # Use existing nvim instance
@@ -167,7 +194,7 @@
             else
                 nvr --servername "$SERVER" --remote "$file"
             fi
-            
+
             # Try to focus the window
             sleep 0.1
             hyprctl dispatch focuswindow "title:.*nvim.*" 2>/dev/null || \
@@ -224,7 +251,7 @@
              source ~/.zshrc.private
           fi
 
-      '';
+        '';
     };
     yazi = {
       enable = true;
@@ -360,5 +387,4 @@
       "audio/x-flac" = "vlc.desktop";
     };
   };
-
 }

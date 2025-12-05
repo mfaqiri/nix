@@ -69,7 +69,6 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     systemd = {
       enable = true;
       variables = ["--all"];
@@ -86,10 +85,6 @@
       workspace = 3, monitor:DP-2
       workspace = 2, monitor:DP-1
       workspace = 1, monitor:DP-3
-
-      # Exec once
-      exec-once = waybar
-      exec-once = mako
 
 
       # Animations
@@ -123,7 +118,7 @@
       # Decoration
       decoration {
         rounding = 10
-        
+
         active_opacity = 1.0
         inactive_opacity = 1.0
 
@@ -148,9 +143,9 @@
         border_size = 2
         col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
         col.inactive_border = rgba(595959aa)
-        
+
         layout = dwindle
-        
+
         resize_on_border = true
         extend_border_grab_area = 15
       }
@@ -184,15 +179,28 @@
       }
 
       # Mouse bindings - CRITICAL FOR MOVING WINDOWS WITH MOUSE
-      bindm = CONTROL, mouse:272, movewindow
-      bindm = CONTROL, mouse:273, resizewindow
+      bindm = ALT, mouse:272, movewindow
+      bindm = ALT, mouse:273, resizewindow
     '';
 
     settings = {
+      env = [
+        "WAYLAND_DISPLAY,wayland-1"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_TYPE,wayland"
+      ];
+
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       "$fileManager" = "nautilus";
       "$menu" = "fuzzel";
+
+      exec-once = [
+
+        # Start graphical session (this will start all WantedBy=graphical-session.target services)
+        "systemctl restart home-manager-mfaqiri.service"
+        "exec waybar"
+      ];
 
       bind =
         [

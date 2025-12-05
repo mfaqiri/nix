@@ -128,6 +128,22 @@
             background-color: #131822;
           }
 
+        #tray {
+          border-radius: 4px;
+          margin: 6px 3px;
+          padding: 6px 12px;
+          background-color: #1e1e2e;
+          color: #cdd6f4;
+        }
+        
+        #tray > .passive {
+          -gtk-icon-effect: dim;
+        }
+        
+        #tray > .needs-attention {
+          -gtk-icon-effect: highlight;
+          background-color: #f38ba8;
+        }
         '';
       settings = {
         mainBar = {
@@ -135,9 +151,9 @@
           position = "top";
           height = 42;
           spacing = 4;
-          modules-left = ["hyprland/workspaces" "wlr/taskbar"];
+          modules-left = ["hyprland/workspaces"];
           modules-center = ["clock"];
-          modules-right = ["pulseaudio" "network" "temperature" "cpu" "memory"];
+          modules-right = ["tray" "pulseaudio" "network" "temperature" "cpu" "memory"];
 
           "keyboard-state" = {
             numlock = true;
@@ -219,6 +235,11 @@
             critical-threshold = 80;
             format = "{temperatureC}°C {icon}";
             format-icons = ["" "" ""];
+          };
+
+          "tray" = {
+            icon-size = 16;
+            spacing = 10;
           };
         };
       };
