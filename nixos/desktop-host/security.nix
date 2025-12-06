@@ -1,4 +1,4 @@
-{...}:
+{pkgs, ...}:
 {
 
   security = {
@@ -30,4 +30,19 @@
     }];
     };
     };
+
+    # Grant CAP_SYS_NICE to gamescope for better performance
+  security.wrappers.gamescope = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_sys_nice+pie";
+    source = "${pkgs.gamescope}/bin/gamescope";
+  };
+
+  security.wrappers.gamemode = {
+    owner = "root";
+    group = "root";
+    source = "${pkgs.gamemode}/bin/gamemoderun";
+    capabilities = "cap_sys_nice+ep";
+  };
 }

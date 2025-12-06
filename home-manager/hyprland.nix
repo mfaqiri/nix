@@ -144,7 +144,7 @@
         col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
         col.inactive_border = rgba(595959aa)
 
-        layout = dwindle
+        layout = master
 
         resize_on_border = true
         extend_border_grab_area = 15
@@ -180,7 +180,9 @@
 
       # Mouse bindings - CRITICAL FOR MOVING WINDOWS WITH MOUSE
       bindm = ALT, mouse:272, movewindow
+      bindm = SHIFT CONTROL ALT, mouse:272, killactive
       bindm = ALT, mouse:273, resizewindow
+      bindm = CONTROL ALT, mouse:273, togglefloating
     '';
 
     settings = {
@@ -196,7 +198,6 @@
       "$menu" = "fuzzel";
 
       exec-once = [
-
         # Start graphical session (this will start all WantedBy=graphical-session.target services)
         "systemctl restart home-manager-mfaqiri.service"
         "exec waybar"
@@ -243,6 +244,14 @@
           "$mod SHIFT CONTROL, J, moveintogroup, d"
           "$mod ALT, G, moveoutofgroup"
           "$mod CONTROL, L, lockgroups, toggle"
+
+          "$mod SHIFT, V, exec, ~/.local/bin/mpv-hdr.sh"
+
+          # Gamescope on 4K monitor
+          "$mod, F1, exec, ~/.local/bin/steam-gamescope-4k.sh"
+          
+          # Gamescope on TV
+          "$mod, F2, exec, ~/.local/bin/steam-gamescope-tv.sh"
         ]
         ++ (
           builtins.concatLists (builtins.genList (

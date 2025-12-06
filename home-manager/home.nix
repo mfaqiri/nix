@@ -36,6 +36,7 @@
   };
   home.packages = with pkgs; [
     chromium
+    mpv
     moonlight-qt
     neovim-remote
     bash-language-server
@@ -108,6 +109,63 @@
   # plain files is through 'home.file'.
 
   home.file = {
+    # Gamescope for 4K monitor (when in Hyprland)
+    ".local/bin/steam-gamescope-4k.sh" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+
+        # Launch Steam in gamescope on 4K monitor (DP-1)
+        gamescope \
+          -W 3840 \
+          -H 2160 \
+          -w 3840 \
+          -h 2160 \
+          --adaptive-sync \
+          --hdr-enabled \
+          --force-grab-cursor \
+          --immediate-flips \
+          -r 144 \
+          --prefer-output DP-1 \
+          -- steam -gamepadui
+      '';
+    };
+
+    # Gamescope for TV (when in Hyprland)
+    ".local/bin/steam-gamescope-tv.sh" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+
+        # Launch Steam in gamescope on TV
+        # Change DP-3 to your actual TV output
+        gamescope \
+          -W 3840 \
+          -H 2160 \
+          -w 3840 \
+          -h 2160 \
+          --adaptive-sync \
+          --hdr-enabled \
+          --force-grab-cursor \
+          --immediate-flips \
+          -r 60 \
+          --prefer-output DP-3 \
+          -- steam -gamepadui
+      '';
+    };
+
+    ".config/mpv/mpv.conf".text = ''
+      # GPU acceleration
+      vo=gpu-next
+      hwdec=auto
+
+      # Better quality
+      profile=gpu-hq
+
+      # HDR support
+      target-colorspace-hint=yes
+    '';
+
     ".config/sunshine/sunshine.conf".text = ''
       # VAAPI encoding with correct device
       encoder = vaapi
@@ -245,6 +303,10 @@
         */
         ''
           # Fix delete key
+
+          # Notify on command failure - SIMPLE VERSION
+          precmd() { [ $? -ne 0 ] && notify-send "Command Failed" "$(fc -ln -1)"; }
+
           bindkey "^[[3~" delete-char
           # Source any other private zsh config
           if [[ -f ~/.zshrc.private ]]; then
