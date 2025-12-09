@@ -149,21 +149,6 @@
               programs = {
                 git = {
                   enable = true;
-                  userName = "Mansoor Faqiri";
-                  userEmail = "mzfaqiri@gmail.com";
-
-                  extraConfig = {
-                    core = {
-                      editor = "nvim";
-                    };
-                    init = {
-                      defaultBranch = "main";
-                    };
-                    pull = {
-                      rebase = false;
-                    };
-                    # This ensures includeIf comes at the end
-                  };
 
                   includes = [
                     {
@@ -171,17 +156,39 @@
                       path = "~/.gitconfig-godaddy";
                     }
                   ];
-                  # Git aliases (optional)
-                  aliases = {
-                    st = "status";
-                    co = "checkout";
-                    br = "branch";
-                    ci = "commit";
-                    unstage = "reset HEAD --";
+                  settings = {
+                    user = {
+                      name = "Mansoor Faqiri";
+                      email = "mzfaqiri@gmail.com";
+                    };
+
+                    extraConfig = {
+                      core = {
+                        editor = "nvim";
+                      };
+                      init = {
+                        defaultBranch = "main";
+                      };
+                      pull = {
+                        rebase = false;
+                      };
+                      # This ensures includeIf comes at the end
+                    };
+
+                    # Git aliases (optional)
+                    aliases = {
+                      st = "status";
+                      co = "checkout";
+                      br = "branch";
+                      ci = "commit";
+                      unstage = "reset HEAD --";
+                    };
                   };
                 };
                 ssh = {
                   enable = true;
+
+                  enableDefaultConfig = false;
 
                   matchBlocks = {
                     # Personal GitHub account
