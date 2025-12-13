@@ -23,6 +23,7 @@
 
         servers = {
           gdscript = {
+            package = null;
             # Use Godot as the language server
             cmd = ["nc" "localhost" "6005"];
             filetypes = ["gdscript" "gdscript3"];
@@ -90,7 +91,6 @@
         clang.enable = true;
 
         css.enable = true;
-        css.format.package = pkgs.nodePackages.prettier;
 
         go.enable = true;
 
@@ -119,7 +119,6 @@
         tailwind.enable = true;
 
         ts.enable = true;
-        ts.format.package = pkgs.nodePackages.prettier;
 
         yaml.enable = true;
       };

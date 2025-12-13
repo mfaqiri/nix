@@ -86,6 +86,9 @@
       workspace = 2, monitor:DP-1
       workspace = 1, monitor:DP-3
 
+      windowrulev2 = stayfocused, title:^()$,class:^(steam)$
+      windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
+
 
       # Animations
       animations {
