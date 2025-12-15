@@ -8,25 +8,16 @@
         pandoc # For document conversion if needed
       ];
 
-      # Add this section for treesitter
-      treesitter = {
-        enable = true;
-        grammars = [
-          pkgs.vimPlugins.nvim-treesitter.builtGrammars.gdscript
-          pkgs.vimPlugins.nvim-treesitter.builtGrammars.godot_resource
-          # Add any other grammars you need
-        ];
-      };
-
       lsp = {
         enable = true;
 
         servers = {
           gdscript = {
+            package = null;
             # Use Godot as the language server
             cmd = ["nc" "localhost" "6005"];
             filetypes = ["gdscript" "gdscript3"];
-            rootDir = ''vim.lsp.config.util.root_pattern("project.godot", ".git")'';
+            rootMarkers = ''vim.lsp.config.util.root_pattern("project.godot", ".git")'';
             settings = {
               # Godot-specific settings
               enable = true;
@@ -66,13 +57,11 @@
               end, { nargs = 1 })
             '';
           };
-          neocmake = {};
           arduino_language_server = {
             cmd = ["arduino-language-server"];
             filetypes = ["arduino"];
-            rootDir = ''vim.lsp.config.util.root_pattern("*.ino", ".git")'';
+            rootMarkers = ''vim.lsp.config.util.root_pattern("*.ino", ".git")'';
           };
-          bashls = {};
         };
       };
 
@@ -90,7 +79,6 @@
         clang.enable = true;
 
         css.enable = true;
-        css.format.package = pkgs.nodePackages.prettier;
 
         go.enable = true;
 
@@ -119,7 +107,6 @@
         tailwind.enable = true;
 
         ts.enable = true;
-        ts.format.package = pkgs.nodePackages.prettier;
 
         yaml.enable = true;
       };

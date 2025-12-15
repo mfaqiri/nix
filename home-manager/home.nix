@@ -35,6 +35,7 @@
     };
   };
   home.packages = with pkgs; [
+    devenv
     chromium
     mpv
     moonlight-qt
