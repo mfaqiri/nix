@@ -37,7 +37,6 @@
         viAlias = false;
         vimAlias = true;
 
-        
         # IMPORTANT: Enable snippets
         snippets.luasnip = {
           enable = true;
@@ -62,7 +61,10 @@
 
         debugger.nvim-dap.enable = true;
 
-        statusline.lualine.enable = true;
+        statusline.lualine = {
+          enable = true;
+          icons.enable = true;
+        };
 
         telescope.enable = true;
 
@@ -148,6 +150,12 @@
               })
             end
           '';
+
+        visuals = {
+          nvim-web-devicons.enable = true; # This is crucial
+          fidget-nvim.enable = true;
+          indent-blankline.enable = true;
+        };
       };
     };
   };

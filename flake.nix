@@ -144,7 +144,29 @@
                     email = mfaqiri@godaddy.com
                 '';
               };
-              fonts.fontconfig.enable = true;
+              fonts = {
+                fontconfig.enable = true;
+
+                packages = with pkgs; [
+                  nerd-fonts.jetbrains-mono
+                  nerd-fonts.fira-code
+                  noto-fonts
+                  noto-fonts-cjk-sans
+                  noto-fonts-color-emoji
+                  liberation_ttf
+                  fira-code
+                  fira-code-symbols
+                  mplus-outline-fonts.githubRelease
+                  dina-font
+                  proggyfonts
+                  font-awesome
+                  powerline-fonts
+                  powerline-symbols
+                  fira-code
+                  fira-code-symbols
+                  liberation_ttf
+                ];
+              };
 
               programs = {
                 git = {
@@ -260,6 +282,94 @@
                 yazi = {
                   enable = true;
                   enableZshIntegration = true;
+
+                  # Add theme configuration for icons
+                  theme = {
+                    icon = {
+                      rules = [
+                        {
+                          mime = "image/*";
+                          text = " ";
+                        }
+                        {
+                          mime = "video/*";
+                          text = " ";
+                        }
+                        {
+                          mime = "audio/*";
+                          text = " ";
+                        }
+                        {
+                          name = "*.md";
+                          text = " ";
+                        }
+                        {
+                          name = "*.py";
+                          text = " ";
+                        }
+                        {
+                          name = "*.js";
+                          text = " ";
+                        }
+                        {
+                          name = "*.ts";
+                          text = " ";
+                        }
+                        {
+                          name = "*.rs";
+                          text = " ";
+                        }
+                        {
+                          name = "*.go";
+                          text = " ";
+                        }
+                        {
+                          name = "*.java";
+                          text = " ";
+                        }
+                        {
+                          name = "*.json";
+                          text = " ";
+                        }
+                        {
+                          name = "*.yaml";
+                          text = " ";
+                        }
+                        {
+                          name = "*.yml";
+                          text = " ";
+                        }
+                        {
+                          name = "*.toml";
+                          text = " ";
+                        }
+                        {
+                          name = "*.nix";
+                          text = " ";
+                        }
+                        {
+                          name = "*.zip";
+                          text = " ";
+                        }
+                        {
+                          name = "*.tar";
+                          text = " ";
+                        }
+                        {
+                          name = "*.gz";
+                          text = " ";
+                        }
+                        {
+                          name = "Dockerfile";
+                          text = " ";
+                        }
+                        {
+                          name = "*.dockerfile";
+                          text = " ";
+                        }
+                      ];
+                    };
+                  };
                 };
 
                 zoxide = {
