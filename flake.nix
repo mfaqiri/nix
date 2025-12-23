@@ -144,29 +144,6 @@
                     email = mfaqiri@godaddy.com
                 '';
               };
-              fonts = {
-                fontconfig.enable = true;
-
-                packages = with pkgs; [
-                  nerd-fonts.jetbrains-mono
-                  nerd-fonts.fira-code
-                  noto-fonts
-                  noto-fonts-cjk-sans
-                  noto-fonts-color-emoji
-                  liberation_ttf
-                  fira-code
-                  fira-code-symbols
-                  mplus-outline-fonts.githubRelease
-                  dina-font
-                  proggyfonts
-                  font-awesome
-                  powerline-fonts
-                  powerline-symbols
-                  fira-code
-                  fira-code-symbols
-                  liberation_ttf
-                ];
-              };
 
               programs = {
                 git = {
