@@ -47,6 +47,7 @@ in {
         name = "colima";
         start_service = true;
       }
+      "awscli-local"
     ];
 
     casks = [
