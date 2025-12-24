@@ -6,9 +6,6 @@
   imports = [
     inputs.nvf.homeManagerModules.default
     ./nvim/nvim.nix
-    ./hyprland.nix
-    ./theme.nix
-    ./waybar.nix
     ./kitty.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
@@ -35,6 +32,9 @@
     };
   };
   home.packages = with pkgs; [
+    libreoffice
+    btop
+    direnv
     devenv
     chromium
     mpv
@@ -52,7 +52,6 @@
     fd
     wl-clipboard
     networkmanagerapplet
-    hyprshot
     parsec-bin
     prusa-slicer
     nautilus
@@ -110,7 +109,7 @@
   # plain files is through 'home.file'.
 
   home.file = {
-    # Gamescope for 4K monitor (when in Hyprland)
+    # Gamescope for 4K monitor 
     ".local/bin/steam-gamescope-4k.sh" = {
       executable = true;
       text = ''
@@ -254,10 +253,6 @@
                 nvr --servername "$SERVER" --remote "$file"
             fi
 
-            # Try to focus the window
-            sleep 0.1
-            hyprctl dispatch focuswindow "title:.*nvim.*" 2>/dev/null || \
-            hyprctl dispatch focuswindow "class:kitty" 2>/dev/null || true
         else
             # No nvim running, open in new kitty window
             if [ -n "$CURSOR_CMD" ]; then
@@ -303,8 +298,6 @@
         bash
         */
         ''
-          # Fix delete key
-
           # Notify on command failure - SIMPLE VERSION
           precmd() { [ $? -ne 0 ] && notify-send "Command Failed" "$(fc -ln -1)"; }
 
@@ -314,6 +307,7 @@
              source ~/.zshrc.private
           fi
 
+          eval "$(direnv hook zsh)"
         '';
     };
     yazi = {

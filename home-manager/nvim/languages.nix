@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.nvf = {
     settings.vim = {
       # Add packages for document processing
@@ -8,6 +9,17 @@
         pandoc # For document conversion if needed
       ];
 
+      # Add treesitter grammar for GLSL
+      treesitter.grammars = [ pkgs.tree-sitter-grammars.tree-sitter-glsl ];
+
+            # Add GLSL plugin - use attribute set format
+      extraPlugins = {
+        vim-glsl = {
+          package = pkgs.vimPlugins.vim-glsl;
+          setup = '''';
+        };
+      };
+
       lsp = {
         enable = true;
 
@@ -15,8 +27,15 @@
           gdscript = {
             package = null;
             # Use Godot as the language server
-            cmd = ["nc" "localhost" "6005"];
-            filetypes = ["gdscript" "gdscript3"];
+            cmd = [
+              "nc"
+              "localhost"
+              "6005"
+            ];
+            filetypes = [
+              "gdscript"
+              "gdscript3"
+            ];
             rootMarkers = ''vim.lsp.config.util.root_pattern("project.godot", ".git")'';
             settings = {
               # Godot-specific settings
@@ -58,8 +77,8 @@
             '';
           };
           arduino_language_server = {
-            cmd = ["arduino-language-server"];
-            filetypes = ["arduino"];
+            cmd = [ "arduino-language-server" ];
+            filetypes = [ "arduino" ];
             rootMarkers = ''vim.lsp.config.util.root_pattern("*.ino", ".git")'';
           };
         };

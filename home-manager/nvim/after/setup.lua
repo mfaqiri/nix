@@ -128,7 +128,7 @@ luasnip.add_snippets("gdscript", {
     i(3, "NodePath"),
     i(0),
   }),
-  
+
   -- @onready simple
   s("on", {
     t("@onready var "),
@@ -137,7 +137,7 @@ luasnip.add_snippets("gdscript", {
     i(2, "NodePath"),
     i(0),
   }),
-  
+
   -- Function
   s("func", {
     t("func "),
@@ -145,35 +145,35 @@ luasnip.add_snippets("gdscript", {
     t("("),
     i(2),
     t("):"),
-    t({"", "\t"}),
+    t({ "", "\t" }),
     i(0, "pass"),
   }),
-  
+
   -- _ready
   s("ready", {
-    t({"func _ready():", "\t"}),
+    t({ "func _ready():", "\t" }),
     i(0, "pass"),
   }),
-  
+
   -- _process
   s("proc", {
-    t({"func _process(delta: float):", "\t"}),
+    t({ "func _process(delta: float):", "\t" }),
     i(0, "pass"),
   }),
-  
+
   -- _physics_process
   s("phys", {
-    t({"func _physics_process(delta: float):", "\t"}),
+    t({ "func _physics_process(delta: float):", "\t" }),
     i(0, "pass"),
   }),
-  
+
   -- Signal
   s("sig", {
     t("signal "),
     i(1, "signal_name"),
     i(0),
   }),
-  
+
   -- Export
   s("exp", {
     t("@export var "),
@@ -220,12 +220,27 @@ vim.api.nvim_create_user_command('GodotNode', function(opts)
     vim.notify("Usage: :GodotNode NodeName", vim.log.levels.ERROR)
     return
   end
-  
+
   -- Convert to snake_case
-  local var_name = node_name:gsub("(%u)", function(c) 
-    return "_" .. c:lower() 
+  local var_name = node_name:gsub("(%u)", function(c)
+    return "_" .. c:lower()
   end):gsub("^_", "")
-  
+
   local line = string.format('@onready var %s: Node = $%s', var_name, node_name)
-  vim.api.nvim_put({line}, 'l', true, true)
+  vim.api.nvim_put({ line }, 'l', true, true)
 end, { nargs = 1, desc = "Insert @onready node reference" })
+
+-- GLSL filetype detection
+vim.filetype.add({
+  extension = {
+    vert = 'glsl',
+    frag = 'glsl',
+    glsl = 'glsl',
+    vs = 'glsl',
+    fs = 'glsl',
+    gs = 'glsl',
+    tesc = 'glsl',
+    tese = 'glsl',
+    comp = 'glsl',
+  }
+})

@@ -8,7 +8,8 @@
   pkgs,
   secretsPath,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -33,7 +34,7 @@
 
     kernelPackages = pkgs.linuxPackages_latest;
 
-    kernelModules = ["kvm-amd"];
+    kernelModules = [ "kvm-amd" ];
   };
 
   # Set your time zone.
@@ -63,7 +64,16 @@
     EDITOR = "nvim";
   };
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    trusted-users = [
+      "root"
+      "mfaqiri"
+    ];
+  };
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -100,14 +110,31 @@
     users = {
       mfaqiri = {
         isNormalUser = true;
-        extraGroups = ["wheel" "power" "storage" "networkmanager" "sudo" "audio" "video" "tss" "libvirtd" "rtkit" "docker" "dialout" "input" "tss" "render" "waydroid"]; # Enable ‘sudo’ for the user.
+        extraGroups = [
+          "wheel"
+          "power"
+          "storage"
+          "networkmanager"
+          "sudo"
+          "audio"
+          "video"
+          "tss"
+          "libvirtd"
+          "rtkit"
+          "docker"
+          "dialout"
+          "input"
+          "tss"
+          "render"
+          "waydroid"
+        ]; # Enable ‘sudo’ for the user.
       };
     };
   };
 
   home-manager = {
     backupFileExtension = "bak";
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = { inherit inputs; };
     users = {
       "mfaqiri" = import ../../home-manager/home.nix;
     };
@@ -133,37 +160,26 @@
   ];
 
   services = {
+    open-webui.enable = true;
     systembus-notify.enable = true;
     pcscd.enable = true;
+    ollama = {
+      enable = true;
+      acceleration = "rocm";
+      loadModels = [ "mistral-nemo" "devstral-2" ];
+    };
     udev = {
-      packages = with pkgs; [yubikey-personalization libwacom];
+      packages = with pkgs; [
+        yubikey-personalization
+        libwacom
+      ];
       extraRules = ''
         SUBSYSTEM=="input", ATTRS{idVendor}=="056a", MODE="0664", GROUP="input", TAG+="uaccess"
       '';
     };
 
-    displayManager = {
-      ly.enable = true;
-      sessionPackages = [
-        (
-          (
-            pkgs.writeTextDir "share/wayland-sessions/hyprland.desktop" ''
-              [Desktop Entry]
-              Name=hyprland
-              Comment=Hyprland compositor with UWSM
-              Exec=hyprland
-              Type=Application
-            ''
-          )
-          .overrideAttrs (oldAttrs: {
-            passthru = {
-              providedSessions = ["hyprland"];
-            };
-          })
-        )
-      ];
-      defaultSession = "hyprland";
-    };
+    displayManager.cosmic-greeter.enable = true;
+    desktopManager.cosmic.enable = true;
 
     tor = {
       settings = {
@@ -214,22 +230,27 @@
     enable = true;
 
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
     ];
 
     config = {
       common = {
-        default = ["hyprland" "gtk"];
-        "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+        default = [
+          "hyprland"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
       };
 
       hyprland = {
-        default = ["hyprland" "gtk"];
-        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
-        "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
-        "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
+        default = [
+          "hyprland"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
       };
     };
 
