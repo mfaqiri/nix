@@ -144,7 +144,6 @@
                     email = mfaqiri@godaddy.com
                 '';
               };
-              fonts.fontconfig.enable = true;
 
               programs = {
                 git = {
@@ -260,6 +259,94 @@
                 yazi = {
                   enable = true;
                   enableZshIntegration = true;
+
+                  # Add theme configuration for icons
+                  theme = {
+                    icon = {
+                      rules = [
+                        {
+                          mime = "image/*";
+                          text = " ";
+                        }
+                        {
+                          mime = "video/*";
+                          text = " ";
+                        }
+                        {
+                          mime = "audio/*";
+                          text = " ";
+                        }
+                        {
+                          name = "*.md";
+                          text = " ";
+                        }
+                        {
+                          name = "*.py";
+                          text = " ";
+                        }
+                        {
+                          name = "*.js";
+                          text = " ";
+                        }
+                        {
+                          name = "*.ts";
+                          text = " ";
+                        }
+                        {
+                          name = "*.rs";
+                          text = " ";
+                        }
+                        {
+                          name = "*.go";
+                          text = " ";
+                        }
+                        {
+                          name = "*.java";
+                          text = " ";
+                        }
+                        {
+                          name = "*.json";
+                          text = " ";
+                        }
+                        {
+                          name = "*.yaml";
+                          text = " ";
+                        }
+                        {
+                          name = "*.yml";
+                          text = " ";
+                        }
+                        {
+                          name = "*.toml";
+                          text = " ";
+                        }
+                        {
+                          name = "*.nix";
+                          text = " ";
+                        }
+                        {
+                          name = "*.zip";
+                          text = " ";
+                        }
+                        {
+                          name = "*.tar";
+                          text = " ";
+                        }
+                        {
+                          name = "*.gz";
+                          text = " ";
+                        }
+                        {
+                          name = "Dockerfile";
+                          text = " ";
+                        }
+                        {
+                          name = "*.dockerfile";
+                          text = " ";
+                        }
+                      ];
+                    };
+                  };
                 };
 
                 zoxide = {
