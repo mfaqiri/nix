@@ -145,6 +145,7 @@
   environment.systemPackages = with pkgs; [
     libwacom
     libinput
+    libnotify
     sbctl
     virtiofsd
     usbutils
@@ -181,6 +182,8 @@
     displayManager.cosmic-greeter.enable = true;
     desktopManager.cosmic.enable = true;
 
+    xserver.enable = true;
+
     tor = {
       settings = {
         UseBridges = true;
@@ -213,6 +216,7 @@
   # Enable the OpenSSH daemon.
 
   programs = {
+    xwayland.enable = true;
     appimage = {
       enable = true;
       binfmt = true;
@@ -230,8 +234,7 @@
     enable = true;
 
     extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
+      xdg-desktop-portal-cosmic
     ];
 
     config = {

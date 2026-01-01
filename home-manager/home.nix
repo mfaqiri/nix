@@ -414,34 +414,4 @@
   #  /etc/profiles/per-user/mfaqiri/etc/profile.d/hm-session-vars.sh
   #
 
-  # Let Home Manager install and manage itself.
-  # home.nix
-  xdg.mimeApps = {
-    enable = true;
-    associations.added = {
-      "x-scheme-handler/parsec" = "parsecd.desktop";
-    };
-    defaultApplications = {
-      "x-scheme-handler/parsec" = "parsecd.desktop";
-
-      # Video formats
-      "video/mp4" = "vlc.desktop";
-      "video/mpeg" = "vlc.desktop";
-      "video/x-msvideo" = "vlc.desktop";
-      "video/quicktime" = "vlc.desktop";
-      "video/x-matroska" = "vlc.desktop";
-      "video/webm" = "vlc.desktop";
-      "video/x-flv" = "vlc.desktop";
-      "video/3gpp" = "vlc.desktop";
-      "video/x-ms-wmv" = "vlc.desktop";
-      "video/ogg" = "vlc.desktop";
-
-      # Audio formats (optional)
-      "audio/mpeg" = "vlc.desktop";
-      "audio/mp4" = "vlc.desktop";
-      "audio/x-wav" = "vlc.desktop";
-      "audio/ogg" = "vlc.desktop";
-      "audio/x-flac" = "vlc.desktop";
-    };
-  };
 }
