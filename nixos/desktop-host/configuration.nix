@@ -161,14 +161,8 @@
   ];
 
   services = {
-    open-webui.enable = true;
     systembus-notify.enable = true;
     pcscd.enable = true;
-    ollama = {
-      enable = true;
-      acceleration = "rocm";
-      loadModels = [ "mistral-nemo" "devstral-2" ];
-    };
     udev = {
       packages = with pkgs; [
         yubikey-personalization
@@ -228,36 +222,6 @@
       enable = true;
       enableSSHSupport = true;
     };
-  };
-
-  xdg.portal = {
-    enable = true;
-
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-cosmic
-    ];
-
-    config = {
-      common = {
-        default = [
-          "hyprland"
-          "gtk"
-        ];
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-      };
-
-      hyprland = {
-        default = [
-          "hyprland"
-          "gtk"
-        ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-      };
-    };
-
-    xdgOpenUsePortal = true;
   };
 
   # Copy the NixOS configuration file and link it from the resulting system

@@ -54,7 +54,6 @@
     networkmanagerapplet
     parsec-bin
     prusa-slicer
-    nautilus
     openvpn
     docker-compose
     postman
