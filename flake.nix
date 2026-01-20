@@ -40,325 +40,329 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nix-darwin,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-  in {
-    nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-          secretsPath = ./secrets;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix-darwin,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+    in
+    {
+      nixosConfigurations = {
+        desktop = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+            secretsPath = ./secrets;
+          };
+
+          modules = [
+            ./nixos/desktop-host/configuration.nix
+            inputs.lanzaboote.nixosModules.lanzaboote
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+            }
+            inputs.sops-nix.nixosModules.sops
+          ];
         };
 
-        modules = [
-          ./nixos/desktop-host/configuration.nix
-          inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "bak";
-          }
-          inputs.sops-nix.nixosModules.sops
-        ];
+        laptop = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+          };
+
+          modules = [
+            ./nixos/laptop-host/configuration.nix
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.yourusername = import ./users/yourusername.nix;
+
+              # Pass inputs to Home Manager
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+              };
+            }
+          ];
+        };
       };
 
-      laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-        };
+      darwinConfigurations = {
+        work-mac = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./nixos/darwin-host/configuration.nix
+            inputs.nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                # Install Homebrew under the default prefix
+                enable = true;
 
-        modules = [
-          ./nixos/laptop-host/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.yourusername = import ./users/yourusername.nix;
+                # User owning the Homebrew prefix
+                user = "mfaqiri";
 
-            # Pass inputs to Home Manager
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-            };
-          }
-        ];
-      };
-    };
+                autoMigrate = true;
 
-    darwinConfigurations = {
-      work-mac = nix-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./nixos/darwin-host/configuration.nix
-          inputs.nvf.nixosModules.default
-          inputs.nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              # Install Homebrew under the default prefix
-              enable = true;
+                # Optional: Declarative tap management
+                taps = {
+                  "homebrew/homebrew-core" = inputs.homebrew-core;
+                  "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                  "Microsoft/homebrew-mssql-release" = inputs.homebrew-mssql;
+                };
 
-              # User owning the Homebrew prefix
-              user = "mfaqiri";
-
-              autoMigrate = true;
-
-              # Optional: Declarative tap management
-              taps = {
-                "homebrew/homebrew-core" = inputs.homebrew-core;
-                "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                "Microsoft/homebrew-mssql-release" = inputs.homebrew-mssql;
+                # Optional: Enable fully-declarative tap management
+                #
+                # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
+                mutableTaps = true;
               };
+            }
+            inputs.home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
 
-              # Optional: Enable fully-declarative tap management
-              #
-              # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
-              mutableTaps = true;
-            };
-          }
-          inputs.home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.mfaqiri = {
-              config,
-              pkgs,
-              lib,
-              ...
-            }: {
-              imports = [./home-manager/kitty.nix];
-              home = {
-                stateVersion = "25.05";
-                username = "mfaqiri";
-                homeDirectory = lib.mkForce "/Users/mfaqiri";
-                file.".gitconfig-godaddy".text = ''
-                  [user]
-                    email = mfaqiri@godaddy.com
-                '';
-              };
-
-              programs = {
-                git = {
-                  enable = true;
-
-                  includes = [
-                    {
-                      condition = "gitdir:~/projects/GoDaddy/";
-                      path = "~/.gitconfig-godaddy";
-                    }
+              home-manager.users.mfaqiri =
+                {
+                  config,
+                  pkgs,
+                  lib,
+                  ...
+                }:
+                {
+                  imports = [
+                    ./home-manager/kitty.nix
+                    ./home-manager/nvim/nvim.nix
+                    inputs.nvf.homeManagerModules.default
                   ];
-                  settings = {
-                    user = {
-                      name = "Mansoor Faqiri";
-                      email = "mzfaqiri@gmail.com";
-                    };
-
-                    extraConfig = {
-                      core = {
-                        editor = "nvim";
-                      };
-                      init = {
-                        defaultBranch = "main";
-                      };
-                      pull = {
-                        rebase = false;
-                      };
-                      # This ensures includeIf comes at the end
-                    };
-
-                    # Git aliases (optional)
-                    aliases = {
-                      st = "status";
-                      co = "checkout";
-                      br = "branch";
-                      ci = "commit";
-                      unstage = "reset HEAD --";
-                    };
-                  };
-                };
-                ssh = {
-                  enable = true;
-
-                  enableDefaultConfig = false;
-
-                  matchBlocks = {
-                    # Personal GitHub account
-                    "github.com" = {
-                      hostname = "github.com";
-                      user = "git";
-                      identityFile = "~/.ssh/id_ed25519_personal";
-                      extraOptions = {
-                        AddKeysToAgent = "yes";
-                        UseKeychain = "yes";
-                      };
-                    };
-
-                    # Work GitHub account
-                    "github.com-godaddy" = {
-                      hostname = "github.com";
-                      user = "git";
-                      identityFile = "~/.ssh/id_ed25519_godaddy";
-                      extraOptions = {
-                        AddKeysToAgent = "yes";
-                        UseKeychain = "yes";
-                      };
-                    };
-                  };
-                };
-                home-manager.enable = true;
-                zsh = {
-                  enable = true;
-                  enableCompletion = true;
-                  syntaxHighlighting.enable = true;
-
-                  shellAliases = {
-                    ll = "ls -l";
-                    sed = "gsed";
-                    update = "sudo HOMEBREW_ACCEPT_EULA=YES darwin-rebuild switch --flake /Users/mfaqiri/.config/nix#work-mac";
-                  };
-
-                  initContent =
-                    /*
-                    bash
-                    */
-                    ''
-                      export DOCKER_HOST=unix:///Users/$USER/.colima/docker.sock
-                      export TERM=xterm-256color
-                      eval "$(direnv hook zsh)"
-                      # Source any other private zsh config
-                      if [[ -f ~/.zshrc.private ]]; then
-                        source ~/.zshrc.private
-                      fi
+                  home = {
+                    stateVersion = "25.05";
+                    username = "mfaqiri";
+                    homeDirectory = lib.mkForce "/Users/mfaqiri";
+                    file.".gitconfig-godaddy".text = ''
+                      [user]
+                        email = mfaqiri@godaddy.com
                     '';
-
-                  zplug = {
-                    enable = true;
-                    plugins = [
-                      {name = "zsh-users/zsh-autosuggestions";}
-                      {
-                        name = "ergenekonyigit/lambda-gitster";
-                        tags = ["as:theme"];
-                      }
-                      {name = "chisui/zsh-nix-shell";}
-                    ];
                   };
 
-                  history.size = 10000;
-                  history.ignoreAllDups = true;
-                  history.path = "$HOME/.zsh_history";
-                };
+                  programs = {
+                    git = {
+                      enable = true;
 
-                yazi = {
-                  enable = true;
-                  enableZshIntegration = true;
-
-                  # Add theme configuration for icons
-                  theme = {
-                    icon = {
-                      rules = [
+                      includes = [
                         {
-                          mime = "image/*";
-                          text = " ";
-                        }
-                        {
-                          mime = "video/*";
-                          text = " ";
-                        }
-                        {
-                          mime = "audio/*";
-                          text = " ";
-                        }
-                        {
-                          name = "*.md";
-                          text = " ";
-                        }
-                        {
-                          name = "*.py";
-                          text = " ";
-                        }
-                        {
-                          name = "*.js";
-                          text = " ";
-                        }
-                        {
-                          name = "*.ts";
-                          text = " ";
-                        }
-                        {
-                          name = "*.rs";
-                          text = " ";
-                        }
-                        {
-                          name = "*.go";
-                          text = " ";
-                        }
-                        {
-                          name = "*.java";
-                          text = " ";
-                        }
-                        {
-                          name = "*.json";
-                          text = " ";
-                        }
-                        {
-                          name = "*.yaml";
-                          text = " ";
-                        }
-                        {
-                          name = "*.yml";
-                          text = " ";
-                        }
-                        {
-                          name = "*.toml";
-                          text = " ";
-                        }
-                        {
-                          name = "*.nix";
-                          text = " ";
-                        }
-                        {
-                          name = "*.zip";
-                          text = " ";
-                        }
-                        {
-                          name = "*.tar";
-                          text = " ";
-                        }
-                        {
-                          name = "*.gz";
-                          text = " ";
-                        }
-                        {
-                          name = "Dockerfile";
-                          text = " ";
-                        }
-                        {
-                          name = "*.dockerfile";
-                          text = " ";
+                          condition = "gitdir:~/projects/GoDaddy/";
+                          path = "~/.gitconfig-godaddy";
                         }
                       ];
+                      settings = {
+                        user = {
+                          name = "Mansoor Faqiri";
+                          email = "mzfaqiri@gmail.com";
+                        };
+
+                        extraConfig = {
+                          core = {
+                            editor = "nvim";
+                          };
+                          init = {
+                            defaultBranch = "main";
+                          };
+                          pull = {
+                            rebase = false;
+                          };
+                          # This ensures includeIf comes at the end
+                        };
+
+                        # Git aliases (optional)
+                        aliases = {
+                          st = "status";
+                          co = "checkout";
+                          br = "branch";
+                          ci = "commit";
+                          unstage = "reset HEAD --";
+                        };
+                      };
+                    };
+                    ssh = {
+                      enable = true;
+
+                      enableDefaultConfig = false;
+
+                      matchBlocks = {
+                        # Personal GitHub account
+                        "github.com" = {
+                          hostname = "github.com";
+                          user = "git";
+                          identityFile = "~/.ssh/id_ed25519_personal";
+                          extraOptions = {
+                            AddKeysToAgent = "yes";
+                            UseKeychain = "yes";
+                          };
+                        };
+
+                        # Work GitHub account
+                        "github.com-godaddy" = {
+                          hostname = "github.com";
+                          user = "git";
+                          identityFile = "~/.ssh/id_ed25519_godaddy";
+                          extraOptions = {
+                            AddKeysToAgent = "yes";
+                            UseKeychain = "yes";
+                          };
+                        };
+                      };
+                    };
+                    home-manager.enable = true;
+                    zsh = {
+                      enable = true;
+                      enableCompletion = true;
+                      syntaxHighlighting.enable = true;
+
+                      shellAliases = {
+                        ll = "ls -l";
+                        sed = "gsed";
+                        update = "sudo HOMEBREW_ACCEPT_EULA=YES darwin-rebuild switch --flake /Users/mfaqiri/.config/nix#work-mac";
+                      };
+
+                      initContent = /* bash */ ''
+                        export DOCKER_HOST=unix:///Users/$USER/.colima/docker.sock
+                        export TERM=xterm-256color
+                        eval "$(direnv hook zsh)"
+                        # Source any other private zsh config
+                        if [[ -f ~/.zshrc.private ]]; then
+                          source ~/.zshrc.private
+                        fi
+                      '';
+
+                      zplug = {
+                        enable = true;
+                        plugins = [
+                          { name = "zsh-users/zsh-autosuggestions"; }
+                          {
+                            name = "ergenekonyigit/lambda-gitster";
+                            tags = [ "as:theme" ];
+                          }
+                          { name = "chisui/zsh-nix-shell"; }
+                        ];
+                      };
+
+                      history.size = 10000;
+                      history.ignoreAllDups = true;
+                      history.path = "$HOME/.zsh_history";
+                    };
+
+                    yazi = {
+                      enable = true;
+                      enableZshIntegration = true;
+
+                      # Add theme configuration for icons
+                      theme = {
+                        icon = {
+                          rules = [
+                            {
+                              mime = "image/*";
+                              text = " ";
+                            }
+                            {
+                              mime = "video/*";
+                              text = " ";
+                            }
+                            {
+                              mime = "audio/*";
+                              text = " ";
+                            }
+                            {
+                              name = "*.md";
+                              text = " ";
+                            }
+                            {
+                              name = "*.py";
+                              text = " ";
+                            }
+                            {
+                              name = "*.js";
+                              text = " ";
+                            }
+                            {
+                              name = "*.ts";
+                              text = " ";
+                            }
+                            {
+                              name = "*.rs";
+                              text = " ";
+                            }
+                            {
+                              name = "*.go";
+                              text = " ";
+                            }
+                            {
+                              name = "*.java";
+                              text = " ";
+                            }
+                            {
+                              name = "*.json";
+                              text = " ";
+                            }
+                            {
+                              name = "*.yaml";
+                              text = " ";
+                            }
+                            {
+                              name = "*.yml";
+                              text = " ";
+                            }
+                            {
+                              name = "*.toml";
+                              text = " ";
+                            }
+                            {
+                              name = "*.nix";
+                              text = " ";
+                            }
+                            {
+                              name = "*.zip";
+                              text = " ";
+                            }
+                            {
+                              name = "*.tar";
+                              text = " ";
+                            }
+                            {
+                              name = "*.gz";
+                              text = " ";
+                            }
+                            {
+                              name = "Dockerfile";
+                              text = " ";
+                            }
+                            {
+                              name = "*.dockerfile";
+                              text = " ";
+                            }
+                          ];
+                        };
+                      };
+                    };
+
+                    zoxide = {
+                      enable = true;
+                      enableZshIntegration = true;
+                      options = [ "--cmd cd" ];
                     };
                   };
                 };
-
-                zoxide = {
-                  enable = true;
-                  enableZshIntegration = true;
-                  options = ["--cmd cd"];
-                };
-              };
-            };
-          }
-        ];
+            }
+          ];
+        };
       };
     };
-  };
 }

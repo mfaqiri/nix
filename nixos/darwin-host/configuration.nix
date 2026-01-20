@@ -5,9 +5,17 @@
 }: let
   self = inputs.self;
 in {
-  imports = [
-    ../../home-manager/nvim/nvim.nix
-  ];
+  nixpkgs.overlays = [
+  (final: prev: {
+    python313 = prev.python313.override {
+      packageOverrides = pyfinal: pyprev: {
+        setproctitle = pyprev.setproctitle.overridePythonAttrs (old: {
+          doCheck = false;
+        });
+      };
+    };
+  })
+];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -28,6 +36,7 @@ in {
       "qemu"
       "k9s"
       "jq"
+      "python@3.13"
       "python@3.12"
       "python@3.11"
       "pinentry-mac"
