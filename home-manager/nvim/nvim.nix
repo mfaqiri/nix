@@ -33,6 +33,7 @@
           enable = true;
           name = "onedark";
         };
+        telescope.enable = true;
 
         viAlias = false;
         vimAlias = true;
