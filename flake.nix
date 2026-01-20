@@ -237,6 +237,51 @@
                         export DOCKER_HOST=unix:///Users/$USER/.colima/docker.sock
                         export TERM=xterm-256color
                         eval "$(direnv hook zsh)"
+                        # Vi mode configuration
+                        bindkey -v  # Enable vi mode
+                        export KEYTIMEOUT=1  # Reduce delay when switching modes (10ms)
+                        
+                        # Keep normal mode after commands (don't auto-return to insert)
+                        bindkey -M vicmd 'k' up-line-or-history
+                        bindkey -M vicmd 'j' down-line-or-history
+                        bindkey -M vicmd 'h' backward-char
+                        bindkey -M vicmd 'l' forward-char
+                        
+                        # Better cursor shape for vi modes
+                        function zle-keymap-select {
+                          if [[ ''${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+                            echo -ne '\e[1 q'  # Block cursor for normal mode
+                          elif [[ ''${KEYMAP} == main ]] || [[ ''${KEYMAP} == viins ]] || [[ ''${KEYMAP} = "" ]] || [[ $1 = 'beam' ]]; then
+                            echo -ne '\e[5 q'  # Beam cursor for insert mode
+                          fi
+                        }
+                        zle -N zle-keymap-select
+                        
+                        # Initialize with beam cursor
+                        zle-line-init() {
+                          echo -ne '\e[5 q'
+                        }
+                        zle -N zle-line-init
+                        
+                        # Use beam on new prompts
+                        preexec() { 
+                          echo -ne '\e[5 q'
+                        }
+                        
+                        # Additional useful vi mode bindings
+                        bindkey '^P' up-history
+                        bindkey '^N' down-history
+                        bindkey '^?' backward-delete-char
+                        bindkey '^h' backward-delete-char
+                        bindkey '^w' backward-kill-word
+                        bindkey '^r' history-incremental-search-backward
+                        
+                        # Edit command line in vim
+                        autoload -Uz edit-command-line
+                        zle -N edit-command-line
+                        bindkey -M vicmd 'v' edit-command-line
+              
+
                         # Source any other private zsh config
                         if [[ -f ~/.zshrc.private ]]; then
                           source ~/.zshrc.private

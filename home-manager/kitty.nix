@@ -32,9 +32,9 @@
       "alt+l" = "neighboring_window right";
 
 
-      "kitty_mod+enter" = "new_window";
-      "kitty_mod+b" = "launch --location=vsplit";
-      "kitty_mod+s" = "launch --location=hsplit";
+      "kitty_mod+enter" = "launch --cwd=current";
+      "kitty_mod+b" = "launch --cwd=current --location=vsplit";
+      "kitty_mod+s" = "launch --cwd=current --location=hsplit";
 
             # Tab navigation by number
       "kitty_mod+1" = "goto_tab 1";
