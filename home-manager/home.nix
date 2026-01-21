@@ -108,28 +108,6 @@
   # plain files is through 'home.file'.
 
   home.file = {
-    # Gamescope for 4K monitor 
-    ".local/bin/steam-gamescope-4k.sh" = {
-      executable = true;
-      text = ''
-        #!/usr/bin/env bash
-
-        # Launch Steam in gamescope on 4K monitor (DP-1)
-        gamescope \
-          -W 3840 \
-          -H 2160 \
-          -w 3840 \
-          -h 2160 \
-          --adaptive-sync \
-          --hdr-enabled \
-          --force-grab-cursor \
-          --immediate-flips \
-          -r 144 \
-          --prefer-output DP-1 \
-          -- steam -gamepadui
-      '';
-    };
-
     # Gamescope for TV (when in Hyprland)
     ".local/bin/steam-gamescope-tv.sh" = {
       executable = true;
