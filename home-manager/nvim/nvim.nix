@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./keymaps.nix
     ./options.nix
@@ -48,6 +49,10 @@
           };
         };
 
+        autocomplete.nvim-cmp = {
+          enable = true;
+        };
+
         comments.comment-nvim.enable = true;
 
         debugger.nvim-dap.enable = true;
@@ -74,21 +79,17 @@
 
         # Add friendly-snippets for common snippets
 
-        luaConfigPre =
-          /*
-          lua
-          */
-          ''
-                        -- Add gdformat to null-ls for LSP formatting support
-            local null_ls_ok, null_ls = pcall(require, "null-ls")
-            if null_ls_ok then
-              null_ls.setup({
-                sources = {
-                  null_ls.builtins.formatting.gdformat,
-                },
-              })
-            end
-          '';
+        luaConfigPre = /* lua */ ''
+                      -- Add gdformat to null-ls for LSP formatting support
+          local null_ls_ok, null_ls = pcall(require, "null-ls")
+          if null_ls_ok then
+            null_ls.setup({
+              sources = {
+                null_ls.builtins.formatting.gdformat,
+              },
+            })
+          end
+        '';
 
         visuals = {
           nvim-web-devicons.enable = true; # This is crucial
