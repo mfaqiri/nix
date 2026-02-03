@@ -7,15 +7,29 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
   boot = {
-    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-    initrd.kernelModules = ["amdgpu"];
-    kernelModules = ["kvm-amd" "v4l2loopback" "sg" "threadirqs" "binder_linux"];
+    initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "ahci"
+      "usb_storage"
+      "usbhid"
+      "sd_mod"
+    ];
+    initrd.kernelModules = [ "amdgpu" ];
+    kernelModules = [
+      "kvm-amd"
+      "v4l2loopback"
+      "sg"
+      "threadirqs"
+      "binder_linux"
+    ];
     kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
       "vm.swappiness" = 10;
@@ -26,12 +40,15 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [lact libva-utils];
+  environment.systemPackages = with pkgs; [
+    lact
+    libva-utils
+  ];
   environment.variables = {
     LIBVA_DRIVER_NAME = "radeonsi";
   };
-  systemd.packages = with pkgs; [lact];
-  systemd.services.lactd.wantedBy = ["multi-user.target"];
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
 
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
@@ -54,11 +71,11 @@
     ];
   };
 
-  hardware.bluetooth = {
-    enable = true;
-  };
-
   hardware = {
+    amdgpu = {
+      overdrive.enable = true;
+    };
+    bluetooth.enable = true;
     graphics = {
       enable = true;
       enable32Bit = true;
