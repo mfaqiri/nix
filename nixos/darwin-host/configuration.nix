@@ -5,17 +5,6 @@
 }: let
   self = inputs.self;
 in {
-  nixpkgs.overlays = [
-  (final: prev: {
-    python313 = prev.python313.override {
-      packageOverrides = pyfinal: pyprev: {
-        setproctitle = pyprev.setproctitle.overridePythonAttrs (old: {
-          doCheck = false;
-        });
-      };
-    };
-  })
-];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
