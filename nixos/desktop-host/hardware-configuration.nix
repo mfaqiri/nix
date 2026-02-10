@@ -72,6 +72,10 @@
   };
 
   hardware = {
+    opentabletdriver = {
+      enable = true;
+      daemon.enable = true;
+    };
     amdgpu = {
       overdrive.enable = true;
     };
