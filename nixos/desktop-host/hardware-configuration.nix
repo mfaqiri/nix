@@ -22,7 +22,7 @@
       "usbhid"
       "sd_mod"
     ];
-    initrd.kernelModules = [ "amdgpu" ];
+    initrd.kernelModules = [ "amdgpu" "uinput" ];
     kernelModules = [
       "kvm-amd"
       "v4l2loopback"
@@ -72,6 +72,7 @@
   };
 
   hardware = {
+    uinput.enable = true;
     opentabletdriver = {
       enable = true;
       daemon.enable = true;
