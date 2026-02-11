@@ -73,10 +73,6 @@
 
   hardware = {
     uinput.enable = true;
-    opentabletdriver = {
-      enable = true;
-      daemon.enable = true;
-    };
     amdgpu = {
       overdrive.enable = true;
     };
@@ -95,6 +91,7 @@
     DEVPATH=="/devices/virtual/misc/hpet", OWNER="root", GROUP="audio", MODE="0660"
   '';
 
+  services.xserver.wacom.enable = true;
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

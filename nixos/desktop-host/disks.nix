@@ -22,11 +22,11 @@
     options = ["rw" "relatime"];
   };
 
-  fileSystems."/mnt/sda" = {
-    device = "/dev/disk/by-uuid/cfaba8c4-4046-4035-816a-d4618b3473c4";
-    fsType = "ext4";
-    options = ["rw" "relatime"];
-  };
+#  fileSystems."/mnt/sda" = {
+#    device = "/dev/disk/by-uuid/cfaba8c4-4046-4035-816a-d4618b3473c4";
+#    fsType = "ext4";
+#    options = ["rw" "relatime"];
+#  };
 
   fileSystems."/mnt/nvme2n1" = {
     device = "/dev/disk/by-uuid/11f3f850-412a-495d-939a-9ef29de0fffa";

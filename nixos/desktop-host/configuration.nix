@@ -18,6 +18,9 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "ventoy-1.1.07"
+  ];
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -29,6 +32,8 @@
 
     lanzaboote = {
       enable = true;
+      autoGenerateKeys.enable = true;
+      autoEnrollKeys.enable = true;
       pkiBundle = "/var/lib/sbctl";
     };
 
@@ -63,6 +68,8 @@
   environment.variables = {
     EDITOR = "nvim";
   };
+
+environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
 
   nix.settings = {
     experimental-features = [
@@ -143,6 +150,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    ventoy
     libwacom
     libinput
     libnotify
@@ -161,6 +169,11 @@
   ];
 
   services = {
+gnome = {
+  core-apps.enable = false;
+  core-developer-tools.enable = false;
+  games.enable = false;
+};
     systembus-notify.enable = true;
     pcscd.enable = true;
     udev = {
@@ -175,6 +188,7 @@
 
     displayManager.cosmic-greeter.enable = true;
     desktopManager.cosmic.enable = true;
+    desktopManager.gnome.enable = true;
 
     xserver.enable = true;
 
