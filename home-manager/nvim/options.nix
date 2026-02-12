@@ -54,7 +54,6 @@
 
     options = {
       guicursor = "";
-      autoindent = true;
 
       nu = true;
       relativenumber = true;
