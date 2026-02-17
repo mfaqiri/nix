@@ -11,6 +11,7 @@
 
       # Add treesitter grammar for GLSL
       treesitter.grammars = [ pkgs.tree-sitter-grammars.tree-sitter-glsl ];
+      treesitter.indent.enable = false;
 
             # Add GLSL plugin - use attribute set format
       extraPlugins = {

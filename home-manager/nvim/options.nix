@@ -53,6 +53,7 @@
     };
 
     options = {
+      autoindent = true;
       guicursor = "";
 
       nu = true;
