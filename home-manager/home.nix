@@ -32,6 +32,7 @@
     };
   };
   home.packages = with pkgs; [
+    glmark2
     libreoffice
     btop
     direnv

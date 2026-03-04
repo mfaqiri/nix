@@ -18,9 +18,6 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "ventoy-1.1.07"
-  ];
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -150,7 +147,6 @@ environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    ventoy
     libwacom
     libinput
     libnotify
