@@ -32,6 +32,7 @@
     };
   };
   home.packages = with pkgs; [
+    sshfs
     glmark2
     libreoffice
     btop
