@@ -7,6 +7,7 @@
     inputs.nvf.homeManagerModules.default
     ./nvim/nvim.nix
     ./kitty.nix
+    ./emulators.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

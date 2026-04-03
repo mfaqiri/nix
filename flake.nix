@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
 
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,6 +48,7 @@
       self,
       nixpkgs,
       nix-darwin,
+      nixos-cosmic,
       ...
     }@inputs:
     let
@@ -78,6 +82,13 @@
           };
 
           modules = [
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+              };
+            }
+            nixos-cosmic.nixosModules.default
             ./nixos/laptop-host/configuration.nix
             inputs.home-manager.nixosModules.home-manager
             {
@@ -240,13 +251,13 @@
                         # Vi mode configuration
                         bindkey -v  # Enable vi mode
                         export KEYTIMEOUT=1  # Reduce delay when switching modes (10ms)
-                        
+
                         # Keep normal mode after commands (don't auto-return to insert)
                         bindkey -M vicmd 'k' up-line-or-history
                         bindkey -M vicmd 'j' down-line-or-history
                         bindkey -M vicmd 'h' backward-char
                         bindkey -M vicmd 'l' forward-char
-                        
+
                         # Better cursor shape for vi modes
                         function zle-keymap-select {
                           if [[ ''${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
@@ -256,18 +267,18 @@
                           fi
                         }
                         zle -N zle-keymap-select
-                        
+
                         # Initialize with beam cursor
                         zle-line-init() {
                           echo -ne '\e[5 q'
                         }
                         zle -N zle-line-init
-                        
+
                         # Use beam on new prompts
                         preexec() { 
                           echo -ne '\e[5 q'
                         }
-                        
+
                         # Additional useful vi mode bindings
                         bindkey '^P' up-history
                         bindkey '^N' down-history
@@ -275,12 +286,12 @@
                         bindkey '^h' backward-delete-char
                         bindkey '^w' backward-kill-word
                         bindkey '^r' history-incremental-search-backward
-                        
+
                         # Edit command line in vim
                         autoload -Uz edit-command-line
                         zle -N edit-command-line
                         bindkey -M vicmd 'v' edit-command-line
-              
+
 
                         # Source any other private zsh config
                         if [[ -f ~/.zshrc.private ]]; then
