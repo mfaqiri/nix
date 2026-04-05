@@ -33,6 +33,7 @@
     };
   };
   home.packages = with pkgs; [
+    itch
     sshfs
     glmark2
     libreoffice
