@@ -72,6 +72,7 @@
   };
 
   hardware = {
+    keyboard.qmk.enable = true;
     uinput.enable = true;
     amdgpu = {
       overdrive.enable = true;
