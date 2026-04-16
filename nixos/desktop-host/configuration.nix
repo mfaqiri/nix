@@ -130,7 +130,6 @@ environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
           "input"
           "tss"
           "render"
-          "waydroid"
         ]; # Enable ‘sudo’ for the user.
       };
     };
@@ -147,6 +146,8 @@ environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    vial
+    via
     libwacom
     libinput
     libnotify
@@ -174,6 +175,10 @@ gnome = {
     pcscd.enable = true;
     udev = {
       packages = with pkgs; [
+        via
+        vial
+        qmk-udev-rules
+        qmk_hid
         yubikey-personalization
         libwacom
       ];

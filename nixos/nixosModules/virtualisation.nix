@@ -9,7 +9,6 @@
   programs.virt-manager.enable = true;
 
   virtualisation = {
-    waydroid.enable = true;
     docker = {
       enable = true;
     };
