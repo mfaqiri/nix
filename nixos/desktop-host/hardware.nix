@@ -31,8 +31,7 @@
     ManagedOOMMemoryPressureLimit = "8%";
   };
 
-
-
+  
   services.system76-scheduler = {
     enable = true;
     useStockConfig = false;

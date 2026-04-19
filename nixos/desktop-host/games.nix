@@ -4,7 +4,7 @@
     protonup-ng
     heroic
     winetricks
-    wineWowPackages.staging
+    wineWow64Packages.staging
     mangohud
   ];
 
@@ -74,10 +74,10 @@
         extraLibraries = pkgs:
           with pkgs; [
             # Additional libraries for better compatibility
-            xorg.libXcursor
-            xorg.libXi
-            xorg.libXinerama
-            xorg.libXScrnSaver
+            libxcursor
+            libxi
+            libxinerama
+            libxscrnsaver
             libpng
             libpulseaudio
             libvorbis

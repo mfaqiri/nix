@@ -120,13 +120,17 @@
 
         python.enable = true;
 
-        rust.enable = true;
+        rust = {
+          enable = true;
+          lsp = {
+            enable = true;
+            package = pkgs.rust-analyzer-unwrapped;
+          };
+        };
 
         sql.enable = true;
 
-        tailwind.enable = true;
-
-        ts.enable = true;
+        typescript.enable = true;
 
         yaml.enable = true;
       };

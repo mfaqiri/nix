@@ -2,13 +2,10 @@
   description = "Mansoor Faqiri's NixOS flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-    };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -48,7 +45,6 @@
       self,
       nixpkgs,
       nix-darwin,
-      nixos-cosmic,
       ...
     }@inputs:
     let
@@ -88,7 +84,6 @@
                 trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
               };
             }
-            nixos-cosmic.nixosModules.default
             ./nixos/laptop-host/configuration.nix
             inputs.home-manager.nixosModules.home-manager
             {
