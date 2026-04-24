@@ -66,7 +66,6 @@
     EDITOR = "nvim";
   };
 
-environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
 
   nix.settings = {
     experimental-features = [
@@ -167,7 +166,7 @@ environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
 
   services = {
 gnome = {
-  core-apps.enable = false;
+  core-apps.enable = true;
   core-developer-tools.enable = false;
   games.enable = false;
 };

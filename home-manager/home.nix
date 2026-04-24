@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.nvf.homeManagerModules.default
     ./nvim/nvim.nix
@@ -33,6 +34,8 @@
     };
   };
   home.packages = with pkgs; [
+    gsettings-desktop-schemas
+    gtk3
     itch
     sshfs
     glmark2
@@ -77,14 +80,13 @@
     inkscape
     gimp
     ardour
-    (pass-wayland.withExtensions
-      (exts: [exts.pass-otp]))
+    (pass-wayland.withExtensions (exts: [ exts.pass-otp ]))
     vlc
     godot_4
     gdtoolkit_4
     grim
     slurp
-    (librewolf.override {nativeMessagingHosts = [passff-host];})
+    (librewolf.override { nativeMessagingHosts = [ passff-host ]; })
     makemkv
     parsec-bin
     transmission_4-gtk
@@ -261,12 +263,12 @@
       zplug = {
         enable = true;
         plugins = [
-          {name = "zsh-users/zsh-autosuggestions";}
+          { name = "zsh-users/zsh-autosuggestions"; }
           {
             name = "ergenekonyigit/lambda-gitster";
-            tags = ["as:theme"];
+            tags = [ "as:theme" ];
           }
-          {name = "chisui/zsh-nix-shell";}
+          { name = "chisui/zsh-nix-shell"; }
         ];
       };
 
@@ -274,22 +276,18 @@
       history.ignoreAllDups = true;
       history.path = "$HOME/.zsh_history";
 
-      initContent =
-        /*
-        bash
-        */
-        ''
-          # Notify on command failure - SIMPLE VERSION
-          precmd() { [ $? -ne 0 ] && notify-send "Command Failed" "$(fc -ln -1)"; }
+      initContent = /* bash */ ''
+        # Notify on command failure - SIMPLE VERSION
+        precmd() { [ $? -ne 0 ] && notify-send "Command Failed" "$(fc -ln -1)"; }
 
-          bindkey "^[[3~" delete-char
-          # Source any other private zsh config
-          if [[ -f ~/.zshrc.private ]]; then
-             source ~/.zshrc.private
-          fi
+        bindkey "^[[3~" delete-char
+        # Source any other private zsh config
+        if [[ -f ~/.zshrc.private ]]; then
+           source ~/.zshrc.private
+        fi
 
-          eval "$(direnv hook zsh)"
-        '';
+        eval "$(direnv hook zsh)"
+      '';
     };
     yazi = {
       enable = true;
@@ -315,47 +313,81 @@
           rules = [
             {
               name = "*/";
-              use = ["edit" "open" "reveal"];
+              use = [
+                "edit"
+                "open"
+                "reveal"
+              ];
             }
             {
               mime = "video/*";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/mp4";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/mpeg";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/x-msvideo";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/quicktime";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/x-matroska";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/webm";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/x-flv";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/3gpp";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
             {
               mime = "video/x-ms-wmv";
-              use = ["video" "reveal"];
+              use = [
+                "video"
+                "reveal"
+              ];
             }
           ];
         };
@@ -365,7 +397,7 @@
     zoxide = {
       enable = true;
       enableZshIntegration = true;
-      options = ["--cmd cd"];
+      options = [ "--cmd cd" ];
     };
   };
 
@@ -376,6 +408,10 @@
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
+  };
+
+  home.sessionVariables = {
+    XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS";
   };
 
   # Home Manager can also manage your environment variables through

@@ -129,7 +129,7 @@
     gnome = {
 
             gnome-keyring.enable = true;
-            core-utilities.enable = false;
+            core-utilities.enable = true;
             localsearch.enable = false;
             tinysparql.enable = false;
         };

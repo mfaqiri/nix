@@ -72,7 +72,6 @@
   };
 
   hardware = {
-    opentabletdriver.enable = true;
     keyboard.qmk = {
     enable = true;
   

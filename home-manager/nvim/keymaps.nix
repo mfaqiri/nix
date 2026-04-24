@@ -9,6 +9,13 @@
     keymaps = [
       # Surround with leader key instead
       {
+        key = "<leader>tr";
+        mode = "n";
+        action = ''<cmd>lua vim.wo.relativenumber = not vim.wo.relativenumber; vim.notify(vim.wo.relativenumber and "Relative numbers ON" or "Relative numbers OFF", vim.log.levels.INFO)<CR>'';
+        desc = "Toggle relative line numbers";
+        silent = true;
+      }
+      {
         key = "<leader>sa";
         mode = "n";
         action = "<Plug>(nvim-surround-normal)";

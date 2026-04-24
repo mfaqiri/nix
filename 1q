@@ -13,11 +13,11 @@
       treesitter.grammars = [ pkgs.tree-sitter-grammars.tree-sitter-glsl ];
       treesitter.indent.enable = false;
 
-      # Add GLSL plugin - use attribute set format
+            # Add GLSL plugin - use attribute set format
       extraPlugins = {
         vim-glsl = {
           package = pkgs.vimPlugins.vim-glsl;
-          setup = "";
+          setup = '''';
         };
       };
 
@@ -37,10 +37,7 @@
               "gdscript"
               "gdscript3"
             ];
-            rootMarkers = [
-              "project.godot"
-              ".git"
-            ];
+            rootMarkers = [ "project.godot" ".git" ];
             settings = {
               # Godot-specific settings
               enable = true;
@@ -88,38 +85,7 @@
           arduino_language_server = {
             cmd = [ "arduino-language-server" ];
             filetypes = [ "arduino" ];
-            rootMarkers = [
-              "*.ino"
-              ".git"
-            ];
-          };
-          jsonls = {
-            package = pkgs.vscode-langservers-extracted;
-            cmd = [
-              "vscode-json-language-server"
-              "--stdio"
-            ];
-            filetypes = [
-              "json"
-              "jsonc"
-            ];
-            rootMarkers = [ ".git" ];
-            settings = {
-              json = {
-                validate.enable = true;
-                format.enable = true;
-              };
-            };
-            onAttach.function = ''
-              -- Load schemas from schemastore
-              local ok, schemastore = pcall(require, "schemastore")
-              if ok then
-                client.config.settings.json.schemas = schemastore.json.schemas()
-                client.notify("workspace/didChangeConfiguration", {
-                  settings = client.config.settings
-                })
-              end
-            '';
+            rootMarkers = [ "*.ino" ".git" ];
           };
         };
       };
