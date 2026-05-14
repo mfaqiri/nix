@@ -47,7 +47,6 @@
           "-w 3840"
           "-h 2160"
           "--force-grab-cursor"
-          "--immediate-flips"
           "--prefer-output HDMI-A-1"
         ];
         env = {
