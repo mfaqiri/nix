@@ -2,11 +2,11 @@
   inputs,
   pkgs,
   ...
-}: let
+}:
+let
   self = inputs.self;
-in {
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
+in
+{
   environment.systemPackages = with pkgs; [
     browserpass
     kubectl
@@ -54,24 +54,24 @@ in {
     ];
   };
   fonts.packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.fira-code
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      liberation_ttf
-      fira-code
-      fira-code-symbols
-      mplus-outline-fonts.githubRelease
-      dina-font
-      proggyfonts
-      font-awesome
-      powerline-fonts
-      powerline-symbols
-      fira-code
-      fira-code-symbols
-      liberation_ttf
-    ];
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    font-awesome
+    powerline-fonts
+    powerline-symbols
+    fira-code
+    fira-code-symbols
+    liberation_ttf
+  ];
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";

@@ -2,7 +2,7 @@
   description = "Mansoor Faqiri's NixOS flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -78,12 +78,6 @@
           };
 
           modules = [
-            {
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-              };
-            }
             ./nixos/laptop-host/configuration.nix
             inputs.home-manager.nixosModules.home-manager
             {
@@ -144,13 +138,15 @@
                   ...
                 }:
                 {
+                  home.activation.checkAppManagementPermission = 
+                  lib.mkForce (lib.hm.dag.entryAnywhere "");
                   imports = [
                     ./home-manager/kitty.nix
                     ./home-manager/nvim/nvim.nix
                     inputs.nvf.homeManagerModules.default
                   ];
                   home = {
-                    stateVersion = "25.05";
+                    stateVersion = "25.11";
                     username = "mfaqiri";
                     homeDirectory = lib.mkForce "/Users/mfaqiri";
                     file.".gitconfig-godaddy".text = ''
