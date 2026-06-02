@@ -2,10 +2,10 @@
   description = "Mansoor Faqiri's NixOS flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -20,7 +20,7 @@
 
     nvf.url = "github:notashelf/nvf";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
@@ -146,7 +146,7 @@
                     inputs.nvf.homeManagerModules.default
                   ];
                   home = {
-                    stateVersion = "25.11";
+                    stateVersion = "26.05";
                     username = "mfaqiri";
                     homeDirectory = lib.mkForce "/Users/mfaqiri";
                     file.".gitconfig-godaddy".text = ''
