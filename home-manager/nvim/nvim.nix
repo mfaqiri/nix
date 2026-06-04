@@ -13,6 +13,19 @@
       vim = {
         assistant.avante-nvim = {
           enable = true;
+          setupOpts = {
+            providers = {
+              claude = {
+                endpoint = "https://api.anthropic.com";
+                model = "claude-sonnet-4-6";
+                extra_request_body = {
+                temperature = 0;
+                max_tokens = 8096;
+                };
+                api_key_name = "ANTHROPIC_AUTH_TOKEN";
+              };
+            };
+          };
         };
         binds = {
           cheatsheet.enable = true;
