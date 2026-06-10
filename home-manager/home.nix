@@ -9,6 +9,8 @@
     ./nvim/nvim.nix
     ./kitty.nix
     ./emulators.nix
+    ./niri.nix
+    ./waybar.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -34,6 +36,7 @@
     };
   };
   home.packages = with pkgs; [
+    jq
     gsettings-desktop-schemas
     gtk3
     itch
@@ -312,7 +315,7 @@
         open = {
           rules = [
             {
-              name = "*/";
+              url = "*/";
               use = [
                 "edit"
                 "open"
@@ -413,6 +416,18 @@
   home.sessionVariables = {
     XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS";
   };
+# home.nix
+# home.nix - remove the systemd.user.services block and replace with:
+xdg.configFile."systemd/user/xdg-desktop-portal-wlr.service.d/override.conf".text = ''
+  [Service]
+  Environment="XDG_DESKTOP_PORTAL_WLR_CHOOSER_CMD=fuzzel --dmenu"
+'';
+
+  xdg.configFile."xdg-desktop-portal-wlr/config".text = ''
+  [screencast]
+  chooser_type=simple
+  chooser_cmd=slurp -f %o -or
+'';
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

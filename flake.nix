@@ -20,6 +20,11 @@
 
     nvf.url = "github:notashelf/nvf";
 
+    niri = {
+      url = "github:YaLTeR/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
@@ -138,8 +143,7 @@
                   ...
                 }:
                 {
-                  home.activation.checkAppManagementPermission = 
-                  lib.mkForce (lib.hm.dag.entryAnywhere "");
+                  home.activation.checkAppManagementPermission = lib.mkForce (lib.hm.dag.entryAnywhere "");
                   imports = [
                     ./home-manager/kitty.nix
                     ./home-manager/nvim/nvim.nix

@@ -66,7 +66,6 @@
     EDITOR = "nvim";
   };
 
-
   nix.settings = {
     experimental-features = [
       "nix-command"
@@ -162,14 +161,15 @@
     adwaita-icon-theme
     tor-browser
     remmina
+    tuigreet
   ];
 
   services = {
-gnome = {
-  core-apps.enable = true;
-  core-developer-tools.enable = false;
-  games.enable = false;
-};
+    #gnome = {
+    #  core-apps.enable = true;
+    #  core-developer-tools.enable = false;
+    #  games.enable = false;
+    #};
     systembus-notify.enable = true;
     pcscd.enable = true;
     udev = {
@@ -186,9 +186,15 @@ gnome = {
       '';
     };
 
-    displayManager.cosmic-greeter.enable = true;
-    desktopManager.cosmic.enable = true;
-    desktopManager.gnome.enable = true;
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
+          user = "greeter";
+        };
+      };
+    };
 
     xserver.enable = true;
 
@@ -260,6 +266,22 @@ gnome = {
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+
+  xdg.portal = {
+  enable = true;
+  extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-wlr   # screen capture via pipewire
+  ];
+  config = {
+    common = {
+      default = [ "gtk" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+    };
+  };
+};
+
 
   sops = {
     defaultSopsFile = "${secretsPath}/secrets.yaml";

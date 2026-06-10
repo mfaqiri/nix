@@ -55,6 +55,7 @@
     options = {
       autoindent = true;
       guicursor = "";
+      mouse = "";
 
       nu = true;
       relativenumber = true;

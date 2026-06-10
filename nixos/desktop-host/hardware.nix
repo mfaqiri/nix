@@ -15,7 +15,7 @@
     enableRootSlice = false;
     enableSystemSlice = false;
     enableUserSlices = false;
-    settings.OOM.DefaultMemoryPressureDurationSec = "4s";
+    #settings.OOM.DefaultMemoryPressureDurationSec = "4s";
   };
 
   systemd.user.slices."app".sliceConfig = {

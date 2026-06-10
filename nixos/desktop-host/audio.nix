@@ -77,7 +77,9 @@
       };
     };
 
-    wireplumber.extraConfig."99-alsa-lowlatency" = {
+    wireplumber = {
+    enable = true;
+    extraConfig."99-alsa-lowlatency" = {
       alsa_monitor.rules = {
         matches = ["node.name" "matches" "alsa_output.usb*"];
         apply_properties = {
@@ -87,6 +89,7 @@
           # "api.alsa.disable-batch" = true;
         };
       };
+    };
     };
   };
 }
