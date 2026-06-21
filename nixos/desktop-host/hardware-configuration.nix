@@ -77,7 +77,6 @@
   
     };
     uinput.enable = true;
-    opentabletdriver.enable = true;
     amdgpu = {
       overdrive.enable = true;
     };

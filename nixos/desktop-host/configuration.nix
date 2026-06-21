@@ -36,7 +36,7 @@
 
     kernelPackages = pkgs.linuxPackages_latest;
 
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [ "kvm-amd" "wacom" ];
   };
 
   # Set your time zone.

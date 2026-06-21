@@ -45,7 +45,10 @@
         accel-profile "flat"
       }
       tablet {
-        map-to-output "DP-1"
+        map-to-output "DP-2"
+      }
+      touch {
+        map-to-output "DP-2"
       }
     }
 
@@ -60,10 +63,9 @@
       scale 1.0
     }
     output "DP-2" {
-      mode "2560x1440@60"
-      position x=5120 y=0
+      mode "3840x2160@60"
+      position x=0 y=1440
       scale 1.0
-      transform "90"
     }
 
     layout {
@@ -143,6 +145,8 @@
 
       Mod+Shift+Alt+H  { move-column-to-monitor-left; }
       Mod+Shift+Alt+L { move-column-to-monitor-right; }
+      Mod+Shift+Alt+K  { move-column-to-monitor-up; }
+      Mod+Shift+Alt+J { move-column-to-monitor-down; }
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
       Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
