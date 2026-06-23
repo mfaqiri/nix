@@ -131,11 +131,19 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1782222429,
         "narHash": "sha256-JzVhaHkcFViSLHrsm8Q9OaKkU3EzM5wxlkV7kbaFfjs=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
         "rev": "9fb4e73091ec6e7581c3282c4ecda7a35705eb6d",
+=======
+        "lastModified": 1781995783,
+        "narHash": "sha256-NmfCAzmlgTcqAT6Iu4XoASvunu2ViUmqArbJp4sqJbk=",
+        "owner": "homebrew",
+        "repo": "homebrew-cask",
+        "rev": "231ec192778965f81c85d3c7217660b5d84209d7",
+>>>>>>> 4a802de (updated laptop flake)
         "type": "github"
       },
       "original": {
@@ -147,11 +155,19 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1782223429,
         "narHash": "sha256-ZFEXxZPKkkHWRAzAYu5yaNuuaBszv81RANIJAktdbAA=",
         "owner": "homebrew",
         "repo": "homebrew-core",
         "rev": "0e271367ea93be056cc36d9540829dd0fdf89c0b",
+=======
+        "lastModified": 1781993179,
+        "narHash": "sha256-kFp2H2fWUioRdAzmUdfFl0YWccO9NmG2HR7qIQyVwhg=",
+        "owner": "homebrew",
+        "repo": "homebrew-core",
+        "rev": "e301c2ca188c6ef5ba9bd0d94525d392acc002eb",
+>>>>>>> 4a802de (updated laptop flake)
         "type": "github"
       },
       "original": {
@@ -276,11 +292,19 @@
     },
     "nixpkgs": {
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1782116945,
         "narHash": "sha256-G3tw/IXmaH6IQ2upZvhuN9sG8CkuX+BLuJDpE8hz0Ds=",
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "34268251cf5547d39063f2c5ea9a196246f7f3a6",
+=======
+        "lastModified": 1781216227,
+        "narHash": "sha256-9mUW6gNwoN2SWc/l0fW4svPNOulXLl8ijqKyeSOGgJE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a0374025a863d007d98e3297f6aa46cc3141c2f0",
+>>>>>>> 4a802de (updated laptop flake)
         "type": "github"
       },
       "original": {
@@ -408,11 +432,19 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1782165805,
         "narHash": "sha256-478kKQBvK6SYTOdN2h9jhKJv94nbXRbFMfuL1WshErg=",
         "owner": "Mic92",
         "repo": "sops-nix",
         "rev": "56b24064fdcaedca53553b1a6d607fd23b613a24",
+=======
+        "lastModified": 1781943681,
+        "narHash": "sha256-NFHmA7H47adqiyp+0iEOyZOQhmigDqA/NBAlf4imB6U=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "420f8d2e9882911f65cfac15cc706f639ba96cca",
+>>>>>>> 4a802de (updated laptop flake)
         "type": "github"
       },
       "original": {

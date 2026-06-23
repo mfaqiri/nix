@@ -88,7 +88,6 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.yourusername = import ./users/yourusername.nix;
 
               # Pass inputs to Home Manager
               home-manager.extraSpecialArgs = {

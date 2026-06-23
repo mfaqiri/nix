@@ -70,6 +70,7 @@
   };
 
   home-manager = {
+    backupFileExtension = "bak";
     extraSpecialArgs = {inherit inputs;};
     users = {
       "mfaqiri" = import ../../home-manager/home.nix;
@@ -90,9 +91,11 @@
   ];
 
   fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     liberation_ttf
     fira-code
     fira-code-symbols
@@ -100,6 +103,11 @@
     dina-font
     proggyfonts
     font-awesome
+    powerline-fonts
+    powerline-symbols
+    fira-code
+    fira-code-symbols
+    liberation_ttf
   ];
 
   systemd.services.fprintd = {
@@ -128,11 +136,6 @@
         Bridge = "obfs4 IP:ORPort [fingerprint]";
       };
     };
-
-    gnome-keyring.enable = true;
-    core-utilities.enable = true;
-    localsearch.enable = false;
-    tinysparql.enable = false;
 
     dbus.enable = true;
 

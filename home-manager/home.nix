@@ -79,7 +79,6 @@
     ryubing
     networkmanager-openvpn
     slack
-    pureref
     inkscape
     gimp
     ardour
@@ -261,6 +260,7 @@
       shellAliases = {
         ll = "ls -l";
         update = "sudo nixos-rebuild switch --flake /home/mfaqiri/.config/nix#desktop";
+        update-laptop = "sudo nixos-rebuild switch --flake /home/mfaqiri/.config/nix#laptop";
       };
 
       zplug = {
