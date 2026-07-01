@@ -11,20 +11,12 @@
 
     settings = {
       vim = {
-        assistant.avante-nvim = {
+        clipboard = {
           enable = true;
-          setupOpts = {
-            providers = {
-              claude = {
-                endpoint = "https://api.anthropic.com";
-                model = "claude-sonnet-4-6";
-                extra_request_body = {
-                temperature = 0;
-                max_tokens = 8096;
-                };
-                api_key_name = "ANTHROPIC_AUTH_TOKEN";
-              };
-            };
+          registers = "unnamedplus"; # use system clipboard
+          providers.wl-copy = {
+            enable = pkgs.stdenv.isLinux; # use wl-clipboard for Wayland/Niri
+            package = pkgs.wl-clipboard;
           };
         };
         binds = {

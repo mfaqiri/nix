@@ -126,19 +126,6 @@
 
       luaConfigPost = ''
         ${builtins.readFile ./after/setup.lua}
-
-        ${lib.optionalString pkgs.stdenv.isDarwin ''
-          vim.defer_fn(function()
-            local url = os.getenv("ANTHROPIC_BASE_URL")
-            if url then
-              require("avante.config").override({
-                providers = {
-                  claude = { endpoint = url }
-                }
-              })
-            end
-          end, 100)
-        ''}
       '';
 
       languages = {

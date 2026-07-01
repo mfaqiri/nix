@@ -16,9 +16,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix.url = "github:Mic92/sops-nix";
-
-    nvf.url = "github:notashelf/nvf";
+    nvf = {
+    url = "github:notashelf/nvf";
+    inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     niri = {
       url = "github:YaLTeR/niri";
@@ -72,7 +73,6 @@
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "bak";
             }
-            inputs.sops-nix.nixosModules.sops
           ];
         };
 

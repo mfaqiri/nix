@@ -19,6 +19,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
+nixpkgs.config.permittedInsecurePackages = [
+  "pnpm-10.29.2"
+];
+
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   boot = {
@@ -282,12 +286,6 @@
   };
 };
 
-
-  sops = {
-    defaultSopsFile = "${secretsPath}/secrets.yaml";
-    secrets = {
-    };
-  };
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }
