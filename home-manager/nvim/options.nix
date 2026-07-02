@@ -1,5 +1,38 @@
-{...}: {
+{ ... }: {
   programs.nvf.settings.vim = {
+
+    assistant.avante-nvim = {
+      enable = true;
+
+      setupOpts = {
+        provider = "ollama";
+        auto_suggestions_provider = "ollama"; # stops it defaulting to Claude
+
+        providers = {
+          ollama = {
+            "__inherited_from" = "openai"; # needs quoting in Nix
+            api_key_name = "";
+            endpoint = "http://127.0.0.1:11434/v1";
+            model = "qwen2.5-coder:14b";
+          };
+        };
+
+        behaviour = {
+          auto_suggestions = false;
+          auto_set_highlight_group = true;
+          auto_set_keymaps = true;
+          auto_apply_diff_after_generation = false;
+          support_paste_from_clipboard = true;
+        };
+
+        windows = {
+          position = "right";
+          wrap = true;
+          width = 35;
+        };
+      };
+    };
+
     tabline.nvimBufferline.setupOpts.options = {
       tab_size = 2;
     };

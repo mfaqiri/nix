@@ -19,9 +19,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
-nixpkgs.config.permittedInsecurePackages = [
-  "pnpm-10.29.2"
-];
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.29.2"
+  ];
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -40,7 +40,10 @@ nixpkgs.config.permittedInsecurePackages = [
 
     kernelPackages = pkgs.linuxPackages_latest;
 
-    kernelModules = [ "kvm-amd" "wacom" ];
+    kernelModules = [
+      "kvm-amd"
+      "wacom"
+    ];
   };
 
   # Set your time zone.
@@ -110,6 +113,15 @@ nixpkgs.config.permittedInsecurePackages = [
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  services.ollama = {
+    enable = true;
+    host = "127.0.0.1";
+    port = 11434;
+    package = pkgs.ollama-rocm;
+
+  };
+
+  systemd.services.ollama.wantedBy = lib.mkForce [];
 
   users = {
     defaultUserShell = pkgs.zsh;
@@ -272,20 +284,19 @@ nixpkgs.config.permittedInsecurePackages = [
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
 
   xdg.portal = {
-  enable = true;
-  extraPortals = with pkgs; [
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-wlr   # screen capture via pipewire
-  ];
-  config = {
-    common = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr # screen capture via pipewire
+    ];
+    config = {
+      common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+      };
     };
   };
-};
-
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }
