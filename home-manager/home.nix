@@ -36,6 +36,7 @@
     };
   };
   home.packages = with pkgs; [
+    blender
     jq
     gsettings-desktop-schemas
     gtk3
