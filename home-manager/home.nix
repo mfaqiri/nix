@@ -36,6 +36,8 @@
     };
   };
   home.packages = with pkgs; [
+    aider-chat
+    shadps4
     blender
     jq
     gsettings-desktop-schemas
