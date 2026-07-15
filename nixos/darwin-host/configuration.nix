@@ -22,6 +22,7 @@ in
     enable = true;
 
     brews = [
+      "gh"
       "qemu"
       "k9s"
       "jq"
@@ -51,6 +52,7 @@ in
     casks = [
       "librewolf"
       "spotify"
+      "cursor"
     ];
   };
   fonts.packages = with pkgs; [
