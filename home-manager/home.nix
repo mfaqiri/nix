@@ -65,7 +65,6 @@
     fd
     wl-clipboard
     networkmanagerapplet
-    parsec-bin
     prusa-slicer
     openvpn
     docker-compose
@@ -93,7 +92,6 @@
     slurp
     (librewolf.override { nativeMessagingHosts = [ passff-host ]; })
     makemkv
-    parsec-bin
     transmission_4-gtk
     discord
     rpcs3
