@@ -13,7 +13,7 @@
             "__inherited_from" = "openai"; # needs quoting in Nix
             api_key_name = "";
             endpoint = "http://127.0.0.1:11434/v1";
-            model = "gemma4:12b";
+            model = "qwen3.5:9b";
           };
         };
 
