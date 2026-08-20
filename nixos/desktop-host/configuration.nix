@@ -121,7 +121,7 @@
 
   };
 
-  systemd.services.ollama.wantedBy = lib.mkForce [];
+  systemd.services.ollama.wantedBy = lib.mkForce [ ];
 
   users = {
     defaultUserShell = pkgs.zsh;
@@ -246,6 +246,7 @@
   # Enable the OpenSSH daemon.
 
   programs = {
+    nix-ld.enable = true;
     xwayland.enable = true;
     appimage = {
       enable = true;

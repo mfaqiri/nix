@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  mcp-hub = import ./mcp-hub.nix { inherit pkgs; };
+in
 {
   imports = [
     ./keymaps.nix
@@ -83,6 +86,14 @@
           schemastore = with pkgs.vimPlugins; {
             package = SchemaStore-nvim;
             setup = "";
+          };
+          mcphub = with pkgs.vimPlugins; {
+            package = mcphub-nvim;
+            setup = ''
+              require("mcphub").setup({
+                cmd = "${mcp-hub}/bin/mcp-hub",
+              })
+            '';
           };
           nvim-ufo = with pkgs.vimPlugins; {
             package = nvim-ufo;

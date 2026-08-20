@@ -36,6 +36,11 @@
     };
   };
   home.packages = with pkgs; [
+    ueviewer
+    stoat-desktop
+    hakuneko
+    nodejs
+    uv
     aider-chat
     shadps4
     blender
@@ -80,6 +85,7 @@
     krita
     ryubing
     networkmanager-openvpn
+    bottles
     slack
     inkscape
     gimp
@@ -90,9 +96,10 @@
     gdtoolkit_4
     grim
     slurp
+    #houdini
     (librewolf.override { nativeMessagingHosts = [ passff-host ]; })
-    makemkv
     transmission_4-gtk
+    #makemkv
     discord
     rpcs3
     ludusavi
@@ -416,6 +423,7 @@
 
   home.sessionVariables = {
     XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS";
+    ALLOWED_DIRECTORY = "/home/mfaqiri/projects-coding";
   };
 # home.nix
 # home.nix - remove the systemd.user.services block and replace with:

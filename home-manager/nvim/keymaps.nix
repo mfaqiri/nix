@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.nvf.settings.vim = {
     autocomplete.nvim-cmp.mappings = {
       confirm = "<C-y>";
@@ -163,6 +163,46 @@
         mode = "n";
         silent = true;
         action = ":%so";
+      }
+
+      {
+        key = "<leader>mm";
+        mode = "n";
+        action = "<cmd>MCPHub<CR>";
+        desc = "Toggle MCPHub UI";
+        silent = true;
+      }
+
+      {
+        key = "<leader>ms";
+        mode = "n";
+        action = "<cmd>lua require('mcphub').start_hub()<CR>";
+        desc = "Start MCP Hub";
+        silent = true;
+      }
+
+      {
+        key = "<leader>mr";
+        mode = "n";
+        action = "<cmd>lua require('mcphub').restart_hub()<CR>";
+        desc = "Restart MCP Hub";
+        silent = true;
+      }
+
+      {
+        key = "<leader>mx";
+        mode = "n";
+        action = "<cmd>lua require('mcphub').stop_hub()<CR>";
+        desc = "Stop MCP Hub";
+        silent = true;
+      }
+
+      {
+        key = "<leader>ml";
+        mode = "n";
+        action = "<cmd>lua require('mcphub').get_hub_instance():get_logs()<CR>";
+        desc = "MCPHub logs";
+        silent = true;
       }
     ];
   };
