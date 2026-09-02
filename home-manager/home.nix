@@ -36,6 +36,7 @@
     };
   };
   home.packages = with pkgs; [
+    gef
     ueviewer
     stoat-desktop
     hakuneko
@@ -84,6 +85,7 @@
     htop
     krita
     ryubing
+    wireshark 
     networkmanager-openvpn
     bottles
     slack
@@ -100,6 +102,7 @@
     (librewolf.override { nativeMessagingHosts = [ passff-host ]; })
     transmission_4-gtk
     #makemkv
+    ghidra
     discord
     rpcs3
     ludusavi
