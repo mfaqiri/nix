@@ -35,7 +35,7 @@ in
       "pass"
       "helm"
       "pipx"
-      "postgresql"
+      "postgresql@18"
       "fzf"
       "zoxide"
       "msodbcsql18"

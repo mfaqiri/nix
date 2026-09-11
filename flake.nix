@@ -207,16 +207,14 @@
 
                       enableDefaultConfig = false;
 
-                      matchBlocks = {
+                      settings = {
                         # Personal GitHub account
                         "github.com" = {
                           hostname = "github.com";
                           user = "git";
                           identityFile = "~/.ssh/id_ed25519_personal";
-                          extraOptions = {
-                            AddKeysToAgent = "yes";
-                            UseKeychain = "yes";
-                          };
+                          AddKeysToAgent = "yes";
+                          UseKeychain = "yes";
                         };
 
                         # Work GitHub account
@@ -224,10 +222,8 @@
                           hostname = "github.com";
                           user = "git";
                           identityFile = "~/.ssh/id_ed25519_godaddy";
-                          extraOptions = {
-                            AddKeysToAgent = "yes";
-                            UseKeychain = "yes";
-                          };
+                          AddKeysToAgent = "yes";
+                          UseKeychain = "yes";
                         };
                       };
                     };
