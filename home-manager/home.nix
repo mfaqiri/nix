@@ -103,7 +103,7 @@
     transmission_4-gtk
     #makemkv
     ghidra
-    discord
+    vesktop
     rpcs3
     ludusavi
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -430,16 +430,7 @@
   };
 # home.nix
 # home.nix - remove the systemd.user.services block and replace with:
-xdg.configFile."systemd/user/xdg-desktop-portal-wlr.service.d/override.conf".text = ''
-  [Service]
-  Environment="XDG_DESKTOP_PORTAL_WLR_CHOOSER_CMD=fuzzel --dmenu"
-'';
 
-  xdg.configFile."xdg-desktop-portal-wlr/config".text = ''
-  [screencast]
-  chooser_type=simple
-  chooser_cmd=slurp -f %o -or
-'';
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
