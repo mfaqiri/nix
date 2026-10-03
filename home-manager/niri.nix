@@ -1,15 +1,30 @@
 # niri.nix
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }:
+let
 
-  home.packages = with pkgs; [
-    niri
-    awww
-    mako
-    libnotify
-    wl-clipboard
-    krita
-    xwayland-satellite
-  ];
+  # Pinned to the last nixpkgs commit shipping xwayland-satellite 0.8.1,
+  # to work around the 0.8.2 regression where Steam's popup/dropdown menus
+  # close instantly under niri (see xwayland-satellite issue #503).
+  pinnedNixpkgs = import inputs.nixpkgs-xsat-pin {
+    inherit (pkgs) system;
+  };
+
+in
+{
+
+  home.packages =
+    with pkgs;
+    [
+      niri
+      awww
+      mako
+      libnotify
+      wl-clipboard
+      krita
+    ]
+    ++ [
+      pinnedNixpkgs.xwayland-satellite
+    ];
 
   programs.fuzzel = {
     enable = true;

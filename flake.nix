@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
+    nixpkgs-xsat-pin.url = "github:NixOS/nixpkgs/a5cbcfe954791221bfffe2307f7d1a1bf61a871e";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,8 +19,8 @@
     };
 
     nvf = {
-    url = "github:notashelf/nvf";
-    inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     niri = {
@@ -72,6 +74,9 @@
             {
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "bak";
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+              };
             }
           ];
         };
