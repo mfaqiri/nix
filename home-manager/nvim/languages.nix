@@ -10,16 +10,9 @@
       ];
 
       # Add treesitter grammar for GLSL
-      treesitter.grammars = [ pkgs.tree-sitter-grammars.tree-sitter-glsl ];
       treesitter.indent.enable = false;
 
       # Add GLSL plugin - use attribute set format
-      extraPlugins = {
-        vim-glsl = {
-          package = pkgs.vimPlugins.vim-glsl;
-          setup = "";
-        };
-      };
 
       lsp = {
         enable = true;
@@ -136,6 +129,10 @@
         assembly.enable = true;
 
         bash.enable = true;
+
+        glsl.enable = true;
+
+        helm.enable = true;
 
         clang.enable = true;
 

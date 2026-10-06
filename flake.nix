@@ -157,22 +157,11 @@
                     stateVersion = "26.05";
                     username = "mfaqiri";
                     homeDirectory = lib.mkForce "/Users/mfaqiri";
-                    file.".gitconfig-godaddy".text = ''
-                      [user]
-                        email = mfaqiri@godaddy.com
-                    '';
                   };
 
                   programs = {
                     git = {
                       enable = true;
-
-                      includes = [
-                        {
-                          condition = "gitdir:~/projects/GoDaddy/";
-                          path = "~/.gitconfig-godaddy";
-                        }
-                      ];
                       settings = {
                         user = {
                           name = "Mansoor Faqiri";
@@ -213,15 +202,6 @@
                           hostname = "github.com";
                           user = "git";
                           identityFile = "~/.ssh/id_ed25519_personal";
-                          AddKeysToAgent = "yes";
-                          UseKeychain = "yes";
-                        };
-
-                        # Work GitHub account
-                        "github.com-godaddy" = {
-                          hostname = "github.com";
-                          user = "git";
-                          identityFile = "~/.ssh/id_ed25519_godaddy";
                           AddKeysToAgent = "yes";
                           UseKeychain = "yes";
                         };

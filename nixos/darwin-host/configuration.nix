@@ -26,9 +26,7 @@ in
       "qemu"
       "k9s"
       "jq"
-      "python@3.13"
-      "python@3.12"
-      "python@3.11"
+      "python@3.14"
       "pinentry-mac"
       "spotify_player"
       "gnu-sed"
@@ -53,6 +51,7 @@ in
       "librewolf"
       "spotify"
       "cursor"
+      "granola"
     ];
   };
   fonts.packages = with pkgs; [
