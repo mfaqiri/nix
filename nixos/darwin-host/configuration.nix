@@ -45,6 +45,7 @@ in
         start_service = true;
       }
       "awscli-local"
+      "uv"
     ];
 
     casks = [
@@ -52,6 +53,7 @@ in
       "spotify"
       "cursor"
       "granola"
+      "windows-app"
     ];
   };
   fonts.packages = with pkgs; [
