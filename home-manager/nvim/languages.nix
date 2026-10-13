@@ -86,34 +86,6 @@
               ".git"
             ];
           };
-          jsonls = {
-            package = pkgs.vscode-langservers-extracted;
-            cmd = [
-              "vscode-json-language-server"
-              "--stdio"
-            ];
-            filetypes = [
-              "json"
-              "jsonc"
-            ];
-            rootMarkers = [ ".git" ];
-            settings = {
-              json = {
-                validate.enable = true;
-                format.enable = true;
-              };
-            };
-            onAttach.function = ''
-              -- Load schemas from schemastore
-              local ok, schemastore = pcall(require, "schemastore")
-              if ok then
-                client.config.settings.json.schemas = schemastore.json.schemas()
-                client.notify("workspace/didChangeConfiguration", {
-                  settings = client.config.settings
-                })
-              end
-            '';
-          };
         };
       };
 

@@ -1,7 +1,7 @@
 { ... }: {
   programs.nvf.settings.vim = {
 
-    assistant.avante-nvim = {
+    /*assistant.avante-nvim = {
       enable = true;
 
       setupOpts = {
@@ -31,7 +31,7 @@
           width = 35;
         };
       };
-    };
+    };*/
 
     tabline.nvimBufferline.setupOpts.options = {
       tab_size = 2;
