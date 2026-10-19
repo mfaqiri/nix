@@ -162,34 +162,29 @@
                   programs = {
                     git = {
                       enable = true;
+                      includes = [
+                        {
+                          condition = "gitdir:~/projects/Ellkay/";
+                          contents = {
+                            user = {
+                              name = "Mansoor Faqiri";
+                              email = "mansoor.faqiri@ellkay.com";
+                            };
+                          };
+                        }
+                      ];
                       settings = {
                         user = {
                           name = "Mansoor Faqiri";
                           email = "mzfaqiri@gmail.com";
                         };
 
-                        includes = [
-                        {
-                          condition = "gitdir:~/projects/Ellkay/";
-                          path = "~/.gitconfig-ellkay";
-                        }
-                      ];
-
-                        extraConfig = {
-                          core = {
-                            editor = "nvim";
-                          };
-                          init = {
-                            defaultBranch = "main";
-                          };
-                          pull = {
-                            rebase = false;
-                          };
-                          # This ensures includeIf comes at the end
-                        };
+                        core.editor = "nvim";
+                        init.defaultBranch = "main";
+                        pull.rebase = false;
 
                         # Git aliases (optional)
-                        aliases = {
+                        alias = {
                           st = "status";
                           co = "checkout";
                           br = "branch";
@@ -217,10 +212,9 @@
                           hostname = "github.com";
                           user = "git";
                           identityFile = "~/.ssh/id_ed25519_ellkay";
-                          extraOptions = {
-                            AddKeysToAgent = "yes";
-                            UseKeychain = "yes";
-                          };
+                          AddKeysToAgent = "yes";
+                          UseKeychain = "yes";
+                        };
                       };
                     };
                     home-manager.enable = true;
