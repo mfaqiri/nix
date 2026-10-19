@@ -40,6 +40,7 @@ in
       "mssql-tools"
       "direnv"
       "actionlint"
+      "terragrunt"
       {
         name = "colima";
         start_service = true;
