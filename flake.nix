@@ -168,6 +168,13 @@
                           email = "mzfaqiri@gmail.com";
                         };
 
+                        includes = [
+                        {
+                          condition = "gitdir:~/projects/Ellkay/";
+                          path = "~/.gitconfig-ellkay";
+                        }
+                      ];
+
                         extraConfig = {
                           core = {
                             editor = "nvim";
@@ -205,6 +212,15 @@
                           AddKeysToAgent = "yes";
                           UseKeychain = "yes";
                         };
+
+                        "github.com-ellkay" = {
+                          hostname = "github.com";
+                          user = "git";
+                          identityFile = "~/.ssh/id_ed25519_ellkay";
+                          extraOptions = {
+                            AddKeysToAgent = "yes";
+                            UseKeychain = "yes";
+                          };
                       };
                     };
                     home-manager.enable = true;
