@@ -204,6 +204,7 @@
                           hostname = "github.com";
                           user = "git";
                           identityFile = "~/.ssh/id_ed25519_personal";
+                          identitiesOnly = "yes";
                           AddKeysToAgent = "yes";
                           UseKeychain = "yes";
                         };
@@ -212,6 +213,7 @@
                           hostname = "github.com";
                           user = "git";
                           identityFile = "~/.ssh/id_ed25519_ellkay";
+                          identitiesOnly = "yes";
                           AddKeysToAgent = "yes";
                           UseKeychain = "yes";
                         };
