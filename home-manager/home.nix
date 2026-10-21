@@ -36,6 +36,7 @@
     };
   };
   home.packages = with pkgs; [
+    z88dk
     gef
     ueviewer
     stoat-desktop
